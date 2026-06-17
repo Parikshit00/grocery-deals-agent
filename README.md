@@ -116,10 +116,6 @@ docs/
 
 Issues and pull requests are welcome. Run `ruff check` and `pytest` before submitting.
 
-## License
-
-No license has been set yet. Until a `LICENSE` file is added, all rights are reserved.
-
 ## Disclaimer
 
 For personal and research use. Offer data is retrieved from third-party sources; respect each
