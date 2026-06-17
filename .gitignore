@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+
+# Test / lint / type caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Secrets / environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+*-debug.log*
+
+# Data / models / runtime
+data/
+models/
+logs/
+*.log
+*.sqlite
+*.db
+
+# Playwright
+playwright-report/
+test-results/
+
+# Infrastructure state
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Local tooling config (not part of the project)
+.claude/
