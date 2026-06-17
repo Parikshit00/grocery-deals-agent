@@ -27,3 +27,11 @@ async def ping() -> bool:
     async with engine.connect() as conn:
         await conn.execute(text("SELECT 1"))
     return True
+
+
+async def init_models() -> None:
+    """Create tables that do not yet exist (used until Alembic migrations land)."""
+    from app.persistence.models import Base
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)

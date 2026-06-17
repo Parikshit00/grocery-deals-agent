@@ -28,21 +28,30 @@ class Settings(BaseSettings):
     redis_host: str = "localhost"
     redis_port: int = 6379
 
-    # Reasoning LLM (vLLM, OpenAI-compatible)
-    llm_base_url: str = "http://localhost:8000/v1"
+    # Reasoning LLM (local, OpenAI-compatible: Ollama by default, vLLM optional)
+    llm_base_url: str = "http://localhost:11434/v1"
     llm_api_key: str = "EMPTY"
-    llm_model: str = "Qwen/Qwen2.5-7B-Instruct"
+    llm_model: str = "qwen3.5:latest"
 
     # Ollama (vision / fallback / embeddings)
     ollama_base_url: str = "http://localhost:11434"
-    vision_model: str = "qwen2.5vl"
-    fallback_chat_model: str = "llama3.1"
+    vision_model: str = "qwen2.5vl:7b"
+    fallback_chat_model: str = "qwen3.5:latest"
     embedding_model: str = "bge-m3"
 
     # Data sources / cache
     marktguru_base_url: str = "https://api.marktguru.de/api/v1"
+    marktguru_web_url: str = "https://www.marktguru.de"
+    nominatim_base_url: str = "https://nominatim.openstreetmap.org"
     http_rate_limit_per_min: int = 30
     offer_ttl_hours: int = 24
+
+    # MCP servers
+    mcp_host: str = "127.0.0.1"
+    mcp_browse_port: int = 28810
+    mcp_geo_port: int = 28811
+    mcp_browse_url: str = "http://127.0.0.1:28810/mcp"
+    mcp_geo_url: str = "http://127.0.0.1:28811/mcp"
 
     @property
     def database_url(self) -> str:
