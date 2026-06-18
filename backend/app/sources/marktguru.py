@@ -81,6 +81,7 @@ def _to_offer(raw: dict) -> Offer:
         price=raw.get("price"),
         old_price=raw.get("oldPrice"),
         unit=(raw.get("unit") or {}).get("shortName"),
+        reference_price=raw.get("referencePrice"),
         valid_from=_parse_dt(dates[0].get("from")) if dates else None,
         valid_to=_parse_dt(dates[0].get("to")) if dates else None,
     )

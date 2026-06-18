@@ -16,6 +16,7 @@ class Offer(BaseModel):
     price: float | None = None
     old_price: float | None = None
     unit: str | None = None
+    reference_price: float | None = None
     valid_from: datetime | None = None
     valid_to: datetime | None = None
 

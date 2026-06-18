@@ -1,10 +1,13 @@
 """FastAPI application entry point."""
 from __future__ import annotations
 
+import asyncio
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.agents.graph import build_graph
 from app.api import health, search
@@ -42,7 +45,17 @@ async def lifespan(app: FastAPI):
     except Exception as exc:  # noqa: BLE001 - search is unavailable until MCP servers are up
         log.warning("startup.mcp_unavailable", error=str(exc))
 
+    refresh_task: asyncio.Task | None = None
+    if settings.refresh_enabled:
+        from app.services.refresh import refresh_loop
+
+        refresh_task = asyncio.create_task(refresh_loop())
+        log.info("startup.refresh_enabled", interval_hours=settings.refresh_interval_hours)
+
     yield
+
+    if refresh_task is not None:
+        refresh_task.cancel()
 
 
 def create_app() -> FastAPI:
@@ -55,6 +68,12 @@ def create_app() -> FastAPI:
     )
     app.include_router(health.router)
     app.include_router(search.router)
+
+    # Serve the built frontend (if present) from the API process, same-origin.
+    dist = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+    if dist.exists():
+        app.mount("/", StaticFiles(directory=str(dist), html=True), name="frontend")
+
     return app
 
 

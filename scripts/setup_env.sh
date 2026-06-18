@@ -2,7 +2,7 @@
 # Create the conda environment and install backend dependencies.
 set -euo pipefail
 
-CONDA="${CONDA:-/opt/miniforge/bin/conda}"
+CONDA="${CONDA:-conda}"
 ENV_NAME="angebot_agent"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 

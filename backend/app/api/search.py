@@ -8,6 +8,8 @@ from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from app.core.logging import get_logger
+from app.persistence import repository as repo
+from app.persistence.db import SessionLocal
 from app.schemas.search import SearchRequest
 
 router = APIRouter(prefix="/api", tags=["search"])
@@ -17,6 +19,7 @@ _LABELS = {
     "resolve": "Resolving location",
     "plan": "Planning shopping items",
     "retrieve": "Searching offers",
+    "optimize": "Building baskets",
 }
 
 
@@ -31,6 +34,12 @@ def _detail(node: str, state: dict[str, Any]) -> dict[str, Any]:
         return {"items": state.get("items")}
     if node == "retrieve":
         return {"items_done": len(state.get("results") or [])}
+    if node == "optimize":
+        baskets = state.get("baskets") or {}
+        return {
+            "cross_total": (baskets.get("cross_store") or {}).get("total"),
+            "single_store": (baskets.get("single_store") or {}).get("store"),
+        }
     return {}
 
 
@@ -71,11 +80,26 @@ async def search(req: SearchRequest, request: Request) -> Any:
                         "zip_code": final.get("zip_code"),
                         "items": final.get("items"),
                         "results": final.get("results"),
+                        "baskets": final.get("baskets"),
                     }
                 )
+                if req.user_id:
+                    try:
+                        async with SessionLocal() as session:
+                            await repo.record_search(
+                                session, req.user_id, req.location, req.query, req.mode
+                            )
+                    except Exception:  # noqa: BLE001 - memory is best-effort
+                        log.warning("search.record_failed")
         except Exception as exc:  # noqa: BLE001 - surface failures to the client stream
             log.exception("search.failed")
             yield _sse({"event": "error", "message": str(exc)})
         yield _sse({"event": "done"})
 
     return StreamingResponse(gen(), media_type="text/event-stream")
+
+
+@router.get("/profile/{user_id}")
+async def profile(user_id: str) -> dict:
+    async with SessionLocal() as session:
+        return await repo.get_profile(session, user_id)

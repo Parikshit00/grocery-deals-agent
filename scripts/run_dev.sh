@@ -4,7 +4,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONDA="${CONDA:-/opt/miniforge/bin/conda}"
+CONDA="${CONDA:-conda}"
 ENV_NAME="${ENV_NAME:-angebot_agent}"
 cd "$ROOT"
 

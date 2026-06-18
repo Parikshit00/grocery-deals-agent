@@ -2,7 +2,7 @@
 # Serve the reasoning model with vLLM (OpenAI-compatible API) on GPU 0.
 set -euo pipefail
 
-CONDA="${CONDA:-/opt/miniforge/bin/conda}"
+CONDA="${CONDA:-conda}"
 VLLM_ENV="${VLLM_ENV:-vllm}"
 LLM_MODEL="${LLM_MODEL:-Qwen/Qwen2.5-7B-Instruct}"
 PORT="${LLM_PORT:-8000}"

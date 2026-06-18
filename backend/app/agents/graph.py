@@ -13,6 +13,7 @@ from langgraph.graph import END, StateGraph
 
 from app.core.llm import decompose_recipe
 from app.core.logging import get_logger
+from app.services.optimizer import build_baskets
 
 log = get_logger(__name__)
 
@@ -24,6 +25,7 @@ class SearchState(TypedDict, total=False):
     zip_code: str | None
     items: list[str]
     results: list[dict[str, Any]]
+    baskets: dict[str, Any]
     error: str | None
 
 
@@ -76,19 +78,27 @@ def build_graph(tools: dict[str, Any]):
         results: list[dict[str, Any]] = []
         for item in state.get("items", []):
             raw = await browse.ainvoke(
-                {"zip_code": state["zip_code"], "query": item, "top": 5}
+                {"zip_code": state["zip_code"], "query": item, "top": 20}
             )
             results.append({"item": item, "offers": _parse_offers(raw)})
         return {"results": results}
+
+    async def optimize(state: SearchState) -> SearchState:
+        results = state.get("results", [])
+        baskets = build_baskets(results)
+        trimmed = [{"item": r["item"], "offers": r["offers"][:6]} for r in results]
+        return {"baskets": baskets.model_dump(mode="json"), "results": trimmed}
 
     graph = StateGraph(SearchState)
     graph.add_node("resolve", resolve)
     graph.add_node("plan", plan)
     graph.add_node("retrieve", retrieve)
+    graph.add_node("optimize", optimize)
     graph.set_entry_point("resolve")
     graph.add_conditional_edges(
         "resolve", lambda s: "end" if s.get("error") else "plan", {"end": END, "plan": "plan"}
     )
     graph.add_edge("plan", "retrieve")
-    graph.add_edge("retrieve", END)
+    graph.add_edge("retrieve", "optimize")
+    graph.add_edge("optimize", END)
     return graph.compile()

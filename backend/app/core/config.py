@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434"
     vision_model: str = "qwen2.5vl:7b"
     fallback_chat_model: str = "qwen3.5:latest"
-    embedding_model: str = "bge-m3"
+    embedding_model: str = "BAAI/bge-m3"
 
     # Data sources / cache
     marktguru_base_url: str = "https://api.marktguru.de/api/v1"
@@ -45,6 +45,8 @@ class Settings(BaseSettings):
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"
     http_rate_limit_per_min: int = 30
     offer_ttl_hours: int = 24
+    refresh_enabled: bool = True
+    refresh_interval_hours: int = 6
 
     # MCP servers
     mcp_host: str = "127.0.0.1"
