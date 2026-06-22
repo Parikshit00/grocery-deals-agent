@@ -8,13 +8,15 @@ import {
   type RecentSearch,
   type SearchEvent,
 } from "./api";
+import { ProspektPanel } from "./ProspektPanel";
 
 const eur = (n?: number | null) => (n == null ? "" : `€${n.toFixed(2)}`);
 
 function getUserId(): string {
   let id = localStorage.getItem("gda_uid");
   if (!id) {
-    id = crypto.randomUUID();
+    // crypto.randomUUID() only exists in secure contexts (HTTPS/localhost); fall back over plain HTTP.
+    id = crypto.randomUUID?.() ?? `u-${Date.now()}-${Math.random().toString(36).slice(2)}`;
     localStorage.setItem("gda_uid", id);
   }
   return id;
@@ -101,6 +103,8 @@ export default function App() {
         <h1>grocery-deals-agent</h1>
         <p>Find the cheapest German supermarket offers for a shopping list or a recipe.</p>
       </header>
+
+      <ProspektPanel initialLocation={location} />
 
       <form
         className="panel"

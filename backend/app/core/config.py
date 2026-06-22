@@ -39,21 +39,13 @@ class Settings(BaseSettings):
     fallback_chat_model: str = "qwen3.5:latest"
     embedding_model: str = "BAAI/bge-m3"
 
-    # Data sources / cache
-    marktguru_base_url: str = "https://api.marktguru.de/api/v1"
-    marktguru_web_url: str = "https://www.marktguru.de"
+    # Geocoding
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"
-    http_rate_limit_per_min: int = 30
-    offer_ttl_hours: int = 24
-    refresh_enabled: bool = True
-    refresh_interval_hours: int = 6
 
     # MCP servers
     mcp_host: str = "127.0.0.1"
-    mcp_browse_port: int = 28810
     mcp_geo_port: int = 28811
-    mcp_browse_url: str = "http://127.0.0.1:28810/mcp"
-    mcp_geo_url: str = "http://127.0.0.1:28811/mcp"
+    mcp_vision_port: int = 28812
 
     @property
     def database_url(self) -> str:

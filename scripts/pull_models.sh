@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Ensure required Ollama models are present (vision + fallback + embeddings).
-# The reasoning model is served by vLLM (see serve_vllm.sh), not Ollama.
+# Ensure required Ollama models are present (vision + reasoning).
+# Embeddings download automatically via sentence-transformers on first use.
 set -euo pipefail
 
 if ! pgrep -x ollama >/dev/null 2>&1; then
@@ -8,11 +8,10 @@ if ! pgrep -x ollama >/dev/null 2>&1; then
   echo "   (continuing; 'ollama pull' will start it on demand)"
 fi
 
-VISION_MODEL="${VISION_MODEL:-qwen2.5vl}"
-FALLBACK_CHAT_MODEL="${FALLBACK_CHAT_MODEL:-llama3.1}"
-EMBEDDING_MODEL="${EMBEDDING_MODEL:-bge-m3}"
+VISION_MODEL="${VISION_MODEL:-qwen2.5vl:7b}"
+REASONING_MODEL="${LLM_MODEL:-qwen3.5:latest}"
 
-for m in "$VISION_MODEL" "$FALLBACK_CHAT_MODEL" "$EMBEDDING_MODEL"; do
+for m in "$VISION_MODEL" "$REASONING_MODEL"; do
   echo ">> ollama pull ${m}"
   ollama pull "$m"
 done

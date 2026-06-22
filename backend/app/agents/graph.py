@@ -1,11 +1,9 @@
-"""LangGraph agent: resolve location -> plan items -> retrieve & rank offers.
+"""LangGraph agent: resolve location -> plan items -> retrieve from the prospekt DB -> baskets.
 
-The flow is deterministic; the LLM is used only to turn a recipe into shopping items.
-Tools (resolve_zip, search_offers) are provided by the MCP servers and injected at build time.
+Deterministic flow; the LLM is used only to turn a recipe into shopping items.
 """
 from __future__ import annotations
 
-import json
 import re
 from typing import Any, TypedDict
 
@@ -13,7 +11,9 @@ from langgraph.graph import END, StateGraph
 
 from app.core.llm import decompose_recipe
 from app.core.logging import get_logger
+from app.services.geo import resolve_zip
 from app.services.optimizer import build_baskets
+from app.services.search import search_items
 
 log = get_logger(__name__)
 
@@ -29,40 +29,9 @@ class SearchState(TypedDict, total=False):
     error: str | None
 
 
-def _content_texts(result: Any) -> list[str]:
-    if isinstance(result, str):
-        return [result]
-    texts: list[str] = []
-    if isinstance(result, list):
-        for item in result:
-            if isinstance(item, dict) and item.get("type") == "text":
-                texts.append(item.get("text", ""))
-            elif isinstance(item, str):
-                texts.append(item)
-    return texts
-
-
-def _first_text(result: Any) -> str | None:
-    texts = _content_texts(result)
-    return texts[0] if texts else None
-
-
-def _parse_offers(result: Any) -> list[dict]:
-    offers: list[dict] = []
-    for text in _content_texts(result):
-        try:
-            offers.append(json.loads(text))
-        except json.JSONDecodeError:
-            continue
-    return offers
-
-
-def build_graph(tools: dict[str, Any]):
-    geo = tools["resolve_zip"]
-    browse = tools["search_offers"]
-
+def build_graph():
     async def resolve(state: SearchState) -> SearchState:
-        zip_code = _first_text(await geo.ainvoke({"location": state["location"]}))
+        zip_code = await resolve_zip(state["location"])
         if not zip_code:
             return {"error": f"Could not resolve a postcode for '{state['location']}'."}
         return {"zip_code": zip_code}
@@ -75,12 +44,7 @@ def build_graph(tools: dict[str, Any]):
         return {"items": items or [state["query"].strip()]}
 
     async def retrieve(state: SearchState) -> SearchState:
-        results: list[dict[str, Any]] = []
-        for item in state.get("items", []):
-            raw = await browse.ainvoke(
-                {"zip_code": state["zip_code"], "query": item, "top": 20}
-            )
-            results.append({"item": item, "offers": _parse_offers(raw)})
+        results = await search_items(state["zip_code"], state.get("items", []))
         return {"results": results}
 
     async def optimize(state: SearchState) -> SearchState:

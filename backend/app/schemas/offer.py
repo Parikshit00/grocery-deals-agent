@@ -26,10 +26,3 @@ class Offer(BaseModel):
         if self.old_price and self.price and self.old_price > self.price:
             return round((1 - self.price / self.old_price) * 100)
         return None
-
-
-class OfferSearchResult(BaseModel):
-    query: str
-    zip_code: str
-    total: int
-    offers: list[Offer]

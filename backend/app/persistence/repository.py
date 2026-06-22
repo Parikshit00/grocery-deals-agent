@@ -1,49 +1,14 @@
-"""Data access for the offer cache."""
+"""Data access for long-term memory and the prospekt offer cache."""
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime
 
 from sqlalchemy import desc, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.persistence.models import OfferCache, SearchHistory, UserProfile
-from app.schemas.offer import OfferSearchResult
-
-
-async def get_cached(
-    session: AsyncSession, zip_code: str, query: str, ttl_hours: int
-) -> OfferSearchResult | None:
-    """Return a cached result if present and fresher than ttl_hours, else None."""
-    row = (
-        await session.execute(
-            select(OfferCache).where(
-                OfferCache.zip_code == zip_code, OfferCache.query == query
-            )
-        )
-    ).scalar_one_or_none()
-    if row is None:
-        return None
-    if datetime.now(UTC) - row.fetched_at > timedelta(hours=ttl_hours):
-        return None
-    return OfferSearchResult.model_validate(row.payload)
-
-
-async def upsert_cache(
-    session: AsyncSession, zip_code: str, query: str, result: OfferSearchResult
-) -> None:
-    stmt = pg_insert(OfferCache).values(
-        zip_code=zip_code,
-        query=query,
-        payload=result.model_dump(mode="json"),
-        fetched_at=datetime.now(UTC),
-    )
-    stmt = stmt.on_conflict_do_update(
-        constraint="uq_offer_cache_zip_query",
-        set_={"payload": stmt.excluded.payload, "fetched_at": stmt.excluded.fetched_at},
-    )
-    await session.execute(stmt)
-    await session.commit()
+from app.persistence.models import ProspektOffers, SearchHistory, UserProfile
+from app.schemas.offer import Offer
 
 
 async def record_search(
@@ -79,21 +44,53 @@ async def get_profile(session: AsyncSession, user_id: str, limit: int = 8) -> di
     return {
         "user_id": user_id,
         "last_location": profile.last_location if profile else None,
-        "recent": [
-            {"location": r.location, "query": r.query, "mode": r.mode} for r in rows
-        ],
+        "recent": [{"location": r.location, "query": r.query, "mode": r.mode} for r in rows],
     }
 
 
-async def list_stale_keys(
-    session: AsyncSession, ttl_hours: int, limit: int = 100
-) -> list[tuple[str, str]]:
-    cutoff = datetime.now(UTC) - timedelta(hours=ttl_hours)
-    rows = (
+async def get_prospekt(
+    session: AsyncSession, retailer: str, region_key: str
+) -> ProspektOffers | None:
+    return (
         await session.execute(
-            select(OfferCache.zip_code, OfferCache.query)
-            .where(OfferCache.fetched_at < cutoff)
-            .limit(limit)
+            select(ProspektOffers).where(
+                ProspektOffers.retailer == retailer, ProspektOffers.region_key == region_key
+            )
         )
-    ).all()
-    return [(r.zip_code, r.query) for r in rows]
+    ).scalar_one_or_none()
+
+
+async def upsert_prospekt(
+    session: AsyncSession, retailer: str, region_key: str, valid_from, valid_to, payload: dict
+) -> None:
+    stmt = pg_insert(ProspektOffers).values(
+        retailer=retailer,
+        region_key=region_key,
+        valid_from=valid_from,
+        valid_to=valid_to,
+        payload=payload,
+        fetched_at=datetime.now(UTC),
+    )
+    stmt = stmt.on_conflict_do_update(
+        constraint="uq_prospekt_retailer_region",
+        set_={
+            "valid_from": stmt.excluded.valid_from,
+            "valid_to": stmt.excluded.valid_to,
+            "payload": stmt.excluded.payload,
+            "fetched_at": stmt.excluded.fetched_at,
+        },
+    )
+    await session.execute(stmt)
+    await session.commit()
+
+
+async def get_region_offers(
+    session: AsyncSession, pairs: list[tuple[str, str]]
+) -> list[Offer]:
+    """Load still-valid cached offers across retailers for a region (today <= valid_to)."""
+    offers: list[Offer] = []
+    for retailer, region_key in pairs:
+        row = await get_prospekt(session, retailer, region_key)
+        if row and row.valid_to and date.today() <= row.valid_to:
+            offers.extend(Offer.model_validate(o) for o in row.payload.get("offers", []))
+    return offers

@@ -1,0 +1,4 @@
+Open this week's Lidl "Aktionsprospekt" leaflet for the given region and page through every page so
+that all leaflet page images load. Accept the cookie banner first if present. Use the next-page
+control (or the Right Arrow key) to advance. Do not click external advertisements or leave the
+leaflet. Stop once the last page is reached.

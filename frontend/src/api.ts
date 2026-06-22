@@ -101,3 +101,61 @@ export async function search(body: SearchBody, onEvent: (e: SearchEvent) => void
     }
   }
 }
+
+export type ProspektEvent =
+  | {
+      event: "progress";
+      step: string;
+      label: string;
+      status?: string;
+      detail?: Record<string, unknown>;
+    }
+  | {
+      event: "result";
+      retailer: string;
+      region_key: string;
+      valid_from: string | null;
+      valid_to: string | null;
+      from_cache: boolean;
+      page_count: number;
+      offers: Offer[];
+    }
+  | { event: "error"; message: string }
+  | { event: "done" };
+
+export interface ProspektBody {
+  retailer: string;
+  location: string;
+  force_refresh?: boolean;
+}
+
+export async function browseProspekt(
+  body: ProspektBody,
+  onEvent: (e: ProspektEvent) => void,
+): Promise<void> {
+  const res = await fetch("/api/prospekt", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok || !res.body) throw new Error(`Request failed (${res.status})`);
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const chunks = buffer.split("\n\n");
+    buffer = chunks.pop() ?? "";
+    for (const chunk of chunks) {
+      const line = chunk.split("\n").find((l) => l.startsWith("data:"));
+      if (!line) continue;
+      try {
+        onEvent(JSON.parse(line.slice(5).trim()) as ProspektEvent);
+      } catch {
+        /* ignore malformed frame */
+      }
+    }
+  }
+}

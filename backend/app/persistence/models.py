@@ -1,30 +1,15 @@
 """Database models."""
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import DateTime, String, UniqueConstraint, func
+from sqlalchemy import Date, DateTime, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
 class Base(DeclarativeBase):
     pass
-
-
-class OfferCache(Base):
-    """Cached offer-search result for a (postcode, query) pair (hybrid freshness)."""
-
-    __tablename__ = "offer_cache"
-    __table_args__ = (UniqueConstraint("zip_code", "query", name="uq_offer_cache_zip_query"),)
-
-    id: Mapped[int] = mapped_column(primary_key=True)
-    zip_code: Mapped[str] = mapped_column(String(16), index=True)
-    query: Mapped[str] = mapped_column(String(256), index=True)
-    fetched_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), server_default=func.now()
-    )
-    payload: Mapped[dict] = mapped_column(JSONB)
 
 
 class UserProfile(Base):
@@ -50,3 +35,22 @@ class SearchHistory(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
+
+
+class ProspektOffers(Base):
+    """VLM-extracted offers from a retailer's prospekt, cached per region until valid_to."""
+
+    __tablename__ = "prospekt_offers"
+    __table_args__ = (
+        UniqueConstraint("retailer", "region_key", name="uq_prospekt_retailer_region"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    retailer: Mapped[str] = mapped_column(String(32), index=True)
+    region_key: Mapped[str] = mapped_column(String(64), index=True)
+    valid_from: Mapped[date | None] = mapped_column(Date, nullable=True)
+    valid_to: Mapped[date | None] = mapped_column(Date, nullable=True)
+    fetched_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    payload: Mapped[dict] = mapped_column(JSONB)

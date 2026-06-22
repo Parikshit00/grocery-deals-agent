@@ -12,9 +12,11 @@ Building a production-grade agentic grocery-deal search with hard constraints: l
    checkpointing (= memory), works with any OpenAI-compatible/local backend.
 2. **Reasoning via vLLM (OpenAI-compatible, GPU 0); vision via Ollama qwen2.5vl (GPU 1).**
    Reached through one swappable client (`app/core/llm.py`); no Anthropic branch by design.
-3. **Tiered, config-driven acquisition** (httpx->Playwright->browser-use->VLM) with per-source YAML.
-   Primary source: marktguru JSON by postcode.
-4. **Hybrid freshness**: scheduled crawl -> Postgres cache -> on-demand refresh when stale.
+3. **Per-retailer official-prospekt acquisition**: deterministic Playwright browse -> local VLM page
+   extraction -> validity cache. No third-party aggregator API; browser-use is a bounded fallback
+   for sites that change.
+4. **Validity-based freshness**: cache per (retailer, region) with the prospekt's valid_from/valid_to;
+   scan once per prospekt week, retrieve thereafter.
 5. **Persistence**: Postgres + pgvector + Redis; Alembic migrations.
 6. **Tools exposed as MCP servers** (`browse-search`, `vision`, `geo`) consumed by the agent via
    `langchain-mcp-adapters`.

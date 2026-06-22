@@ -258,6 +258,67 @@ textarea:focus {
   color: var(--muted);
 }
 
+.prospekt {
+  border-color: var(--accent-2);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.tl-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.tl-step.done {
+  color: var(--muted);
+}
+
+.tl-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--line);
+}
+
+.tl-dot.done {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.tl-dot.error {
+  background: var(--danger);
+}
+
+.tl-dot.running {
+  border: 2px solid var(--accent-2);
+  border-top-color: transparent;
+  background: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tl-label {
+  font-weight: 600;
+}
+
+.tl-detail {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .recent {
   display: flex;
   align-items: center;

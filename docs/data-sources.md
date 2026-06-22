@@ -1,22 +1,21 @@
-# Data sources, compliance & rate limits
+# Data sources, compliance & freshness
 
-Offer data is acquired through a **tiered adapter chain** (cheapest first). Each source is
-described by YAML config under `mcp_servers/browse_search/sources/` so a source can be tuned or
-disabled without code changes.
+Offer data is acquired by **browsing each retailer's official online prospekt** (the weekly leaflet)
+and reading the pages with a **local vision-language model**. There is no third-party aggregator.
+Each retailer is a self-contained recipe under `backend/app/sources/prospekt/` (see
+`docs/adding-a-retailer.md`).
 
-## Tiers
-1. **Aggregator JSON (primary).** `marktguru` - `GET {MARKTGURU_BASE_URL}/offers/search?zipCode=&q=&limit=&offset=`
-   aggregates Rewe, Penny, Kaufland, Lidl, Aldi, Netto, Edeka by postcode. Cheapest path; no
-   browser, no LLM. `bonial`/`kaufDA` may be added similarly.
-2. **Deterministic scrape (Playwright).** For sources with structured HTML but no JSON API.
-3. **browser-use (LLM-driven, local model).** Last resort for hard/changing pages.
-4. **VLM (qwen2.5vl).** Only for image/PDF flyers with no structured fields.
+## Pipeline (per retailer)
+1. **Deterministic browse (Playwright).** Open the retailer's official prospekt for the region, accept
+   cookies, set the postcode/Filiale where needed, page through the leaflet, and capture the page
+   images (network interception, with a screenshot fallback for canvas viewers). No LLM is in the
+   navigation loop, so it cannot loop; a bounded `browser-use` fallback handles sites that change.
+2. **VLM extraction.** A local VLM (Ollama `qwen2.5vl`; Qwen3-VL via vLLM when the GPU driver allows)
+   reads each page image into structured offers (product, price, old price, unit, brand).
+3. **Validity cache.** Results are stored per `(retailer, region)` with the prospekt's own
+   `valid_from`/`valid_to`. Requests within the valid week are served from the DB (no browse, no VLM).
 
 ## Compliance
-- These aggregator endpoints are **unofficial**. Treat as best-effort and be a good citizen:
-  - Respect `robots.txt`; per-source rate limit (`HTTP_RATE_LIMIT_PER_MIN`, default 30/min).
-  - Cache aggressively (`OFFER_TTL_HOURS`) to minimize requests (hybrid freshness).
-  - Identify with a sane User-Agent; back off on 429/5xx (tenacity).
-  - Personal/research use; review each provider's ToS before any public deployment.
-- Endpoint drift is expected -> adapters are config-driven and covered by contract tests; lower
-  tiers absorb breakage of higher ones.
+- Official retailer sites; **user-triggered**, cached, and polite (one scan per retailer/region/week).
+- Respect each site's `robots.txt` and Terms of Service; review before any public deployment.
+- Personal/research use; no credentials or gated/personal data.

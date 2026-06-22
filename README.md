@@ -111,7 +111,7 @@ docs/
 ## Roadmap
 
 - [x] Project scaffold, typed configuration, health and readiness, local data stores
-- [x] Location resolution and offer retrieval via MCP (marktguru)
+- [x] Official-prospekt browsing + local-VLM offer extraction (per-retailer recipes)
 - [x] LangGraph agent: recipe decomposition, semantic matching, basket optimization
 - [x] Long-term memory and scheduled cache refresh
 - [ ] Vision-based flyer extraction (image/PDF) via a local VLM
