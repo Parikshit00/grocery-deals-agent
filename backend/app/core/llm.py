@@ -23,7 +23,13 @@ def get_client() -> AsyncOpenAI:
     return AsyncOpenAI(base_url=settings.llm_base_url, api_key=settings.llm_api_key)
 
 
+def strip_think(content: str) -> str:
+    """Drop the reasoning trace: Qwen3-Thinking-2507 ends its <think> block with </think>."""
+    return content.rsplit("</think>", 1)[-1] if "</think>" in content else content
+
+
 def _parse_list(content: str) -> list[str]:
+    content = strip_think(content)
     start, end = content.find("["), content.rfind("]")
     if start != -1 and end > start:
         try:

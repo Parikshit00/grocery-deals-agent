@@ -48,7 +48,7 @@ async def search(req: SearchRequest, request: Request) -> Any:
     graph = getattr(request.app.state, "graph", None)
     if graph is None:
         return JSONResponse(
-            status_code=503, content={"detail": "Agent unavailable (MCP servers not connected)."}
+            status_code=503, content={"detail": "Agent unavailable (graph not initialized)."}
         )
 
     async def gen():

@@ -1,23 +1,14 @@
 #!/usr/bin/env bash
-# Start the backend stack: MCP servers + FastAPI. Run the frontend separately:
+# Start the FastAPI backend (serves the built frontend at /). For frontend dev with HMR:
 #   cd frontend && npm install && npm run dev
+# Models are served separately: scripts/serve_llm.sh (GPU0) + scripts/serve_vlm.sh (GPU1).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONDA="${CONDA:-conda}"
+CONDA="${CONDA:-/opt/miniforge/bin/conda}"
 ENV_NAME="${ENV_NAME:-angebot_agent}"
-cd "$ROOT"
-
-start() {
-  "$CONDA" run -n "$ENV_NAME" python "$1" &
-  echo "  started $1 (pid $!)"
-}
-
-echo ">> MCP servers"
-start mcp_servers/browse_search/server.py
-start mcp_servers/geo/server.py
-trap 'kill $(jobs -p) 2>/dev/null || true' EXIT
-sleep 2
+cd "$ROOT/backend"
 
 echo ">> API on http://0.0.0.0:28734 (docs at /docs)"
-exec "$CONDA" run -n "$ENV_NAME" uvicorn app.main:app --host 0.0.0.0 --port 28734
+exec "$CONDA" run -n "$ENV_NAME" --no-capture-output \
+  uvicorn app.main:app --host 0.0.0.0 --port 28734

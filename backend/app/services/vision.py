@@ -1,7 +1,7 @@
 """Read prospekt page images with the local VLM -> structured offers.
 
-Served via Ollama's native vision API (driver-compatible on this host; vLLM/Qwen3-VL needs a newer
-GPU driver). The VLM is the only thing that interprets the flyer pages.
+Served by Qwen3-VL-32B-Instruct via vLLM's OpenAI-compatible endpoint. The VLM is the only thing
+that interprets the flyer pages.
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import io
 import json
 from pathlib import Path
 
-import httpx
+from openai import AsyncOpenAI
 from PIL import Image
 
 from app.core.config import get_settings
@@ -84,20 +84,27 @@ async def extract_offers_from_image(
 ) -> list[Offer]:
     settings = get_settings()
     b64 = base64.b64encode(_to_jpeg(image)).decode()
-    payload = {
-        "model": settings.vision_model,
-        "messages": [
-            {"role": "user", "content": prompt or prompt_for(retailer), "images": [b64]}
-        ],
-        "stream": False,
-        "format": "json",
-        "options": {"temperature": 0.1},
-    }
-    async with httpx.AsyncClient(timeout=180.0) as client:
-        r = await client.post(f"{settings.ollama_base_url}/api/chat", json=payload)
-        r.raise_for_status()
-        content = r.json().get("message", {}).get("content", "")
-    return _parse_offers(content, retailer)
+    client = AsyncOpenAI(base_url=settings.vlm_base_url, api_key=settings.llm_api_key)
+    try:
+        resp = await client.chat.completions.create(
+            model=settings.vision_model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt or prompt_for(retailer)},
+                        {"type": "image_url",
+                         "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
+                    ],
+                }
+            ],
+            temperature=0.1,
+            max_tokens=3000,
+            response_format={"type": "json_object"},
+        )
+    finally:
+        await client.close()
+    return _parse_offers(resp.choices[0].message.content or "", retailer)
 
 
 def _dedupe(offers: list[Offer]) -> list[Offer]:
@@ -108,7 +115,7 @@ def _dedupe(offers: list[Offer]) -> list[Offer]:
 
 
 async def extract_offers_from_pages(
-    pages: list[bytes], retailer: str, concurrency: int = 2, on_page=None
+    pages: list[bytes], retailer: str, concurrency: int = 4, on_page=None
 ) -> list[Offer]:
     """Extract offers from all pages; `on_page(done, total)` reports progress."""
     prompt = prompt_for(retailer)

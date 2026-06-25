@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
-# Ensure required Ollama models are present (vision + reasoning).
-# Embeddings download automatically via sentence-transformers on first use.
+# Verify the local vLLM model checkpoints are present (download via scripts/download_model.sh).
+# The bge-m3 embedding model downloads automatically via sentence-transformers on first use.
 set -euo pipefail
 
-if ! pgrep -x ollama >/dev/null 2>&1; then
-  echo ">> Ollama not running. Start it with: ollama serve &"
-  echo "   (continuing; 'ollama pull' will start it on demand)"
-fi
+MODELS_DIR="${MODELS_DIR:-/home/parikshitk/models}"
+LLM_MODEL_DIR="${LLM_MODEL_PATH:-$MODELS_DIR/Qwen3-30B-A3B-Thinking-2507-FP8}"
+VLM_MODEL_DIR="${VLM_MODEL_PATH:-$MODELS_DIR/Qwen3-VL-32B-Instruct-FP8}"
 
-VISION_MODEL="${VISION_MODEL:-qwen2.5vl:7b}"
-REASONING_MODEL="${LLM_MODEL:-qwen3.5:latest}"
-
-for m in "$VISION_MODEL" "$REASONING_MODEL"; do
-  echo ">> ollama pull ${m}"
-  ollama pull "$m"
+missing=0
+for d in "$LLM_MODEL_DIR" "$VLM_MODEL_DIR"; do
+  if [ -f "$d/config.json" ]; then
+    echo ">> OK  $d"
+  else
+    echo ">> MISSING  $d"
+    missing=1
+  fi
 done
 
-echo ">> Models ready:"
-ollama list
+if [ "$missing" -ne 0 ]; then
+  echo ">> Download missing checkpoints with: scripts/download_model.sh <hf-repo-id> <dest-dir>"
+  exit 1
+fi
+echo ">> All vLLM model checkpoints present."

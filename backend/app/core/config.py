@@ -28,15 +28,16 @@ class Settings(BaseSettings):
     redis_host: str = "localhost"
     redis_port: int = 6379
 
-    # Reasoning LLM (local, OpenAI-compatible: Ollama by default, vLLM optional)
-    llm_base_url: str = "http://localhost:11434/v1"
+    # Reasoning LLM (local vLLM, OpenAI-compatible) - Qwen3-30B-A3B-Thinking on GPU 0
+    llm_base_url: str = "http://localhost:28800/v1"
     llm_api_key: str = "EMPTY"
-    llm_model: str = "qwen3.5:latest"
+    llm_model: str = "qwen3-thinking"
 
-    # Ollama (vision / fallback / embeddings)
-    ollama_base_url: str = "http://localhost:11434"
-    vision_model: str = "qwen2.5vl:7b"
-    fallback_chat_model: str = "qwen3.5:latest"
+    # Vision VLM (local vLLM, OpenAI-compatible) - Qwen3-VL-32B-Instruct on GPU 1
+    vlm_base_url: str = "http://localhost:28801/v1"
+    vision_model: str = "qwen3-vl"
+
+    # Embeddings (sentence-transformers, local)
     embedding_model: str = "BAAI/bge-m3"
 
     # Geocoding
