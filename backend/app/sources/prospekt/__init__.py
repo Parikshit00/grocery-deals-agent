@@ -5,11 +5,22 @@ registering it here. See docs/adding-a-retailer.md.
 """
 from __future__ import annotations
 
+from app.sources.prospekt.aldi import AldiRecipe
 from app.sources.prospekt.base import ProspektPages, Recipe
 from app.sources.prospekt.kaufland import KauflandRecipe
 from app.sources.prospekt.lidl import LidlRecipe
+from app.sources.prospekt.netto import NettoRecipe
+from app.sources.prospekt.penny import PennyRecipe
+from app.sources.prospekt.rewe import ReweRecipe
 
-_RECIPES: dict[str, type] = {"lidl": LidlRecipe, "kaufland": KauflandRecipe}
+_RECIPES: dict[str, type] = {
+    "lidl": LidlRecipe,
+    "kaufland": KauflandRecipe,
+    "aldi": AldiRecipe,
+    "penny": PennyRecipe,
+    "rewe": ReweRecipe,
+    "netto": NettoRecipe,
+}
 
 
 def get_recipe(name: str) -> Recipe:

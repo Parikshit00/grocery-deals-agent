@@ -10,6 +10,10 @@ const eur = (n?: number | null) => (n == null ? "" : `€${n.toFixed(2)}`);
 const RETAILERS = [
   { id: "lidl", name: "Lidl" },
   { id: "kaufland", name: "Kaufland" },
+  { id: "aldi", name: "Aldi Süd" },
+  { id: "penny", name: "Penny" },
+  { id: "rewe", name: "Rewe" },
+  { id: "netto", name: "Netto" },
 ];
 
 export function ProspektPanel({ initialLocation }: { initialLocation: string }) {

@@ -51,8 +51,12 @@ def _parse_offers(content: str, retailer: str) -> list[Offer]:
         data = json.loads(content[start : end + 1])
     except json.JSONDecodeError:
         return []
+    if not isinstance(data, dict):
+        return []
     offers: list[Offer] = []
     for o in data.get("offers", []):
+        if not isinstance(o, dict):
+            continue
         name = (o.get("product_name") or "").strip()
         if not name:
             continue
