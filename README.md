@@ -72,7 +72,7 @@ backend/app/
   persistence/  SQLAlchemy models, repository, session
   schemas/      Pydantic API/domain schemas
   core/         config, logging
-backend/tests/  unit tests + API smoke test
+backend/tests/  unit tests + API tests
 frontend/src/
   features/     scan and basket panels
   components/   shared UI (offer card, timeline, chain logos, icons)
@@ -82,13 +82,6 @@ frontend/src/
 Adding a chain: copy `backend/app/agents/lidl.py` to `agents/<retailer>.py`, adapt the
 navigation, add `agents/prompts/<retailer>_extract.txt`, and register it in
 `agents/__init__.py`.
-
-## Notes
-
-Local/LAN use: the API binds `0.0.0.0` with open CORS and no auth; restrict CORS and put it
-behind an authenticating proxy before exposing it publicly. Offer data comes from each retailer's
-official site; respect their terms of service and `robots.txt`. Secrets live only in `.env`
-(gitignored).
 
 ## License
 
