@@ -8,9 +8,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from app.agents.graph import build_graph
 from app.api import health, prospekt, search
 from app.core.logging import configure_logging, get_logger
+from app.graphs.search import build_graph
 
 
 @asynccontextmanager

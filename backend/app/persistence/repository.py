@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import UTC, date, datetime
 
-from sqlalchemy import desc, select
+from sqlalchemy import delete, desc, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -81,6 +81,15 @@ async def upsert_prospekt(
         },
     )
     await session.execute(stmt)
+    await session.commit()
+
+
+async def delete_prospekt(session: AsyncSession, retailer: str, region_key: str) -> None:
+    await session.execute(
+        delete(ProspektOffers).where(
+            ProspektOffers.retailer == retailer, ProspektOffers.region_key == region_key
+        )
+    )
     await session.commit()
 
 

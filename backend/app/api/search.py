@@ -1,6 +1,7 @@
 """Search endpoint: runs the agent and streams progress over SSE."""
 from __future__ import annotations
 
+import asyncio
 import json
 from typing import Any
 
@@ -33,7 +34,7 @@ def _detail(node: str, state: dict[str, Any]) -> dict[str, Any]:
     if node == "plan":
         return {"items": state.get("items")}
     if node == "retrieve":
-        return {"items_done": len(state.get("results") or [])}
+        return {"items_done": len(state.get("results") or []), "chains": state.get("chains")}
     if node == "optimize":
         baskets = state.get("baskets") or {}
         return {
@@ -52,49 +53,71 @@ async def search(req: SearchRequest, request: Request) -> Any:
         )
 
     async def gen():
+        # One queue carries both the graph's node updates and the live reasoning trace, so the
+        # recipe model's thinking streams to the client while the plan node is still running.
+        queue: asyncio.Queue = asyncio.Queue()
+
+        def on_think(delta: str) -> None:
+            queue.put_nowait({"event": "thinking", "text": delta})
+
         state: dict[str, Any] = {
             "location": req.location,
             "query": req.query,
             "mode": req.mode,
+            "on_think": on_think,
         }
-        final = dict(state)
-        try:
-            async for chunk in graph.astream(state, stream_mode="updates"):
-                for node, update in chunk.items():
-                    if update:
-                        final.update(update)
-                    yield _sse(
+
+        async def run() -> None:
+            final = dict(state)
+            try:
+                async for chunk in graph.astream(state, stream_mode="updates"):
+                    for node, update in chunk.items():
+                        if update:
+                            final.update(update)
+                        queue.put_nowait(
+                            {
+                                "event": "progress",
+                                "step": node,
+                                "label": _LABELS.get(node, node),
+                                "detail": _detail(node, final),
+                            }
+                        )
+                if final.get("error"):
+                    queue.put_nowait({"event": "error", "message": final["error"]})
+                else:
+                    queue.put_nowait(
                         {
-                            "event": "progress",
-                            "step": node,
-                            "label": _LABELS.get(node, node),
-                            "detail": _detail(node, final),
+                            "event": "result",
+                            "zip_code": final.get("zip_code"),
+                            "items": final.get("items"),
+                            "results": final.get("results"),
+                            "baskets": final.get("baskets"),
                         }
                     )
-            if final.get("error"):
-                yield _sse({"event": "error", "message": final["error"]})
-            else:
-                yield _sse(
-                    {
-                        "event": "result",
-                        "zip_code": final.get("zip_code"),
-                        "items": final.get("items"),
-                        "results": final.get("results"),
-                        "baskets": final.get("baskets"),
-                    }
-                )
-                if req.user_id:
-                    try:
-                        async with SessionLocal() as session:
-                            await repo.record_search(
-                                session, req.user_id, req.location, req.query, req.mode
-                            )
-                    except Exception:  # noqa: BLE001 - memory is best-effort
-                        log.warning("search.record_failed")
-        except Exception as exc:  # noqa: BLE001 - surface failures to the client stream
-            log.exception("search.failed")
-            yield _sse({"event": "error", "message": str(exc)})
-        yield _sse({"event": "done"})
+                    if req.user_id:
+                        try:
+                            async with SessionLocal() as session:
+                                await repo.record_search(
+                                    session, req.user_id, req.location, req.query, req.mode
+                                )
+                        except Exception:  # noqa: BLE001 - memory is best-effort
+                            log.warning("search.record_failed")
+            except Exception as exc:  # noqa: BLE001 - surface failures to the client stream
+                log.exception("search.failed")
+                queue.put_nowait({"event": "error", "message": str(exc)})
+            finally:
+                queue.put_nowait({"event": "done"})
+                queue.put_nowait(None)
+
+        task = asyncio.create_task(run())
+        try:
+            while True:
+                ev = await queue.get()
+                if ev is None:
+                    break
+                yield _sse(ev)
+        finally:
+            await task
 
     return StreamingResponse(gen(), media_type="text/event-stream")
 

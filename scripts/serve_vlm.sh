@@ -15,8 +15,15 @@ COMPAT="${CUDA_COMPAT_DIR:-/home/parikshitk/cuda-compat-12.8/usr/local/cuda-12.8
 # We only ever send one still image per page (no video, no multi-image), so cap the
 # multimodal profiler to image=1 / video=0 - otherwise Qwen3-VL reserves worst-case video
 # memory and leaves nothing for the KV cache on a 46GB card after 34GB of FP8 weights.
+# Pages are downscaled client-side to 1024px longest (vision._to_jpeg), ~750 image tokens
+# (1 token per 32x32 px), so 4096 ctx fits prompt + 2000 decode. KV comes out to ~4.3 GiB
+# = 4.3x full-length concurrency (~15 page-reads truly running); max_pixels is a server-side
+# guard capping any stray large image at ~1.3k tokens. Priority scheduling keeps parallel
+# agents progressing evenly (clients send "priority" = retailer-local page index).
 CUDA_VISIBLE_DEVICES="$GPU" LD_LIBRARY_PATH="${COMPAT}:${LD_LIBRARY_PATH:-}" \
   exec "$CONDA" run -n "$ENV_NAME" --no-capture-output \
   vllm serve "$MODEL" --served-model-name qwen3-vl --host 0.0.0.0 --port "$PORT" \
-  --gpu-memory-utilization 0.95 --max-model-len 12288 --max-num-seqs 4 \
-  --limit-mm-per-prompt '{"image":1,"video":0}'
+  --gpu-memory-utilization 0.95 --max-model-len 4096 --max-num-seqs 32 \
+  --max-num-batched-tokens 8192 --scheduling-policy priority \
+  --limit-mm-per-prompt '{"image":1,"video":0}' \
+  --mm-processor-kwargs '{"max_pixels":1350000}'

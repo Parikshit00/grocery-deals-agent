@@ -23,6 +23,6 @@ if [ ! -f "${ROOT}/.env" ]; then
 fi
 
 echo ">> Done. Activate with: conda activate ${ENV_NAME}"
-echo ">> Scraping extras (Playwright/browser-use) are optional:"
+echo ">> Scraping extras (Playwright) are optional:"
 echo "   ${CONDA} run -n ${ENV_NAME} python -m pip install -e \"${ROOT}[scraping]\" && \\"
 echo "   ${CONDA} run -n ${ENV_NAME} python -m playwright install chromium"

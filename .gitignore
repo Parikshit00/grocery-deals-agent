@@ -36,6 +36,7 @@ frontend/.vite/
 data/
 models/
 logs/
+Experiments/
 *.log
 *.sqlite
 *.db
@@ -55,5 +56,8 @@ test-results/
 .DS_Store
 *.swp
 
-# Local tooling config (not part of the project)
+# Local config
 .claude/
+
+# Internal notes
+docs/

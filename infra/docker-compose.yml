@@ -1,5 +1,5 @@
-# Local data stores for grocery-deals-agent: Postgres (pgvector) and Redis.
-# The app, MCP servers, and frontend run separately; vLLM and Ollama run on the host.
+# Local data store for grocery-deals-agent: Postgres.
+# The app and frontend run separately; vLLM runs on the host.
 
 services:
   postgres:
@@ -15,16 +15,6 @@ services:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-angebot}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
       retries: 10

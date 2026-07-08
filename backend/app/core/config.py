@@ -24,10 +24,6 @@ class Settings(BaseSettings):
     postgres_host: str = "localhost"
     postgres_port: int = 5432
 
-    # Redis
-    redis_host: str = "localhost"
-    redis_port: int = 6379
-
     # Reasoning LLM (local vLLM, OpenAI-compatible) - Qwen3-30B-A3B-Thinking on GPU 0
     llm_base_url: str = "http://localhost:28800/v1"
     llm_api_key: str = "EMPTY"
@@ -43,21 +39,12 @@ class Settings(BaseSettings):
     # Geocoding
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"
 
-    # MCP servers
-    mcp_host: str = "127.0.0.1"
-    mcp_geo_port: int = 28811
-    mcp_vision_port: int = 28812
-
     @property
     def database_url(self) -> str:
         return (
             f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
-
-    @property
-    def redis_url(self) -> str:
-        return f"redis://{self.redis_host}:{self.redis_port}/0"
 
 
 @lru_cache

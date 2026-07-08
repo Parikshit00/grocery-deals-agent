@@ -1,0 +1,13 @@
+You are reading ONE page of a German Lidl weekly grocery flyer ("Aktionsprospekt").
+Extract every concrete product offer visible on this page.
+
+Return ONLY JSON, no commentary:
+{"offers":[{"n": string, "b": string|null, "p": number|null, "o": number|null, "u": string|null, "d": string|null}]}
+(n = product name, b = brand, p = price, o = old price, u = unit, d = description)
+
+Rules:
+- Prices are in EUR; the comma is the decimal separator ("1,99" -> 1.99).
+- "p" is the current offer price; "o" is the crossed-out / UVP / "statt" price if shown, else null.
+- "u" is the printed base unit if any (e.g. "kg", "l", "Stück", "100 g").
+- Ignore non-product content: ads, recipes, store/opening info, page numbers, loyalty/app banners.
+- If the page shows no product offers, return {"offers":[]}.

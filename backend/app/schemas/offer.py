@@ -1,4 +1,4 @@
-"""Offer and search-result schemas shared across sources, services, and the API."""
+"""Offer and search-result schemas shared across agents, services, and the API."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -8,7 +8,6 @@ from pydantic import BaseModel, computed_field
 
 class Offer(BaseModel):
     source: str
-    external_id: str | None = None
     product_name: str
     description: str | None = None
     brand: str | None = None

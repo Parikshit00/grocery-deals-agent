@@ -1,0 +1,14 @@
+You are reading a screenshot of a German REWE market offers page ("Angebote"), shown as a grid of
+product cards. Extract every concrete product offer fully visible on this screenshot.
+
+Return ONLY JSON, no commentary:
+{"offers":[{"n": string, "b": string|null, "p": number|null, "o": number|null, "u": string|null, "d": string|null}]}
+(n = product name, b = brand, p = price, o = old price, u = unit, d = description)
+
+Rules:
+- Prices are in EUR; the comma is the decimal separator ("1,99" -> 1.99).
+- "p" is the current offer price; "o" is the crossed-out / UVP / "statt" price if shown, else null.
+- "u" is the printed base unit if any (e.g. "kg", "l", "Stück", "100 g").
+- Skip cards cut off at the top or bottom edge (they reappear on an adjacent screenshot).
+- Ignore non-product content: ads, recipes, category headers, PAYBACK/app banners, page chrome.
+- If the screenshot shows no product offers, return {"offers":[]}.
