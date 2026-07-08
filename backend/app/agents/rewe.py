@@ -1,9 +1,5 @@
-"""Rewe offers recipe (VLM-browse, deterministic navigation).
-
-REWE markets are individual, so offers are reached via the market search: pick the nearest market
-for the postcode, open its offers page (offers render as HTML cards), screenshot it, and let the VLM
-read them. REWE Group uses the same "Alle erlauben" consent as Penny (handled by accept_cookies).
-"""
+"""Rewe: market search -> nearest market's offers page (HTML cards) -> screenshots for the
+VLM. Offers are market-specific, so region key = postcode."""
 from __future__ import annotations
 
 from app.agents.base import (

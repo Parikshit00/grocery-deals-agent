@@ -1,10 +1,5 @@
-"""Lidl official prospekt recipe (deterministic Playwright).
-
-The listing shows weekly "Aktionsprospekt" leaflets whose URL slug carries the validity dates
-(e.g. .../aktionsprospekt-15-06-2026-20-06-2026-...). The viewer (livebuy.io) lazy-loads page
-images from the Schwarz-group CDN; we flip with ArrowRight and intercept them. Lidl's weekly
-prospekt is effectively national, so the region key is constant.
-"""
+"""Lidl: weekly Aktionsprospekt slug carries the validity dates; the viewer lazy-loads page
+images from the leaflets.schwarz CDN. National prospekt."""
 from __future__ import annotations
 
 import re

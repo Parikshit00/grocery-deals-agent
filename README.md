@@ -1,10 +1,16 @@
 # grocery-deals-agent
 
+<!-- <p align="center">
+  <img src="animation/architecture.gif" alt="How the system works: agents scan weekly prospekts into a vision model, offers land in a validity cache, and basket search runs over the cache" width="920">
+</p> -->
+
 Finds the cheapest current grocery deals across German supermarkets for a shopping list or a
 recipe. Each chain's official weekly prospekt is browsed by its own agent and read page by page
 with a locally served vision model; everything runs on local hardware, no external LLM APIs.
 
 Supported chains: Lidl, Kaufland, Aldi Sued, Penny, Rewe, Netto.
+
+<!-- demo: add the application walkthrough video (YouTube link or mp4) here -->
 
 ## How it works
 
@@ -29,25 +35,37 @@ or from the single best store. Basket search reads only the cache; it never trig
   (sentence-transformers).
 - Frontend: React + Vite + TypeScript, framer-motion, plain CSS.
 
-## Quick start
+## Quick start (Docker)
+
+Needs an NVIDIA GPU pair, the NVIDIA container toolkit, and the two model checkpoints on disk.
 
 ```bash
 git clone https://github.com/Parikshit00/grocery-deals-agent.git
 cd grocery-deals-agent
-./scripts/setup_env.sh && conda activate angebot_agent
 
-docker compose -f infra/docker-compose.yml up -d   # Postgres
+scripts/download_model.sh Qwen/Qwen3-30B-A3B-Thinking-2507-FP8 /path/to/models/Qwen3-30B-A3B-Thinking-2507-FP8
+scripts/download_model.sh Qwen/Qwen3-VL-32B-Instruct-FP8 /path/to/models/Qwen3-VL-32B-Instruct-FP8
+scripts/pull_models.sh                                        # verify checkpoints
 
-scripts/serve_llm.sh                               # reasoning model, GPU 0
-scripts/serve_vlm.sh                               # vision model, GPU 1
-
-cd frontend && npm install && npm run build && cd ..
-scripts/run_dev.sh                                 # API on :28734, serves the built UI
+MODELS_DIR=/path/to/models docker compose -f infra/docker-compose.yml up -d --build
 ```
 
-Open http://localhost:28734/. Model checkpoints are read from a local directory (override with
-`LLM_MODEL_PATH` / `VLM_MODEL_PATH`; fetch with `scripts/download_model.sh`). Config lives in
-`.env`, created from `.env.example`.
+UI on http://localhost:28735/, API on :28734. The compose stack runs Postgres, both vLLM model
+servers (GPU 0 reasoning, GPU 1 vision), the backend, and the nginx-served UI; model weights are
+mounted from `MODELS_DIR`, never baked into images.
+
+### Development (host-run)
+
+```bash
+./scripts/setup_env.sh && conda activate angebot_agent
+docker compose -f infra/docker-compose.yml up -d postgres
+scripts/serve_llm.sh        # reasoning model, GPU 0
+scripts/serve_vlm.sh        # vision model, GPU 1
+scripts/run_dev.sh          # API on :28734
+cd frontend && npm install && npm run dev   # UI with HMR
+```
+
+Config lives in `.env`, created from `.env.example`.
 
 ## API
 

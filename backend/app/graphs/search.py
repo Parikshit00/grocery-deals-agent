@@ -1,7 +1,5 @@
-"""LangGraph agent: resolve location -> plan items -> retrieve from the prospekt DB -> baskets.
-
-Deterministic flow; the LLM is used only to turn a recipe into shopping items.
-"""
+"""Search pipeline: resolve -> plan -> retrieve (cache only) -> optimize. The LLM's only job
+is turning a recipe into shopping items."""
 from __future__ import annotations
 
 import re

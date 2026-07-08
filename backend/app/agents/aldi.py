@@ -1,10 +1,5 @@
-"""Aldi Sued official prospekt recipe (deterministic Playwright).
-
-The weekly leaflet lives in a Publitas viewer at `prospekt.aldi-sued.de/kw<WW>-<YY>-...` whose pages
-are plain JPEGs (`/pages/<uuid>-at<width>.jpg`, several widths per page). We flip with ArrowRight,
-capture the page images, and keep the best-resolution variant of each page (`publitas_best_pages`).
-Aldi Nord (aldi-nord.de) is a separate region, not yet implemented.
-"""
+"""Aldi Sued: Publitas viewer at prospekt.aldi-sued.de/kw<WW>-<YY>-..., pages are
+/pages/<uuid>-at<width>.jpg JPEGs at several widths. Aldi Nord not implemented."""
 from __future__ import annotations
 
 import asyncio

@@ -1,9 +1,5 @@
-"""Prospekt endpoint: browse retailers' prospekts in parallel + VLM-extract, streaming over SSE.
-
-One request may select several retailers; each runs as its own agent task over a shared queue,
-so the client receives interleaved events tagged with `retailer` (progress, live browser frames,
-per-page reading, result, agent_done) and a single final `done`.
-"""
+"""Prospekt scan endpoint: one agent task per selected retailer over a shared SSE queue;
+every event is tagged with its retailer, one final done."""
 from __future__ import annotations
 
 import asyncio

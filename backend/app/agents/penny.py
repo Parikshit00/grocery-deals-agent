@@ -1,10 +1,5 @@
-"""Penny official offers recipe (VLM-browse, deterministic navigation).
-
-Penny has no clean weekly leaflet flipbook (the handout overlay won't render multi-page headless),
-but its weekly offers render as cards in the main page once a market is selected. We navigate
-deterministically (consent -> PLZ -> nearest branch -> "Als Liste"), screenshot the rendered offers,
-and let the VLM read them. Offers are market-specific, so the region key is the postcode.
-"""
+"""Penny: no usable flipbook headless; offers render as cards after market selection
+(consent -> PLZ -> branch -> "Als Liste") -> screenshots for the VLM. Region key = postcode."""
 from __future__ import annotations
 
 from app.agents.base import (

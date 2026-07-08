@@ -1,10 +1,7 @@
-"""Orchestrate the official-prospekt tier: cache-first by validity, else browse + VLM-extract.
+"""Prospekt scans: cache-first by validity window, else browse + VLM-extract (overlapped).
 
-Cache is keyed (retailer, region_key). region_key is the ZIP for market-specific chains (penny,
-rewe) and a chain-wide key ("national"/"sued") otherwise, so the same PLZ in the same prospekt week
-is served from the DB. A row is served only while `valid_from <= today <= valid_to`, so next week's
-leaflet is never served early and a rotated (expired) prospekt forces a rescan. Reading overlaps
-browsing: pages stream into the VLM as the agent captures them. `emit` reports step events for SSE.
+Cache key = (retailer, region_key); region_key is the ZIP for market-specific chains, a
+chain-wide key otherwise. A row is served only while valid_from <= today <= valid_to.
 """
 from __future__ import annotations
 

@@ -1,15 +1,20 @@
-# Local data store for grocery-deals-agent: Postgres.
-# The app and frontend run separately; vLLM runs on the host.
+# Full stack: Postgres + both vLLM model servers + API + UI.
+# Model weights stay on the host (MODELS_DIR) and are mounted read-only; images hold no weights.
+# Keep the llm/vlm command args in sync with scripts/serve_llm.sh / scripts/serve_vlm.sh.
+#
+#   sudo docker compose -f infra/docker-compose.yml up -d --build
+#
+# UI on :28735, API on :28734. Models need the NVIDIA container toolkit.
 
 services:
   postgres:
-    image: pgvector/pgvector:pg16
+    image: postgres:16
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-angebot}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-angebot}
       POSTGRES_DB: ${POSTGRES_DB:-angebot}
     ports:
-      # localhost-only: the app runs on the same host; DB must not be network-exposed.
+      # localhost-only: the DB must not be network-exposed.
       - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -18,6 +23,105 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  llm:
+    image: vllm/vllm-openai:v0.11.0
+    ipc: host
+    volumes:
+      - ${MODELS_DIR:-/home/parikshitk/models}:/models:ro
+    command:
+      [
+        "--model", "/models/Qwen3-30B-A3B-Thinking-2507-FP8",
+        "--served-model-name", "qwen3-thinking",
+        "--host", "0.0.0.0", "--port", "28800",
+        "--gpu-memory-utilization", "0.85", "--max-model-len", "32768",
+        "--enable-auto-tool-choice", "--tool-call-parser", "hermes",
+        "--reasoning-parser", "qwen3",
+      ]
+    ports:
+      - "28800:28800"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request as u; u.urlopen('http://localhost:28800/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 300s
+      retries: 40
+
+  vlm:
+    image: vllm/vllm-openai:v0.11.0
+    ipc: host
+    volumes:
+      - ${MODELS_DIR:-/home/parikshitk/models}:/models:ro
+    command:
+      [
+        "--model", "/models/Qwen3-VL-32B-Instruct-FP8",
+        "--served-model-name", "qwen3-vl",
+        "--host", "0.0.0.0", "--port", "28801",
+        "--gpu-memory-utilization", "0.95", "--max-model-len", "4096",
+        "--max-num-seqs", "32", "--max-num-batched-tokens", "8192",
+        "--scheduling-policy", "priority",
+        "--limit-mm-per-prompt", '{"image":1,"video":0}',
+        "--mm-processor-kwargs", '{"max_pixels":1350000}',
+      ]
+    ports:
+      - "28801:28801"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["1"]
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request as u; u.urlopen('http://localhost:28801/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 300s
+      retries: 40
+
+  backend:
+    build:
+      context: ..
+      dockerfile: infra/backend.Dockerfile
+    ipc: host
+    environment:
+      APP_ENV: docker
+      POSTGRES_HOST: postgres
+      LLM_BASE_URL: http://llm:28800/v1
+      VLM_BASE_URL: http://vlm:28801/v1
+    ports:
+      - "28734:28734"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      llm:
+        condition: service_healthy
+      vlm:
+        condition: service_healthy
+    deploy:
+      resources:
+        reservations:
+          devices:
+            # bge-m3 embeddings share GPU 0 with the reasoning model.
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: infra/frontend.Dockerfile
+    ports:
+      - "28735:80"
+    depends_on:
+      - backend
 
 volumes:
   pgdata:

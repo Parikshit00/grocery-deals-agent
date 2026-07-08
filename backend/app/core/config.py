@@ -12,11 +12,6 @@ class Settings(BaseSettings):
     app_env: str = "local"
     log_level: str = "INFO"
 
-    # Network
-    api_host: str = "0.0.0.0"
-    api_port: int = 28734
-    frontend_port: int = 28735
-
     # Postgres
     postgres_user: str = "angebot"
     postgres_password: str = "angebot"

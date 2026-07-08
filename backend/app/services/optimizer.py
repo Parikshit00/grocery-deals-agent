@@ -1,9 +1,5 @@
-"""Build the cheapest baskets from per-item offers.
-
-cross_store: the cheapest offer for each item, regardless of retailer.
-single_store: the one retailer that covers the most items for the lowest total
-(coverage first, then total), so the whole list can be bought in a single trip.
-"""
+"""Cheapest baskets: cross_store = cheapest offer per item; single_store = one retailer,
+best coverage then lowest total."""
 from __future__ import annotations
 
 from typing import Any

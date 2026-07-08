@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Serve the reasoning/supervisor LLM (Qwen3-30B-A3B-Thinking, FP8) via vLLM on GPU 0.
+# Keep flags in sync with infra/docker-compose.yml (llm service).
 # Runs in the cu126 `vllm` env, which matches the host driver natively (no shim needed).
 set -euo pipefail
 

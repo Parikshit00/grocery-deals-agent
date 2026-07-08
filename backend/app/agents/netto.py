@@ -1,12 +1,6 @@
-"""Netto Marken-Discount official prospekt recipe (deterministic Playwright).
-
-Netto's weekly Handzettel is a Publitas flipbook reachable only per store, and only with the full
-Chromium browser (headless_shell is blocked). We navigate Online-Prospekte -> filialfinder -> pick a
-listed store ("Filiale wählen") -> the store's page exposes the current-week Handzettel
-(`wochenprospekt.netto-online.de/hz<WW>_posb/?storeid=X`) -> capture the Publitas pages. The PLZ
-autocomplete is server-blocked under automation, so we serve the default store's weekly leaflet
-(region "national").
-"""
+"""Netto: per-store Publitas Handzettel, full Chromium only (headless_shell is blocked).
+Flow: Online-Prospekte -> filialfinder -> pick a store -> wochenprospekt.netto-online.de/
+hz<WW>_posb. PLZ autocomplete is blocked under automation, so region is "national"."""
 from __future__ import annotations
 
 import asyncio

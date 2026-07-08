@@ -1,8 +1,5 @@
-"""Shared Playwright helpers + the Recipe protocol for browsing official retailer prospekts.
-
-A recipe navigates a retailer's official online prospekt for a region and returns the leaflet
-page images (bytes). The deterministic helpers here keep the LLM out of the navigation loop.
-"""
+"""Shared Playwright helpers + the Recipe protocol. Deterministic navigation only - no LLM
+in the browse loop."""
 from __future__ import annotations
 
 import asyncio

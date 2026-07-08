@@ -1,8 +1,4 @@
-"""Read prospekt page images with the local VLM -> structured offers.
-
-Served by Qwen3-VL-32B-Instruct via vLLM's OpenAI-compatible endpoint. The VLM is the only thing
-that interprets the flyer pages.
-"""
+"""Prospekt page images -> structured offers via Qwen3-VL (vLLM, OpenAI-compatible)."""
 from __future__ import annotations
 
 import asyncio

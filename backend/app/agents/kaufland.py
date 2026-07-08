@@ -1,9 +1,5 @@
-"""Kaufland official prospekt recipe.
-
-Kaufland (Schwarz group, like Lidl) lists weekly leaflets on `leaflets.kaufland.com`; the URL slug
-encodes the ISO week (e.g. `..._D25`). Page images come from the same `leaflets.schwarz` CDN as Lidl
-and the viewer pages with ArrowRight; the weekly prospekt is effectively national.
-"""
+"""Kaufland: leaflets.kaufland.com, slug encodes the ISO week (..._D25); page images come
+from the leaflets.schwarz CDN (same as Lidl). National prospekt."""
 from __future__ import annotations
 
 import re

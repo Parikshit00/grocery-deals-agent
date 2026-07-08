@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Start the FastAPI backend (serves the built frontend at /). For frontend dev with HMR:
+# Dev mode: FastAPI on the host (serves built frontend at /). Deployment runs via
+# infra/docker-compose.yml instead. For frontend dev with HMR:
 #   cd frontend && npm install && npm run dev
 # Models are served separately: scripts/serve_llm.sh (GPU0) + scripts/serve_vlm.sh (GPU1).
 set -euo pipefail

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Serve the OCR VLM (Qwen3-VL-32B-Instruct, FP8) via vLLM on GPU 1 - reads prospekt pages.
+# Keep flags in sync with infra/docker-compose.yml (vlm service).
 # Runs in the cu128 `gda_vlm` env. cu128 runs on the CUDA 12.7 driver via CUDA minor-version
 # compatibility; the cuda-compat-12-8 dir is prepended to LD_LIBRARY_PATH as a forward-compat
 # safety net (datacenter A40) in case a kernel calls a 12.8-only driver symbol.

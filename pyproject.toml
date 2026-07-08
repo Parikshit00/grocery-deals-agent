@@ -30,15 +30,16 @@ scraping = [
 ]
 dev = [
     "pytest>=8.2",
-    "pytest-asyncio>=0.23",
     "ruff>=0.5",
     "mypy>=1.10",
-    "respx>=0.21",
 ]
 
 [tool.setuptools.packages.find]
 where = ["backend"]
 include = ["app*"]
+
+[tool.setuptools.package-data]
+app = ["agents/prompts/*.txt"]
 
 [tool.ruff]
 line-length = 100
@@ -53,6 +54,5 @@ ignore_missing_imports = true
 plugins = ["pydantic.mypy"]
 
 [tool.pytest.ini_options]
-asyncio_mode = "auto"
 testpaths = ["backend/tests"]
 pythonpath = ["backend"]
