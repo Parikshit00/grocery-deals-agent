@@ -1,4 +1,4 @@
-from app.clients.llm import _parse_list
+from app.clients.llm import _parse_list, last_json_object
 
 
 def test_parse_json_array():
@@ -33,3 +33,21 @@ def test_parse_no_array_splits_last_line_only():
         "Milch",
         "Eier",
     ]
+
+
+def test_last_object_after_reasoning():
+    content = (
+        'Checking {"note": "intermediate"} ... the element is the store button.\n'
+        '{"action": "click", "el": 7}'
+    )
+    assert last_json_object(content) == {"action": "click", "el": 7}
+
+
+def test_last_object_nested_braces():
+    content = 'x {"accept": {"lidl": ["o1"]}, "reason": "s {with} braces"}'
+    assert last_json_object(content)["accept"] == {"lidl": ["o1"]}
+
+
+def test_last_object_none_and_invalid_skipped():
+    assert last_json_object("no json here") is None
+    assert last_json_object('{broken json} then {"action": "done"}') == {"action": "done"}

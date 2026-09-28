@@ -96,7 +96,7 @@ def _get_client() -> AsyncOpenAI:
     if _client is None:
         settings = get_settings()
         _client = AsyncOpenAI(
-            base_url=settings.vlm_base_url, api_key=settings.llm_api_key, max_retries=0
+            base_url=settings.vlm_base_url, api_key=settings.vllm_api_key, max_retries=0
         )
     return _client
 

@@ -21,12 +21,34 @@ _RECIPE_SYSTEM = (
 
 def get_client() -> AsyncOpenAI:
     settings = get_settings()
-    return AsyncOpenAI(base_url=settings.llm_base_url, api_key=settings.llm_api_key)
+    return AsyncOpenAI(base_url=settings.llm_base_url, api_key=settings.vllm_api_key)
 
 
 def strip_think(content: str) -> str:
     """Drop the reasoning trace: Qwen3-Thinking-2507 ends its <think> block with </think>."""
     return content.rsplit("</think>", 1)[-1] if "</think>" in content else content
+
+
+def last_json_object(content: str) -> dict | None:
+    """Last brace-balanced JSON object in the text (the model reasons before answering)."""
+    end = content.rfind("}")
+    while end != -1:
+        depth = 0
+        for i in range(end, -1, -1):
+            if content[i] == "}":
+                depth += 1
+            elif content[i] == "{":
+                depth -= 1
+                if depth == 0:
+                    try:
+                        obj = json.loads(content[i : end + 1])
+                    except json.JSONDecodeError:
+                        break
+                    if isinstance(obj, dict):
+                        return obj
+                    break
+        end = content.rfind("}", 0, end)
+    return None
 
 
 def _last_json_array(content: str) -> list[str] | None:

@@ -10,7 +10,7 @@ from app.schemas.offer import Offer
 
 def _cheapest(offers: list[Offer]) -> Offer | None:
     priced = [o for o in offers if o.price is not None]
-    return min(priced, key=lambda o: o.price) if priced else None
+    return min(priced, key=lambda o: o.price or 0.0) if priced else None
 
 
 def build_baskets(results: list[dict[str, Any]]) -> Baskets:

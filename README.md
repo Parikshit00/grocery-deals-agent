@@ -1,5 +1,11 @@
 # grocery-deals-agent
 
+> **Status: production rebuild in progress on this branch.** Chain agents, scanning and baskets
+> are being rebuilt phase by phase around tiered acquisition and self-healing navigation; see
+> [ADR 0002](docs/adr/0002-hybrid-self-healing-navigation.md) and
+> [ADR 0003](docs/adr/0003-tiered-acquisition-honest-automation.md). The sections below describe
+> the previous version on `main` and will be rewritten at the end of the rebuild.
+
 <!-- <p align="center">
   <img src="animation/architecture.gif" alt="How the system works: agents scan weekly prospekts into a vision model, offers land in a validity cache, and basket search runs over the cache" width="920">
 </p> -->

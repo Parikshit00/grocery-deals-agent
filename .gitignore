@@ -59,8 +59,14 @@ test-results/
 # Local config
 .claude/
 
-# Internal notes
-docs/
+# Internal notes (only ADRs and rendered media are versioned)
+docs/*
+!docs/adr/
+!docs/media/
+
+# Local-only eval inputs (rendered pages, private query export)
+eval/pages/
+eval/queries_*.csv
 
 # Architecture animation 
 animation/*
