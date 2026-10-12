@@ -33,4 +33,5 @@ jobs:
       - uses: actions/checkout@v4
       - run: make init
       - run: docker compose --env-file .env -f infra/docker-compose.yml config -q
+      - run: docker compose --env-file .env -f infra/docker-compose.yml --profile models config -q
       - run: docker compose --env-file .env -f infra/docker-compose.yml build

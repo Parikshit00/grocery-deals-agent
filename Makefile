@@ -7,7 +7,8 @@ DEV_RUN := $(DOCKER) run --rm --user $(shell id -u):$(shell id -g) -e HOME=/tmp 
 LOCK_FLAGS := --quiet --emit-index-url --python-version 3.12 --python-platform x86_64-unknown-linux-gnu \
 	--extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match
 
-.PHONY: init up down logs lock dev-image lint test check
+.PHONY: init up down logs lock dev-image lint test check \
+	models-pull models-lock models-verify models-up models-down
 
 init:  ## create or complete .env and the models directory (runs unprivileged)
 	@test -f .env || cp .env.example .env
@@ -26,6 +27,21 @@ down:
 
 logs:
 	$(COMPOSE) logs -f --tail=100
+
+models-pull:  ## download pinned weights from infra/models.txt (NAME= for one model)
+	scripts/models.sh pull $(NAME)
+
+models-lock:  ## record checksums of the downloaded weights in infra/models.sha256
+	scripts/models.sh lock
+
+models-verify:  ## check downloaded weights against infra/models.sha256 (NAME= for one model)
+	scripts/models.sh verify $(NAME)
+
+models-up:  ## start both vLLM servers (GPU 0 and GPU 1) and wait until they are healthy
+	$(COMPOSE) --profile models up -d --build --wait llm vlm
+
+models-down:  ## stop the vLLM servers and free the GPUs
+	$(COMPOSE) --profile models rm -sf llm vlm
 
 lock:  ## pin runtime and dev Python deps (CPU torch) for the backend image
 	uv pip compile pyproject.toml --extra agents --extra scraping $(LOCK_FLAGS) -o requirements.lock

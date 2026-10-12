@@ -1,11 +1,102 @@
 # Default stack: Postgres + API + UI. Run through the Makefile (`make init`, `make up`), which
-# passes the repo-root .env. The model servers join later as the `models` profile.
+# passes the repo-root .env. The two model servers are the `models` profile, started and stopped
+# on demand (`make models-up` / `make models-down`); the API serves without them.
 #
 # UI on :28735, API on :28734, bound to BIND_ADDR (127.0.0.1 unless .env says otherwise).
+# Model APIs on 127.0.0.1:28800 (GPU 0) and 127.0.0.1:28801 (GPU 1), key-protected.
 
 name: grocery-deals-agent
 
+x-vllm: &vllm
+  build:
+    context: .
+    dockerfile: vllm.Dockerfile
+  image: grocery-deals-agent-vllm:0.30.0-cu129
+  profiles: ["models"]
+  shm_size: 8gb
+  environment:
+    VLLM_NO_USAGE_STATS: "1"
+    DO_NOT_TRACK: "1"
+    HF_HUB_OFFLINE: "1"
+  volumes:
+    - type: bind
+      source: ${MODELS_DIR:?run make init}
+      target: /models
+      read_only: true
+      bind:
+        create_host_path: false
+    - vllm-cache:/root/.cache
+  restart: unless-stopped
+
 services:
+  llm:
+    <<: *vllm
+    # Navigator, basket agent and recipe planning: long context and tool calling.
+    command:
+      - --model=/models/${LLM_MODEL_DIR:-qwen3.5-9b}
+      - --served-model-name=llm
+      - --port=28800
+      - --gpu-memory-utilization=0.90
+      - --max-model-len=32768
+      - --max-num-seqs=24
+      - --enable-auto-tool-choice
+      - --tool-call-parser=qwen3_coder
+      # Shared by both servers (YAML cannot splice lists, so keep these two blocks identical).
+      - --host=0.0.0.0
+      - "--api-key=${VLLM_API_KEY:?run make init}"
+      - --scheduling-policy=priority
+      - '--limit-mm-per-prompt={"image":1,"video":0}'
+      - --reasoning-parser=qwen3
+    ports:
+      - "127.0.0.1:28800:28800"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request as u; u.urlopen('http://localhost:28800/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 600s
+      retries: 40
+
+  vlm:
+    <<: *vllm
+    # Leaflet page extraction: short context, many concurrent pages.
+    command:
+      - --model=/models/${VLM_MODEL_DIR:-qwen3.5-9b}
+      - --served-model-name=vlm
+      - --port=28801
+      - --gpu-memory-utilization=0.90
+      - --max-model-len=8192
+      - --max-num-seqs=32
+      - --max-num-batched-tokens=8192
+      # Shared by both servers (YAML cannot splice lists, so keep these two blocks identical).
+      - --host=0.0.0.0
+      - "--api-key=${VLLM_API_KEY:?run make init}"
+      - --scheduling-policy=priority
+      - '--limit-mm-per-prompt={"image":1,"video":0}'
+      - --reasoning-parser=qwen3
+    ports:
+      - "127.0.0.1:28801:28801"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["1"]
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request as u; u.urlopen('http://localhost:28801/health', timeout=4)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 600s
+      retries: 40
+
+
   postgres:
     image: postgres:16@sha256:1a6ab3f5345eb6dbe04a1349529caabdb0ab09293a09590fad07b2246bfa4b54
     environment:
@@ -68,3 +159,4 @@ services:
 
 volumes:
   pgdata:
+  vllm-cache:
