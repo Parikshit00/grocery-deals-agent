@@ -25,7 +25,8 @@ pull() {
 
 lock() {
   (cd "$MODELS_DIR" && entries | awk '{print $1}' | xargs -I{} find {} -type f -not -path '*/.cache/*' \
-    | sort | xargs sha256sum) > "$SUMS"
+    | sort | xargs sha256sum) > "$SUMS.tmp"
+  mv "$SUMS.tmp" "$SUMS"  # swap in only a complete lock; an interrupted run leaves the old one
   echo "wrote $(wc -l < "$SUMS") checksums to infra/models.sha256"
 }
 
