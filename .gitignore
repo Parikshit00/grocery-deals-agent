@@ -59,8 +59,14 @@ test-results/
 # Local config
 .claude/
 
-# Internal notes
-docs/
+# Docs site sources are versioned; old internal notes and the built site are not
+docs/_archive/
+site/
+docs/api/openapi.json
+
+# Local-only eval inputs (rendered pages, private query export)
+eval/pages/
+eval/queries_*.csv
 
 # Architecture animation 
 animation/*

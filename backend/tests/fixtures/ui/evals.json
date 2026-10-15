@@ -1,0 +1,92 @@
+{
+ "view": "evals",
+ "routes": {
+  "GET /api/evals": {
+   "json": [
+    {
+     "model": "qwen3.5-9b",
+     "passed": false,
+     "suites": {
+      "matcher": {
+       "items": 198,
+       "scores": {
+        "accuracy": 0.8838,
+        "precision": 0.9123,
+        "recall": 0.7429
+       },
+       "gates": {
+        "accuracy": 0.9
+       },
+       "passed": false
+      },
+      "baskets": {
+       "items": 20,
+       "scores": {
+        "pass_rate": 0.85,
+        "must_rate": 0.9
+       },
+       "gates": {
+        "pass_rate": 0.8
+       },
+       "passed": true
+      },
+      "extraction": {
+       "items": 50,
+       "scores": {
+        "price_acc": 0.93,
+        "name_recall": 0.88,
+        "json_validity": 1.0
+       },
+       "gates": {
+        "name_recall": 0.95
+       },
+       "passed": false,
+       "chains": {
+        "aldi": {
+         "price_acc": 0.95
+        }
+       },
+       "bench": {
+        "pages": 50,
+        "wall_s": 203.4
+       }
+      }
+     }
+    },
+    {
+     "model": "qwen3.6-35b-a3b",
+     "passed": true,
+     "suites": {
+      "extraction": {
+       "items": 50,
+       "scores": {
+        "price_acc": 0.95,
+        "name_recall": 0.96,
+        "json_validity": 1.0
+       },
+       "gates": {
+        "name_recall": 0.95
+       },
+       "passed": true
+      }
+     }
+    }
+   ]
+  }
+ },
+ "expect": [
+  "extraction",
+  "matcher",
+  "qwen3.6-35b-a3b",
+  "93.0 %",
+  "88.4 %",
+  "Gates",
+  "fail",
+  "pass"
+ ],
+ "count": {
+  ".eval-suite": 3,
+  ".eval-suite tbody tr": 4,
+  ".eval-suite td.miss": 2
+ }
+}

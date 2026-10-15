@@ -1,0 +1,573 @@
+<mxfile host="drawio" agent="grocery-deals-agent" version="24.7.17">
+  <diagram name="Architecture" id="architecture">
+    <mxGraphModel dx="1600" dy="1488" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1488" math="0" shadow="0" background="#0B1220">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bg" value="" style="rounded=0;fillColor=#0B1220;strokeColor=none;locked=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1600" height="1488" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="&lt;b style=&quot;font-size:22px;color:#E6EDF7&quot;&gt;Grocery Deals Agent: architecture&lt;/b&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#E6EDF7;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="24" y="20" width="1200" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="A multi-agent showcase that runs entirely on one server with 2x NVIDIA A40 46 GB. Six chain agents collect supermarket offers, a tool-calling basket agent plans the cheapest shop, every hop is traced." style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="24" y="54" width="1216" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="b-clients" value="CLIENTS" style="swimlane;startSize=72;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#9FB0CC;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="24" y="96" width="1216" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="browser" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;User browser&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;over VPN&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#17344E;strokeColor=#38BDF8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="160" y="108" width="216" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="clients-note" value="Langfuse :28736 and Grafana :28737 are opened the same way. Nothing in this picture calls a cloud model." style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="108" width="800" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="server" value="" style="rounded=1;absoluteArcSize=1;arcSize=24;fillColor=none;strokeColor=#94A3B8;strokeWidth=1.5;dashed=1;dashPattern=8 6;html=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="184" width="1216" height="1184" as="geometry" />
+        </mxCell>
+        <mxCell id="server-title" value="&lt;b style=&quot;color:#94A3B8&quot;&gt;ONE SERVER&lt;/b&gt;&lt;span style=&quot;color:#9FB0CC&quot;&gt;  Docker Compose, 2x NVIDIA A40 46 GB, local models only&lt;/span&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="190" width="820" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b-fe" value="FRONTEND" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#38BDF8;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="216" width="1184" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="nginx" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;nginx :28735&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;React + Vite SPA, proxies /api&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#17344E;strokeColor=#38BDF8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-fe">
+          <mxGeometry x="16" y="32" width="136" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="ui-plan" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Plan view&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;recipe in, editable ingredient chips (human in the loop), plans out&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#17344E;strokeColor=#38BDF8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-fe">
+          <mxGeometry x="168" y="32" width="328" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="ui-evals" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Runs + Evals&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;past scans, scores per model&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#17344E;strokeColor=#38BDF8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-fe">
+          <mxGeometry x="512" y="32" width="128" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="ui-scan" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Scanner + Offers view&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;mission control: address in, six live agent cards and a ticker fed by SSE&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#17344E;strokeColor=#38BDF8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-fe">
+          <mxGeometry x="656" y="32" width="512" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="b-be" value="BACKEND  FastAPI :28734" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#A78BFA;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="336" width="1184" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="otel" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;OpenTelemetry&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;a span per hop&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352844;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-be">
+          <mxGeometry x="16" y="32" width="136" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="basket-svc" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Basket service&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;plans, matches each item, streams progress&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-be">
+          <mxGeometry x="168" y="32" width="168" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="optimizer" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Optimizer&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;deterministic: single store or split&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-be">
+          <mxGeometry x="352" y="32" width="144" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="evals-api" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Evals API&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;runs + eval/results&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-be">
+          <mxGeometry x="512" y="32" width="128" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="scan-rt" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Scan runtime&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;one task per chain, single-flight, SSE events, reattach + cancel&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-be">
+          <mxGeometry x="656" y="32" width="264" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="geo" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Geocoding&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;address to lat, lon&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-be">
+          <mxGeometry x="984" y="32" width="184" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="b-agents" value="AGENTS" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#E6EDF7;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="464" width="1184" height="432" as="geometry" />
+        </mxCell>
+        <mxCell id="basket-col" value="BASKET PATH  LLM on GPU 0" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#1A213A;swimlaneFillColor=#1A213A;strokeColor=#6B5EA8;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontStyle=1;fontColor=#A78BFA;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="b-agents">
+          <mxGeometry x="16" y="32" width="376" height="384" as="geometry" />
+        </mxCell>
+        <mxCell id="planner" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Recipe planner&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;LLM lists the ingredients, streams its thinking&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="basket-col">
+          <mxGeometry x="16" y="36" width="344" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="item-agent" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Per-item basket agent&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;tool-calling loop, accepts or rejects candidates&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#292C4F;strokeColor=#A78BFA;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="basket-col">
+          <mxGeometry x="16" y="116" width="344" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="t-search" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;search_offers&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;vectors, per chain&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#113341;strokeColor=#14B8A6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="basket-col">
+          <mxGeometry x="16" y="204" width="164" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t-inspect" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;inspect_offer&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;asks the VLM&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#182B4E;strokeColor=#3B82F6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="basket-col">
+          <mxGeometry x="196" y="204" width="164" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="chain-col" value="SCAN PATH  6 chain agents in parallel, each takes its nearest store (haversine, within radius)" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#161D34;swimlaneFillColor=#161D34;strokeColor=#544D8A;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontStyle=1;fontColor=#E6EDF7;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="b-agents">
+          <mxGeometry x="408" y="32" width="760" height="384" as="geometry" />
+        </mxCell>
+        <mxCell id="row-t1" value="" style="rounded=1;absoluteArcSize=1;arcSize=16;html=1;container=1;collapsible=0;fillColor=#122832;strokeColor=#1B814B;strokeWidth=1;" vertex="1" parent="chain-col">
+          <mxGeometry x="48" y="32" width="696" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="row-t1-label" value="&lt;b style=&quot;color:#22C55E;font-size:14px&quot;&gt;TIER 1&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC&quot;&gt;official JSON feeds&lt;/span&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#E6EDF7;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="row-t1">
+          <mxGeometry x="16" y="0" width="128" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="row-t2" value="" style="rounded=1;absoluteArcSize=1;arcSize=16;html=1;container=1;collapsible=0;fillColor=#23252B;strokeColor=#9A6919;strokeWidth=1;" vertex="1" parent="chain-col">
+          <mxGeometry x="48" y="108" width="696" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="row-t2-label" value="&lt;b style=&quot;color:#F59E0B;font-size:14px&quot;&gt;TIER 2&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC&quot;&gt;leaflet pages, VLM reads&lt;/span&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#E6EDF7;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="row-t2">
+          <mxGeometry x="16" y="0" width="128" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="row-t3" value="" style="rounded=1;absoluteArcSize=1;arcSize=16;html=1;container=1;collapsible=0;fillColor=#1F223E;strokeColor=#7A5AAA;strokeWidth=1;" vertex="1" parent="chain-col">
+          <mxGeometry x="48" y="192" width="696" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="row-t3-label" value="&lt;b style=&quot;color:#C084FC;font-size:14px&quot;&gt;TIER 3&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC&quot;&gt;scripted browser&lt;/span&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#E6EDF7;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="row-t3">
+          <mxGeometry x="16" y="0" width="128" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="penny" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Penny&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;regional feed&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#143536;strokeColor=#22C55E;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t1">
+          <mxGeometry x="152" y="8" width="160" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="kaufland" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Kaufland&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;per-store offers&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#143536;strokeColor=#22C55E;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t1">
+          <mxGeometry x="328" y="8" width="160" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="aldi" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Aldi Sued&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;national edition&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#143536;strokeColor=#22C55E;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t1">
+          <mxGeometry x="504" y="8" width="184" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="netto" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Netto&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;weekly leaflet&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352F28;strokeColor=#F59E0B;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t2">
+          <mxGeometry x="152" y="8" width="160" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="lidl-leaf" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Lidl&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;leaflet of its store&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352F28;strokeColor=#F59E0B;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t2">
+          <mxGeometry x="328" y="8" width="160" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="pricecheck" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Price check&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;each price matched to the page text, else flagged&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352F28;strokeColor=#F59E0B;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;dashed=1;dashPattern=6 4;" vertex="1" parent="row-t2">
+          <mxGeometry x="504" y="8" width="184" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="finder" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Lidl store finder&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;Playwright Chromium, post-condition checks&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#2D2B4F;strokeColor=#C084FC;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t3">
+          <mxGeometry x="152" y="8" width="160" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="navigator" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Self-healing navigator&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;VLM sees a set-of-marks screenshot, picks 1 of 5 safe actions, domain allowlist&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#2D2B4F;strokeColor=#C084FC;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="row-t3">
+          <mxGeometry x="376" y="8" width="312" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="row-rewe" value="" style="rounded=1;absoluteArcSize=1;arcSize=16;html=1;container=1;collapsible=0;fillColor=#271E30;strokeColor=#96333B;strokeWidth=1;dashed=1;dashPattern=8 6;" vertex="1" parent="chain-col">
+          <mxGeometry x="48" y="276" width="696" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rewe" value="&lt;b style=&quot;color:#EF4444&quot;&gt;REWE&lt;/b&gt;&lt;span style=&quot;color:#E6EDF7&quot;&gt;  blocked by bot protection, reported honestly in the scan (no stealth, no workaround)&lt;/span&gt;" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#E6EDF7;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="row-rewe">
+          <mxGeometry x="16" y="0" width="664" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="normalize" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Normalize offers&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;unit price, pack sizes, loyalty prices, multi-buys&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#113341;strokeColor=#14B8A6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="chain-col">
+          <mxGeometry x="48" y="328" width="696" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="b-models" value="MODELS AND DATA" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#3B82F6;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="912" width="1184" height="176" as="geometry" />
+        </mxCell>
+        <mxCell id="pg" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Postgres 16&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;leaflets, offers + vectors, scan_runs; kept until each leaflet ends&lt;/span&gt;" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;whiteSpace=wrap;html=1;fillColor=#123644;strokeColor=#14B8A6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=4;spacingTop=10;" vertex="1" parent="b-models">
+          <mxGeometry x="16" y="32" width="160" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;vLLM llm, GPU 0&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;A40 46 GB, :28800. Qwen3.5-9B, tool calling, reasoning&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#182B4E;strokeColor=#3B82F6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-models">
+          <mxGeometry x="192" y="32" width="200" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="vlm" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;vLLM vlm, GPU 1&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;A40 46 GB, :28801. Qwen3.5-9B reads leaflet pages, navigator screenshots and inspect_offer images&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#182B4E;strokeColor=#3B82F6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-models">
+          <mxGeometry x="408" y="32" width="376" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="bge" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;bge-m3&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;embeddings on CPU, inside the backend&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#182B4E;strokeColor=#3B82F6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-models">
+          <mxGeometry x="800" y="32" width="160" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="candidate" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Qwen3.6-35B-A3B MoE&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;FP8, under evaluation. Both servers: patched vLLM 0.30 cu129, OpenAI API, key&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#182B4E;strokeColor=#3B82F6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;dashed=1;dashPattern=6 4;" vertex="1" parent="b-models">
+          <mxGeometry x="976" y="32" width="192" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="b-obs" value="OBSERVABILITY AND EVALS" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#F472B6;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1112" width="1184" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="lf" value="LANGFUSE v4" style="swimlane;startSize=28;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#1C1E35;swimlaneFillColor=#1C1E35;strokeColor=#8E4A79;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontStyle=1;fontColor=#F472B6;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="b-obs">
+          <mxGeometry x="16" y="32" width="368" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="lf-web" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Langfuse web&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;:28736, traces, sessions, tokens, latency&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352844;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="lf">
+          <mxGeometry x="16" y="32" width="160" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lf-worker" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Langfuse worker&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;ingests events, datasets&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352844;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="lf">
+          <mxGeometry x="192" y="32" width="160" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lf-pg" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Postgres&lt;/b&gt;" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;whiteSpace=wrap;html=1;fillColor=#3A2A46;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=4;spacingTop=10;" vertex="1" parent="lf">
+          <mxGeometry x="16" y="112" width="80" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lf-ch" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;ClickHouse&lt;/b&gt;" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;whiteSpace=wrap;html=1;fillColor=#3A2A46;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=4;spacingTop=10;" vertex="1" parent="lf">
+          <mxGeometry x="104" y="112" width="80" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lf-vk" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Valkey&lt;/b&gt;" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;whiteSpace=wrap;html=1;fillColor=#3A2A46;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=4;spacingTop=10;" vertex="1" parent="lf">
+          <mxGeometry x="192" y="112" width="80" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="lf-minio" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;MinIO&lt;/b&gt;" style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=10;whiteSpace=wrap;html=1;fillColor=#3A2A46;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=4;spacingTop=10;" vertex="1" parent="lf">
+          <mxGeometry x="280" y="112" width="80" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="evals" value="EVALS" style="swimlane;startSize=28;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#18242E;swimlaneFillColor=#18242E;strokeColor=#618A32;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontStyle=1;fontColor=#A3E635;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="b-obs">
+          <mxGeometry x="416" y="32" width="376" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="ev-run" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Experiment runner&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;python -m app.eval experiment&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#283B2F;strokeColor=#A3E635;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="evals">
+          <mxGeometry x="16" y="32" width="152" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="ev-gold" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Gold sets&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;50 pages, 198 pairs, 20 baskets&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#283B2F;strokeColor=#A3E635;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="evals">
+          <mxGeometry x="216" y="32" width="144" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="ev-res" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;eval/results&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;scores per model&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#283B2F;strokeColor=#A3E635;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="evals">
+          <mxGeometry x="16" y="120" width="152" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="ev-gate" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;CI eval gate&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;fails on a score drop&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#283B2F;strokeColor=#A3E635;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="evals">
+          <mxGeometry x="216" y="120" width="144" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="metrics" value="METRICS" style="swimlane;startSize=28;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#1C1E35;swimlaneFillColor=#1C1E35;strokeColor=#8E4A79;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontStyle=1;fontColor=#F472B6;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="b-obs">
+          <mxGeometry x="808" y="32" width="360" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="prom" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Prometheus :28738&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;scrapes every 5 s&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352844;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="metrics">
+          <mxGeometry x="16" y="32" width="152" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="grafana" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Grafana :28737&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;GPU + vLLM dashboard&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352844;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="metrics">
+          <mxGeometry x="208" y="32" width="136" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="dcgm" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;DCGM exporter&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;GPU util, memory, power&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352844;strokeColor=#F472B6;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="metrics">
+          <mxGeometry x="16" y="120" width="152" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="b-infra" value="INFRA" style="swimlane;startSize=80;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#94A3B8;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="24" y="1384" width="1552" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="i-compose" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Compose profiles&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;app, models, observability&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#263044;strokeColor=#94A3B8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-infra">
+          <mxGeometry x="96" y="20" width="264" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="i-images" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Images pinned&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;by sha256 digest&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#263044;strokeColor=#94A3B8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-infra">
+          <mxGeometry x="376" y="20" width="264" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="i-weights" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Weights pinned&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;revision + sha256 lock&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#263044;strokeColor=#94A3B8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-infra">
+          <mxGeometry x="656" y="20" width="264" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="i-seccomp" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Chromium sandbox&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;pinned seccomp profile&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#263044;strokeColor=#94A3B8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-infra">
+          <mxGeometry x="936" y="20" width="264" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="i-ci" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;GitHub Actions CI&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;lint, types, tests, eval gate, compose build&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#263044;strokeColor=#94A3B8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="b-infra">
+          <mxGeometry x="1216" y="20" width="320" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="net" value="PUBLIC INTERNET" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#0B1220;swimlaneFillColor=#0B1220;strokeColor=#94A3B8;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=14;fontStyle=1;fontColor=#9FB0CC;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;dashed=1;dashPattern=8 6;" vertex="1" parent="1">
+          <mxGeometry x="1264" y="304" width="312" height="524" as="geometry" />
+        </mxCell>
+        <mxCell id="nominatim" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;OpenStreetMap Nominatim&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;geocoding&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#263044;strokeColor=#94A3B8;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="net">
+          <mxGeometry x="16" y="64" width="280" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="honesty" value="&lt;b style=&quot;color:#E6EDF7&quot;&gt;Fair play&lt;/b&gt;&lt;br&gt;robots.txt respected, honest User-Agent, no stealth, no API keys lifted from JS bundles, no aggregators" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="net">
+          <mxGeometry x="16" y="144" width="280" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="feeds" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Retailer JSON feeds&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;Penny, Kaufland, Aldi Sued&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#143536;strokeColor=#22C55E;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="net">
+          <mxGeometry x="16" y="232" width="280" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="leaflets" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Leaflet hosting&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;page images + text layer&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352F28;strokeColor=#F59E0B;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="net">
+          <mxGeometry x="16" y="308" width="280" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="sites" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;Store finder pages&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;lidl.de in Chromium&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#2D2B4F;strokeColor=#C084FC;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;" vertex="1" parent="net">
+          <mxGeometry x="16" y="392" width="280" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="rewe-site" value="&lt;b style=&quot;color:#E6EDF7;font-size:13px&quot;&gt;rewe.de&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color:#9FB0CC;font-size:12px&quot;&gt;bot protection&lt;/span&gt;" style="rounded=1;absoluteArcSize=1;arcSize=16;whiteSpace=wrap;html=1;fillColor=#352132;strokeColor=#EF4444;strokeWidth=1.5;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=13;fontColor=#E6EDF7;spacing=6;verticalAlign=middle;dashed=1;dashPattern=6 4;" vertex="1" parent="net">
+          <mxGeometry x="16" y="468" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="LEGEND" style="swimlane;startSize=32;rounded=1;absoluteArcSize=1;arcSize=24;html=1;fillColor=#111A2E;swimlaneFillColor=#111A2E;strokeColor=#24324D;strokeWidth=1;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=12;fontStyle=1;fontColor=#9FB0CC;align=left;spacingLeft=14;swimlaneLine=0;collapsible=0;container=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1264" y="96" width="312" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="lg0" value="request, API" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="132" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="lg1" value="agent, service call" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="152" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="lg2" value="model call (OpenAI API)" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="172" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="lg3" value="data, vectors" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="192" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4" value="telemetry (OTLP, scrape)" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="212" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="lg5" value="eval results" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="232" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="lg6" value="blocked" style="text;html=1;whiteSpace=wrap;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;align=left;verticalAlign=middle;spacing=0;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="252" width="220" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="140" as="sourcePoint" />
+            <mxPoint x="1328" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="160" as="sourcePoint" />
+            <mxPoint x="1328" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#3B82F6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="180" as="sourcePoint" />
+            <mxPoint x="1328" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#14B8A6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="200" as="sourcePoint" />
+            <mxPoint x="1328" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F472B6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="220" as="sourcePoint" />
+            <mxPoint x="1328" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A3E635;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="240" as="sourcePoint" />
+            <mxPoint x="1328" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=none;rounded=1;orthogonalLoop=1;html=1;strokeColor=#EF4444;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;" edge="1" parent="1" value="">
+          <mxGeometry relative="1" as="geometry" x="0">
+            <mxPoint x="1280" y="260" as="sourcePoint" />
+            <mxPoint x="1328" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="browser" target="nginx" value="opens UI over VPN">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="268" y="156" as="sourcePoint" />
+            <mxPoint x="124" y="248" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="268" y="200" />
+              <mxPoint x="124" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.2561;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ui-plan" target="basket-svc" value="POST /api/basket">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="292" y="304" as="sourcePoint" />
+            <mxPoint x="292" y="368" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.7805;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="optimizer" target="ui-plan" value="plans, savings, km">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="464" y="368" as="sourcePoint" />
+            <mxPoint x="464" y="304" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="evals-api" target="ui-evals" value="GET /api/evals">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="616" y="368" as="sourcePoint" />
+            <mxPoint x="616" y="304" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.1562;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.303;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ui-scan" target="scan-rt" value="POST /api/scan">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="776" y="304" as="sourcePoint" />
+            <mxPoint x="776" y="368" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#38BDF8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.7879;exitY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.4062;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="scan-rt" target="ui-scan" value="SSE events">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="904" y="368" as="sourcePoint" />
+            <mxPoint x="904" y="304" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="scan-rt" target="geo" value="geocodes">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="960" y="400" as="sourcePoint" />
+            <mxPoint x="1024" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#94A3B8;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="geo" target="nominatim" value="GET /search">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="1208" y="400" as="sourcePoint" />
+            <mxPoint x="1280" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.6395;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="basket-svc" target="planner" value="plans recipe">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="292" y="432" as="sourcePoint" />
+            <mxPoint x="292" y="532" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5303;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5105;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="scan-rt" target="chain-col" value="fans out 6 agents">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="836" y="432" as="sourcePoint" />
+            <mxPoint x="836" y="496" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="planner" target="item-agent" value="edited chips">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="244" y="584" as="sourcePoint" />
+            <mxPoint x="244" y="612" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.3333;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="item-agent" target="optimizer" value="accepted offers">
+          <mxGeometry relative="1" as="geometry" x="0.86">
+            <mxPoint x="416" y="640" as="sourcePoint" />
+            <mxPoint x="440" y="432" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="440" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.2384;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="item-agent" target="t-search" value="calls">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="154" y="668" as="sourcePoint" />
+            <mxPoint x="154" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A78BFA;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.7616;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="item-agent" target="t-inspect" value="calls">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="334" y="668" as="sourcePoint" />
+            <mxPoint x="334" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#C084FC;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="finder" target="navigator" value="check fails">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="808" y="724" as="sourcePoint" />
+            <mxPoint x="872" y="724" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#22C55E;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="row-t1" target="feeds" value="fetches JSON">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="1192" y="560" as="sourcePoint" />
+            <mxPoint x="1280" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e23" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F59E0B;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="row-t2" target="leaflets" value="gets pages">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="1192" y="640" as="sourcePoint" />
+            <mxPoint x="1280" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#C084FC;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="row-t3" target="sites" value="browses">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="1192" y="724" as="sourcePoint" />
+            <mxPoint x="1280" y="724" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#EF4444;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="row-rewe" target="rewe-site" value="blocked">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="1192" y="792" as="sourcePoint" />
+            <mxPoint x="1280" y="792" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#3B82F6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.7447;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.52;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="basket-col" target="llm" value="OpenAI API: plan + tools">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="336" y="880" as="sourcePoint" />
+            <mxPoint x="336" y="944" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e27" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#3B82F6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0426;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="row-t2" target="vlm" value="reads pages + text">
+          <mxGeometry relative="1" as="geometry" x="0.9">
+            <mxPoint x="496" y="640" as="sourcePoint" />
+            <mxPoint x="464" y="944" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="464" y="640" />
+            </Array>
+            <mxPoint x="82" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#3B82F6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0851;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="row-t3" target="vlm" value="navigator screenshot">
+          <mxGeometry relative="1" as="geometry" x="0.66">
+            <mxPoint x="496" y="724" as="sourcePoint" />
+            <mxPoint x="480" y="944" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="480" y="724" />
+            </Array>
+            <mxPoint x="70" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e29" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#3B82F6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="t-inspect" target="vlm" value="asks VLM">
+          <mxGeometry relative="1" as="geometry" x="-0.25">
+            <mxPoint x="416" y="726" as="sourcePoint" />
+            <mxPoint x="448" y="992" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="440" y="726" />
+              <mxPoint x="440" y="992" />
+            </Array>
+            <mxPoint x="-34" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#14B8A6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.6092;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="normalize" target="bge" value="embeds offers">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="920" y="864" as="sourcePoint" />
+            <mxPoint x="920" y="944" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e31" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#14B8A6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="bge" target="pg" value="stores offers + vectors">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="920" y="1040" as="sourcePoint" />
+            <mxPoint x="136" y="1040" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="920" y="1076" />
+              <mxPoint x="136" y="1076" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e32" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#14B8A6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.3902;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="t-search" target="pg" value="vector search">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="136" y="752" as="sourcePoint" />
+            <mxPoint x="136" y="944" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F472B6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="otel" target="lf-web" value="OTLP traces">
+          <mxGeometry relative="1" as="geometry" x="0.211">
+            <mxPoint x="56" y="400" as="sourcePoint" />
+            <mxPoint x="72" y="1208" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="32" y="400" />
+              <mxPoint x="32" y="1208" />
+            </Array>
+            <mxPoint x="40" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e34" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F472B6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;exitX=0.7368;exitY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="prom" target="vlm" value="scrapes /metrics">
+          <mxGeometry relative="1" as="geometry" x="0.933">
+            <mxPoint x="976" y="1176" as="sourcePoint" />
+            <mxPoint x="636" y="1040" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="976" y="1096" />
+              <mxPoint x="636" y="1096" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e35" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F472B6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;exitX=0.2632;exitY=0.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="prom" target="llm" value="scrapes /metrics">
+          <mxGeometry relative="1" as="geometry" x="0.955">
+            <mxPoint x="904" y="1176" as="sourcePoint" />
+            <mxPoint x="332" y="1040" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="904" y="1104" />
+              <mxPoint x="332" y="1104" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F472B6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;dashed=1;dashPattern=6 4;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="prom" target="dcgm" value="scrapes">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="940" y="1232" as="sourcePoint" />
+            <mxPoint x="940" y="1264" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e37" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#F472B6;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="grafana" target="prom" value="queries">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="1056" y="1204" as="sourcePoint" />
+            <mxPoint x="1016" y="1204" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e38" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A3E635;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ev-gold" target="ev-run" value="loads">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="672" y="1208" as="sourcePoint" />
+            <mxPoint x="624" y="1208" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e39" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A3E635;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ev-run" target="lf-worker" value="experiments">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="472" y="1208" as="sourcePoint" />
+            <mxPoint x="408" y="1208" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e40" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A3E635;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ev-run" target="ev-res" value="writes">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="548" y="1240" as="sourcePoint" />
+            <mxPoint x="548" y="1264" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e41" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A3E635;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ev-res" target="ev-gate" value="checks">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="624" y="1292" as="sourcePoint" />
+            <mxPoint x="672" y="1292" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e42" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#A3E635;strokeWidth=1.5;endArrow=block;endFill=1;endSize=6;fontFamily=system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;fontSize=11;fontColor=#9FB0CC;labelBackgroundColor=#0B1220;jumpStyle=arc;jumpSize=8;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ev-gate" target="i-ci" value="runs in CI">
+          <mxGeometry relative="1" as="geometry" x="0.0">
+            <mxPoint x="744" y="1320" as="sourcePoint" />
+            <mxPoint x="1400" y="1404" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="744" y="1376" />
+              <mxPoint x="1400" y="1376" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

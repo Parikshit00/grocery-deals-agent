@@ -1,0 +1,1611 @@
+{
+ "note": "Synthetic replay session built from the UI fixtures (mission_control scan, partial_coverage basket) for the e2e replay state; not a live recording.",
+ "recorded_at": "2026-10-14T13:40:00+00:00",
+ "location": "80331",
+ "radius_km": 5.0,
+ "recipe": {
+  "text": "Mango dessert",
+  "servings": 4
+ },
+ "status": {
+  "llm": "up",
+  "vlm": "up",
+  "db": "up",
+  "embeddings": "up",
+  "chains": [
+   {
+    "id": "penny",
+    "label": "Penny",
+    "loyalty": "PENNY App"
+   },
+   {
+    "id": "kaufland",
+    "label": "Kaufland",
+    "loyalty": "Kaufland Card"
+   },
+   {
+    "id": "aldi",
+    "label": "Aldi S\u00fcd",
+    "loyalty": null
+   },
+   {
+    "id": "netto",
+    "label": "Netto",
+    "loyalty": "Netto plus App / PAYBACK"
+   },
+   {
+    "id": "lidl",
+    "label": "Lidl",
+    "loyalty": "Lidl Plus"
+   },
+   {
+    "id": "rewe",
+    "label": "REWE",
+    "loyalty": "REWE Bonus"
+   }
+  ]
+ },
+ "stores": {
+  "location": {
+   "lat": 48.1371079,
+   "lon": 11.5753822,
+   "plz": "80331",
+   "label": "M\u00fcnchen, Bayern"
+  },
+  "chains": {
+   "kaufland": {
+    "status": "ok",
+    "reason": null,
+    "store": {
+     "id": "DE8700",
+     "km": 4.0,
+     "lat": 48.1295951,
+     "lon": 11.6260178,
+     "name": "Kaufland M\u00fcnchen-Berg am Laim",
+     "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+     "edition": "DE8700",
+     "located": true
+    },
+    "stores": [
+     {
+      "id": "DE8700",
+      "km": 4.0,
+      "lat": 48.1295951,
+      "lon": 11.6260178,
+      "name": "Kaufland M\u00fcnchen-Berg am Laim",
+      "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+      "edition": "DE8700",
+      "located": true
+     },
+     {
+      "id": "DE4370",
+      "km": 6.6,
+      "lat": 48.1000044,
+      "lon": 11.6436324,
+      "name": "Kaufland M\u00fcnchen-Neuperlach",
+      "address": "Thomas-Dehler-Stra\u00dfe 10, 81737 M\u00fcnchen",
+      "edition": "DE4370",
+      "located": true
+     },
+     {
+      "id": "DE4613",
+      "km": 6.8,
+      "lat": 48.1947906,
+      "lon": 11.5972031,
+      "name": "Kaufland M\u00fcnchen-Schwabing-Freimann",
+      "address": "Margot-Kalinke-Stra\u00dfe 4, 80939 M\u00fcnchen",
+      "edition": "DE4613",
+      "located": true
+     }
+    ],
+    "finished_at": "2026-10-14T15:39:22.788646+00:00"
+   },
+   "penny": {
+    "status": "ok",
+    "reason": null,
+    "store": {
+     "id": "430153",
+     "km": 0.5,
+     "lat": 48.13148,
+     "lon": 11.57541,
+     "name": "Penny G\u00e4rtnerplatz",
+     "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+     "edition": "15A-04-80",
+     "located": true
+    },
+    "stores": [
+     {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     {
+      "id": "430297",
+      "km": 1.5,
+      "lat": 48.12529,
+      "lon": 11.56176,
+      "name": "Penny Thalkirchner Stra\u00dfe",
+      "address": "Thalkirchner Str. 88, 80337 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     {
+      "id": "430012",
+      "km": 1.7,
+      "lat": 48.12699,
+      "lon": 11.59154,
+      "name": "Penny Im Franziskanerhof",
+      "address": "Rablstr. 26, 81669 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     }
+    ],
+    "finished_at": "2026-10-14T15:25:19.406922+00:00"
+   }
+  }
+ },
+ "offers": {
+  "location": {
+   "lat": 48.1371079,
+   "lon": 11.5753822,
+   "plz": "80331",
+   "label": "M\u00fcnchen, Bayern"
+  },
+  "chains": [
+   {
+    "chain": "kaufland",
+    "status": "ok",
+    "reason": null,
+    "store": {
+     "id": "DE8700",
+     "km": 4.0,
+     "lat": 48.1295951,
+     "lon": 11.6260178,
+     "name": "Kaufland M\u00fcnchen-Berg am Laim",
+     "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+     "edition": "DE8700",
+     "located": true
+    },
+    "leaflets": [
+     {
+      "key": "2026-W42:1012-1017",
+      "title": "Angebote 12.10.-17.10.2026",
+      "kind": "main",
+      "valid_from": "2026-10-12",
+      "valid_to": "2026-10-17",
+      "dates_source": "feed",
+      "tier": 1,
+      "status": "complete",
+      "offers": [
+       {
+        "page": null,
+        "brand": null,
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 2,
+        "category": "food",
+        "pack_qty": 1500,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 1,5-kg-Netz",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": "Sorte laut Auszeichnung, Kl. I",
+        "price_cents": 150,
+        "price_check": "feed",
+        "discount_pct": 43,
+        "product_name": "S\u00fcdafrik. Orangen",
+        "old_price_cents": 349,
+        "reference_printed": "1 kg = 1.33",
+        "bundle_price_cents": 300,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 133
+       },
+       {
+        "page": null,
+        "brand": "KANZI",
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 900,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 900-g-Packg.",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": "\u00bbNicoter\u00ab,s\u00fc\u00df-s\u00e4uerlich, Kl. I",
+        "price_cents": 199,
+        "price_check": "feed",
+        "discount_pct": 33,
+        "product_name": "Dtsch./ital. Tafel\u00e4pfel",
+        "old_price_cents": 299,
+        "reference_printed": "1 kg = 2.22",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 221
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 1,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je St\u00fcck",
+        "pack_unit": "stk",
+        "valid_from": "2026-10-12",
+        "description": "\u00bbKent\u00ab oder \u00bbKeitt Kl. I",
+        "price_cents": 99,
+        "price_check": "feed",
+        "discount_pct": 38,
+        "product_name": "Peruan./brasil. Mango, lose",
+        "old_price_cents": 159,
+        "reference_printed": null,
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 99
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 1,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je St\u00fcck",
+        "pack_unit": "stk",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 99,
+        "price_check": "feed",
+        "discount_pct": 50,
+        "product_name": "T\u00fcrk./span. Granatapfel, lose",
+        "old_price_cents": 199,
+        "reference_printed": null,
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 99
+       },
+       {
+        "page": null,
+        "brand": "DRISCOLL'S",
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 125,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 125-g-Packg.",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": "Kl. I",
+        "price_cents": 179,
+        "price_check": "feed",
+        "discount_pct": 36,
+        "product_name": "Marokk./port. Himbeeren",
+        "old_price_cents": 279,
+        "reference_printed": "1 kg = 14.32",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 1432
+       },
+       {
+        "page": null,
+        "brand": "NEGRI",
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 125,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 125-g-Schale",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": "Kl. I",
+        "price_cents": 179,
+        "price_check": "feed",
+        "discount_pct": 28,
+        "product_name": "Ital. Kiwibeeren",
+        "old_price_cents": 249,
+        "reference_printed": "1 kg = 14.32",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 1432
+       }
+      ],
+      "expired_on": null
+     }
+    ]
+   },
+   {
+    "chain": "penny",
+    "status": "ok",
+    "reason": null,
+    "store": {
+     "id": "430153",
+     "km": 0.5,
+     "lat": 48.13148,
+     "lon": 11.57541,
+     "name": "Penny G\u00e4rtnerplatz",
+     "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+     "edition": "15A-04-80",
+     "located": true
+    },
+    "leaflets": [
+     {
+      "key": "2026-W42",
+      "title": "Angebote KW 42",
+      "kind": "offers",
+      "valid_from": "2026-10-12",
+      "valid_to": "2026-10-17",
+      "dates_source": "text",
+      "tier": 1,
+      "status": "complete",
+      "offers": [
+       {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 195,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 195 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 111,
+        "price_check": "feed",
+        "discount_pct": 52,
+        "product_name": "PHILADELPHIA Frischk\u00e4sezubereitung",
+        "old_price_cents": 229,
+        "reference_printed": "1 kg = 5.69",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 99,
+        "reference_price_cents": 569
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 100,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 100 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 111,
+        "price_check": "feed",
+        "discount_pct": 44,
+        "product_name": "RITTER SPORT Bunte Vielfalt",
+        "old_price_cents": 199,
+        "reference_printed": "1 kg = 11.10",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 99,
+        "reference_price_cents": 1110
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 75,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 75 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 169,
+        "price_check": "feed",
+        "discount_pct": 26,
+        "product_name": "RITTER SPORT Edelkakaoklasse",
+        "old_price_cents": 229,
+        "reference_printed": "1 kg = 22.53",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 149,
+        "reference_price_cents": 2253
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 250,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 250-g-Schale",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 88,
+        "price_check": "feed",
+        "discount_pct": null,
+        "product_name": "Cherry-Romatomaten",
+        "old_price_cents": null,
+        "reference_printed": "1 kg = 3.52",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 352
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 157,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 157 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 279,
+        "price_check": "feed",
+        "discount_pct": 30,
+        "product_name": "FERRERO Mon Ch\u00e9ri",
+        "old_price_cents": 399,
+        "reference_printed": "1 kg = 17.77",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 249,
+        "reference_price_cents": 1777
+       },
+       {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 500,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 500 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 649,
+        "price_check": "feed",
+        "discount_pct": 34,
+        "product_name": "DALLMAYR Classic Kaffee",
+        "old_price_cents": 979,
+        "reference_printed": "1 kg = 12.98",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 599,
+        "reference_price_cents": 1298
+       }
+      ],
+      "expired_on": null
+     }
+    ]
+   }
+  ]
+ },
+ "runs": [
+  {
+   "id": "r1",
+   "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+   "chain": "penny",
+   "plz": "80331",
+   "trigger": "user",
+   "status": "ok",
+   "store": {
+    "id": "430153",
+    "km": 0.5,
+    "lat": 48.13148,
+    "lon": 11.57541,
+    "name": "Penny G\u00e4rtnerplatz",
+    "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+    "edition": "15A-04-80",
+    "located": true
+   },
+   "tier": 1,
+   "pages": 0,
+   "offers": 323,
+   "flagged": 0,
+   "self_heal": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "error": null,
+   "next_week": null,
+   "trace_id": "0af7651916cd43dd8448eb211c80319c",
+   "started_at": "2026-10-14T08:00:00Z",
+   "finished_at": "2026-10-14T08:00:04Z"
+  },
+  {
+   "id": "r2",
+   "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+   "chain": "penny",
+   "plz": "80331",
+   "trigger": "user",
+   "status": "ok",
+   "store": {
+    "id": "430153",
+    "km": 0.5,
+    "lat": 48.13148,
+    "lon": 11.57541,
+    "name": "Penny G\u00e4rtnerplatz",
+    "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+    "edition": "15A-04-80",
+    "located": true
+   },
+   "tier": 1,
+   "pages": 0,
+   "offers": 323,
+   "flagged": 0,
+   "self_heal": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "error": null,
+   "next_week": null,
+   "trace_id": null,
+   "started_at": "2026-10-14T08:00:00Z",
+   "finished_at": "2026-10-14T08:00:04Z"
+  }
+ ],
+ "evals": [
+  {
+   "model": "qwen3.5-9b",
+   "passed": false,
+   "suites": {
+    "matcher": {
+     "items": 198,
+     "scores": {
+      "accuracy": 0.8838,
+      "precision": 0.9123,
+      "recall": 0.7429
+     },
+     "gates": {
+      "accuracy": 0.9
+     },
+     "passed": false
+    },
+    "baskets": {
+     "items": 20,
+     "scores": {
+      "pass_rate": 0.85,
+      "must_rate": 0.9
+     },
+     "gates": {
+      "pass_rate": 0.8
+     },
+     "passed": true
+    },
+    "extraction": {
+     "items": 50,
+     "scores": {
+      "price_acc": 0.93,
+      "name_recall": 0.88,
+      "json_validity": 1.0
+     },
+     "gates": {
+      "name_recall": 0.95
+     },
+     "passed": false,
+     "chains": {
+      "aldi": {
+       "price_acc": 0.95
+      }
+     },
+     "bench": {
+      "pages": 50,
+      "wall_s": 203.4
+     }
+    }
+   }
+  },
+  {
+   "model": "qwen3.6-35b-a3b",
+   "passed": true,
+   "suites": {
+    "extraction": {
+     "items": 50,
+     "scores": {
+      "price_acc": 0.95,
+      "name_recall": 0.96,
+      "json_validity": 1.0
+     },
+     "gates": {
+      "name_recall": 0.95
+     },
+     "passed": true
+    }
+   }
+  }
+ ],
+ "scan": {
+  "events": [
+   {
+    "t": 0,
+    "data": {
+     "event": "run",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "location": {
+      "lat": 48.1371079,
+      "lon": 11.5753822,
+      "plz": "80331",
+      "label": "M\u00fcnchen, Bayern"
+     },
+     "radius_km": 5.0,
+     "chains": [
+      "penny",
+      "kaufland",
+      "aldi",
+      "netto",
+      "lidl",
+      "rewe"
+     ]
+    }
+   },
+   {
+    "t": 400,
+    "data": {
+     "seq": 1,
+     "chain": "penny",
+     "event": "step",
+     "step": "stores"
+    }
+   },
+   {
+    "t": 800,
+    "data": {
+     "seq": 2,
+     "chain": "aldi",
+     "event": "step",
+     "step": "stores"
+    }
+   },
+   {
+    "t": 1200,
+    "data": {
+     "seq": 3,
+     "chain": "netto",
+     "event": "step",
+     "step": "stores"
+    }
+   },
+   {
+    "t": 1600,
+    "data": {
+     "seq": 4,
+     "chain": "lidl",
+     "event": "step",
+     "step": "stores"
+    }
+   },
+   {
+    "t": 2000,
+    "data": {
+     "seq": 5,
+     "chain": "rewe",
+     "event": "step",
+     "step": "stores"
+    }
+   },
+   {
+    "t": 2400,
+    "data": {
+     "seq": 6,
+     "chain": "penny",
+     "event": "store",
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     }
+    }
+   },
+   {
+    "t": 2800,
+    "data": {
+     "seq": 7,
+     "chain": "aldi",
+     "event": "store",
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Aldi S\u00fcd",
+      "address": "",
+      "edition": "sued",
+      "located": false
+     }
+    }
+   },
+   {
+    "t": 3200,
+    "data": {
+     "seq": 8,
+     "chain": "netto",
+     "event": "store",
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Netto",
+      "address": "",
+      "edition": "posb",
+      "located": false
+     }
+    }
+   },
+   {
+    "t": 3600,
+    "data": {
+     "seq": 9,
+     "chain": "penny",
+     "event": "leaflet",
+     "key": "2026-W42",
+     "title": "Angebote KW 42",
+     "kind": "offers",
+     "valid_from": "2026-10-12",
+     "valid_to": "2026-10-17",
+     "dates_source": "text",
+     "tier": 1,
+     "status": "complete",
+     "offers": 323
+    }
+   },
+   {
+    "t": 4000,
+    "data": {
+     "seq": 10,
+     "chain": "penny",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42",
+       "title": "Angebote KW 42",
+       "kind": "offers",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "text",
+       "tier": 1,
+       "status": "complete",
+       "offers": 323,
+       "flagged": 0
+      }
+     ]
+    }
+   },
+   {
+    "t": 4400,
+    "data": {
+     "seq": 11,
+     "chain": "kaufland",
+     "event": "chain_done",
+     "status": "no_store",
+     "reason": "No Kaufland within 5 km.",
+     "store": null,
+     "leaflets": []
+    }
+   },
+   {
+    "t": 4800,
+    "data": {
+     "seq": 12,
+     "chain": "aldi",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Aldi S\u00fcd",
+      "address": "",
+      "edition": "sued",
+      "located": false
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42",
+       "title": "Aldi S\u00fcd KW 42",
+       "kind": "main",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "feed",
+       "tier": 1,
+       "status": "complete",
+       "offers": 151,
+       "flagged": 0
+      }
+     ]
+    }
+   },
+   {
+    "t": 5200,
+    "data": {
+     "seq": 13,
+     "chain": "netto",
+     "event": "step",
+     "step": "pages",
+     "leaflet": "2026-W42-posb",
+     "n": 3
+    }
+   },
+   {
+    "t": 5600,
+    "data": {
+     "seq": 14,
+     "chain": "netto",
+     "event": "page",
+     "leaflet": "2026-W42-posb",
+     "index": 0,
+     "total": 3,
+     "ok": true,
+     "offers": 5
+    }
+   },
+   {
+    "t": 6000,
+    "data": {
+     "seq": 15,
+     "chain": "netto",
+     "event": "page",
+     "leaflet": "2026-W42-posb",
+     "index": 1,
+     "total": 3,
+     "ok": false,
+     "offers": 0
+    }
+   },
+   {
+    "t": 6400,
+    "data": {
+     "seq": 16,
+     "chain": "netto",
+     "event": "page",
+     "leaflet": "2026-W42-posb",
+     "index": 2,
+     "total": 3,
+     "ok": true,
+     "offers": 7
+    }
+   },
+   {
+    "t": 6800,
+    "data": {
+     "seq": 17,
+     "chain": "netto",
+     "event": "chain_done",
+     "status": "partial",
+     "reason": "1 of 3 pages could not be read.",
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Netto",
+      "address": "",
+      "edition": "posb",
+      "located": false
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42-posb",
+       "title": "Netto KW 42",
+       "kind": "main",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "text",
+       "tier": 2,
+       "status": "partial",
+       "offers": 12,
+       "flagged": 2,
+       "pages": 3
+      }
+     ]
+    }
+   },
+   {
+    "t": 7600,
+    "data": {
+     "seq": 19,
+     "chain": "lidl",
+     "event": "heal",
+     "step": "select_store",
+     "action": "type",
+     "el_text": "PLZ",
+     "ok": true,
+     "forced": true,
+     "url": "https://www.lidl.de/s/de-DE/filialsuche/"
+    }
+   },
+   {
+    "t": 8000,
+    "data": {
+     "seq": 20,
+     "chain": "lidl",
+     "event": "heal",
+     "step": "select_store",
+     "action": "click",
+     "el_text": "Lidl Sendlinger Str.",
+     "ok": true,
+     "forced": true,
+     "url": "https://www.lidl.de/s/de-DE/filialsuche/"
+    }
+   },
+   {
+    "t": 8400,
+    "data": {
+     "seq": 21,
+     "chain": "lidl",
+     "event": "store",
+     "store": {
+      "id": "DE123",
+      "km": 0.9,
+      "lat": 48.13,
+      "lon": 11.57,
+      "name": "Lidl Sendlinger Str.",
+      "address": "Sendlinger Str. 1, 80331 M\u00fcnchen",
+      "edition": "DE123",
+      "located": true
+     }
+    }
+   },
+   {
+    "t": 8800,
+    "data": {
+     "seq": 22,
+     "chain": "lidl",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": "DE123",
+      "km": 0.9,
+      "lat": 48.13,
+      "lon": 11.57,
+      "name": "Lidl Sendlinger Str.",
+      "address": "Sendlinger Str. 1, 80331 M\u00fcnchen",
+      "edition": "DE123",
+      "located": true
+     },
+     "leaflets": [
+      {
+       "key": "lidl-kw42",
+       "title": "Lidl KW 42",
+       "kind": "main",
+       "valid_from": "2026-10-13",
+       "valid_to": "2026-10-18",
+       "dates_source": "feed",
+       "tier": 3,
+       "status": "complete",
+       "offers": 88,
+       "flagged": 3
+      }
+     ]
+    }
+   },
+   {
+    "t": 9600,
+    "data": {
+     "seq": 24,
+     "chain": "rewe",
+     "event": "chain_done",
+     "status": "blocked",
+     "reason": "REWE blocks automated access (bot protection).",
+     "store": null,
+     "leaflets": []
+    }
+   },
+   {
+    "t": 10000,
+    "data": {
+     "event": "done",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11"
+    }
+   }
+  ],
+  "frames_dropped": 2
+ },
+ "recipe_events": [
+  {
+   "t": 300,
+   "data": {
+    "event": "thinking",
+    "text": "Mango lassi with a cream cheese topping for 4: "
+   }
+  },
+  {
+   "t": 600,
+   "data": {
+    "event": "thinking",
+    "text": "about 200 g Frischk\u00e4se, "
+   }
+  },
+  {
+   "t": 900,
+   "data": {
+    "event": "thinking",
+    "text": "one ripe mango, "
+   }
+  },
+  {
+   "t": 1200,
+   "data": {
+    "event": "thinking",
+    "text": "and 250 g butter for the crumble."
+   }
+  },
+  {
+   "t": 1500,
+   "data": {
+    "event": "items",
+    "items": [
+     {
+      "name": "Frischk\u00e4se",
+      "qty": 200,
+      "unit": "g"
+     },
+     {
+      "name": "Mango",
+      "qty": null,
+      "unit": null
+     },
+     {
+      "name": "Butter",
+      "qty": 250,
+      "unit": "g"
+     }
+    ]
+   }
+  },
+  {
+   "t": 1600,
+   "data": {
+    "event": "done"
+   }
+  }
+ ],
+ "basket": {
+  "t": 1200,
+  "json": {
+   "location": {
+    "lat": 48.1371079,
+    "lon": 11.5753822,
+    "plz": "80331",
+    "label": "M\u00fcnchen, Bayern"
+   },
+   "shop_day": "2026-10-14",
+   "chains": [
+    {
+     "chain": "kaufland",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "chain": "kaufland",
+      "store": "Kaufland M\u00fcnchen-Berg am Laim",
+      "km": 4.0
+     }
+    },
+    {
+     "chain": "penny",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "chain": "penny",
+      "store": "Penny G\u00e4rtnerplatz",
+      "km": 0.5
+     }
+    }
+   ],
+   "needs_scan": [],
+   "items": [
+    {
+     "item": {
+      "name": "Frischk\u00e4se",
+      "qty": 200,
+      "unit": "g"
+     },
+     "status": "matched",
+     "best": [
+      {
+       "chain": "penny",
+       "store": "Penny G\u00e4rtnerplatz",
+       "km": 0.5,
+       "offer": {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 195,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 195 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 111,
+        "price_check": "feed",
+        "discount_pct": 52,
+        "product_name": "PHILADELPHIA Frischk\u00e4sezubereitung",
+        "old_price_cents": 229,
+        "reference_printed": "1 kg = 5.69",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 99,
+        "reference_price_cents": 569
+       },
+       "packs": 2,
+       "cost_cents": 222,
+       "unit_price_cents": 569,
+       "note": null
+      }
+     ],
+     "accepted": [
+      {
+       "chain": "penny",
+       "offer_id": "p1",
+       "name": "PHILADELPHIA Frischk\u00e4sezubereitung",
+       "why": "cream cheese"
+      }
+     ],
+     "rejected": [],
+     "trace": [
+      {
+       "tool": "search_offers",
+       "args": {
+        "query": "Frischk\u00e4se",
+        "k_per_chain": 4
+       },
+       "n": 5,
+       "ms": 380
+      }
+     ],
+     "reason": "Philadelphia is a Frischk\u00e4se.",
+     "turns": 1,
+     "tokens": 412
+    },
+    {
+     "item": {
+      "name": "Mango",
+      "qty": null,
+      "unit": null
+     },
+     "status": "matched",
+     "best": [
+      {
+       "chain": "penny",
+       "store": "Penny G\u00e4rtnerplatz",
+       "km": 0.5,
+       "offer": {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 1,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je St\u00fcck",
+        "pack_unit": "stk",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 89,
+        "price_check": "feed",
+        "discount_pct": null,
+        "product_name": "Mango",
+        "old_price_cents": null,
+        "reference_printed": null,
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 79,
+        "reference_price_cents": 89
+       },
+       "packs": 1,
+       "cost_cents": 89,
+       "unit_price_cents": 89,
+       "note": null
+      },
+      {
+       "chain": "kaufland",
+       "store": "Kaufland M\u00fcnchen-Berg am Laim",
+       "km": 4.0,
+       "offer": {
+        "page": null,
+        "brand": null,
+        "chain": "kaufland",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 1,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je St\u00fcck",
+        "pack_unit": "stk",
+        "valid_from": "2026-10-12",
+        "description": "\u00bbKent\u00ab oder \u00bbKeitt Kl. I",
+        "price_cents": 99,
+        "price_check": "feed",
+        "discount_pct": 38,
+        "product_name": "Peruan./brasil. Mango, lose",
+        "old_price_cents": 159,
+        "reference_printed": null,
+        "bundle_price_cents": null,
+        "loyalty_price_cents": null,
+        "reference_price_cents": 99
+       },
+       "packs": 1,
+       "cost_cents": 99,
+       "unit_price_cents": 99,
+       "note": null
+      }
+     ],
+     "accepted": [
+      {
+       "chain": "penny",
+       "offer_id": "p2",
+       "name": "Mango",
+       "why": null
+      },
+      {
+       "chain": "kaufland",
+       "offer_id": "k1",
+       "name": "Peruan./brasil. Mango, lose",
+       "why": null
+      }
+     ],
+     "rejected": [],
+     "trace": [
+      {
+       "tool": "search_offers",
+       "args": {
+        "query": "Mango",
+        "k_per_chain": 4
+       },
+       "n": 6,
+       "ms": 344
+      }
+     ],
+     "reason": "Both are fresh mangoes.",
+     "turns": 1,
+     "tokens": 388
+    },
+    {
+     "item": {
+      "name": "Butter",
+      "qty": 250,
+      "unit": "g"
+     },
+     "status": "no_offer",
+     "best": [],
+     "accepted": [],
+     "rejected": [
+      {
+       "chain": "penny",
+       "offer_id": "p3",
+       "name": "RITTER SPORT Bunte Vielfalt",
+       "why": "chocolate, not butter"
+      }
+     ],
+     "trace": [
+      {
+       "tool": "search_offers",
+       "args": {
+        "query": "Butter",
+        "k_per_chain": 4
+       },
+       "n": 3,
+       "ms": 402
+      },
+      {
+       "tool": "search_offers",
+       "args": {
+        "query": "Markenbutter",
+        "k_per_chain": 4
+       },
+       "n": 2,
+       "ms": 290
+      }
+     ],
+     "reason": "No candidate is butter.",
+     "turns": 2,
+     "tokens": 655
+    }
+   ],
+   "single": [
+    {
+     "kind": "single",
+     "stores": [
+      {
+       "chain": "penny",
+       "store": "Penny G\u00e4rtnerplatz",
+       "km": 0.5
+      }
+     ],
+     "total_cents": 311,
+     "covered": [
+      "Frischk\u00e4se",
+      "Mango"
+     ],
+     "missing": [
+      "Butter"
+     ],
+     "lines": [
+      {
+       "item": "Frischk\u00e4se",
+       "match": {
+        "chain": "penny",
+        "store": "Penny G\u00e4rtnerplatz",
+        "km": 0.5,
+        "offer": {
+         "page": null,
+         "brand": null,
+         "chain": "penny",
+         "source": "feed",
+         "min_qty": 1,
+         "category": "food",
+         "pack_qty": 195,
+         "valid_to": "2026-10-17",
+         "condition": null,
+         "pack_text": "je 195 g",
+         "pack_unit": "g",
+         "valid_from": "2026-10-12",
+         "description": null,
+         "price_cents": 111,
+         "price_check": "feed",
+         "discount_pct": 52,
+         "product_name": "PHILADELPHIA Frischk\u00e4sezubereitung",
+         "old_price_cents": 229,
+         "reference_printed": "1 kg = 5.69",
+         "bundle_price_cents": null,
+         "loyalty_price_cents": 99,
+         "reference_price_cents": 569
+        },
+        "packs": 2,
+        "cost_cents": 222,
+        "unit_price_cents": 569,
+        "note": null
+       }
+      },
+      {
+       "item": "Mango",
+       "match": {
+        "chain": "penny",
+        "store": "Penny G\u00e4rtnerplatz",
+        "km": 0.5,
+        "offer": {
+         "page": null,
+         "brand": null,
+         "chain": "penny",
+         "source": "feed",
+         "min_qty": 1,
+         "category": "food",
+         "pack_qty": 1,
+         "valid_to": "2026-10-17",
+         "condition": null,
+         "pack_text": "je St\u00fcck",
+         "pack_unit": "stk",
+         "valid_from": "2026-10-12",
+         "description": null,
+         "price_cents": 89,
+         "price_check": "feed",
+         "discount_pct": null,
+         "product_name": "Mango",
+         "old_price_cents": null,
+         "reference_printed": null,
+         "bundle_price_cents": null,
+         "loyalty_price_cents": 79,
+         "reference_price_cents": 89
+        },
+        "packs": 1,
+        "cost_cents": 89,
+        "unit_price_cents": 89,
+        "note": null
+       }
+      }
+     ],
+     "saves_cents": null
+    },
+    {
+     "kind": "single",
+     "stores": [
+      {
+       "chain": "kaufland",
+       "store": "Kaufland M\u00fcnchen-Berg am Laim",
+       "km": 4.0
+      }
+     ],
+     "total_cents": 99,
+     "covered": [
+      "Mango"
+     ],
+     "missing": [
+      "Frischk\u00e4se",
+      "Butter"
+     ],
+     "lines": [
+      {
+       "item": "Mango",
+       "match": {
+        "chain": "kaufland",
+        "store": "Kaufland M\u00fcnchen-Berg am Laim",
+        "km": 4.0,
+        "offer": {
+         "page": null,
+         "brand": null,
+         "chain": "kaufland",
+         "source": "feed",
+         "min_qty": 1,
+         "category": "food",
+         "pack_qty": 1,
+         "valid_to": "2026-10-17",
+         "condition": null,
+         "pack_text": "je St\u00fcck",
+         "pack_unit": "stk",
+         "valid_from": "2026-10-12",
+         "description": "\u00bbKent\u00ab oder \u00bbKeitt Kl. I",
+         "price_cents": 99,
+         "price_check": "feed",
+         "discount_pct": 38,
+         "product_name": "Peruan./brasil. Mango, lose",
+         "old_price_cents": 159,
+         "reference_printed": null,
+         "bundle_price_cents": null,
+         "loyalty_price_cents": null,
+         "reference_price_cents": 99
+        },
+        "packs": 1,
+        "cost_cents": 99,
+        "unit_price_cents": 99,
+        "note": null
+       }
+      }
+     ],
+     "saves_cents": null
+    }
+   ],
+   "split": {
+    "kind": "split",
+    "stores": [
+     {
+      "chain": "penny",
+      "store": "Penny G\u00e4rtnerplatz",
+      "km": 0.5
+     },
+     {
+      "chain": "kaufland",
+      "store": "Kaufland M\u00fcnchen-Berg am Laim",
+      "km": 4.0
+     }
+    ],
+    "total_cents": 311,
+    "covered": [
+     "Frischk\u00e4se",
+     "Mango"
+    ],
+    "missing": [
+     "Butter"
+    ],
+    "lines": [
+     {
+      "item": "Frischk\u00e4se",
+      "match": {
+       "chain": "penny",
+       "store": "Penny G\u00e4rtnerplatz",
+       "km": 0.5,
+       "offer": {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 195,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je 195 g",
+        "pack_unit": "g",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 111,
+        "price_check": "feed",
+        "discount_pct": 52,
+        "product_name": "PHILADELPHIA Frischk\u00e4sezubereitung",
+        "old_price_cents": 229,
+        "reference_printed": "1 kg = 5.69",
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 99,
+        "reference_price_cents": 569
+       },
+       "packs": 2,
+       "cost_cents": 222,
+       "unit_price_cents": 569,
+       "note": null
+      }
+     },
+     {
+      "item": "Mango",
+      "match": {
+       "chain": "penny",
+       "store": "Penny G\u00e4rtnerplatz",
+       "km": 0.5,
+       "offer": {
+        "page": null,
+        "brand": null,
+        "chain": "penny",
+        "source": "feed",
+        "min_qty": 1,
+        "category": "food",
+        "pack_qty": 1,
+        "valid_to": "2026-10-17",
+        "condition": null,
+        "pack_text": "je St\u00fcck",
+        "pack_unit": "stk",
+        "valid_from": "2026-10-12",
+        "description": null,
+        "price_cents": 89,
+        "price_check": "feed",
+        "discount_pct": null,
+        "product_name": "Mango",
+        "old_price_cents": null,
+        "reference_printed": null,
+        "bundle_price_cents": null,
+        "loyalty_price_cents": 79,
+        "reference_price_cents": 89
+       },
+       "packs": 1,
+       "cost_cents": 89,
+       "unit_price_cents": 89,
+       "note": null
+      }
+     }
+    ],
+    "saves_cents": null
+   },
+   "gaps": [
+    "Butter"
+   ],
+   "trace_id": "0af7651916cd43dd8448eb211c80319c"
+  }
+ }
+}

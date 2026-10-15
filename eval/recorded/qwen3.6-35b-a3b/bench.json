@@ -1,0 +1,42 @@
+{
+ "model": "qwen3.6-35b-a3b",
+ "served": "/models/qwen3.6-35b-a3b-fp8",
+ "pages": 50,
+ "resumed": 0,
+ "all": false,
+ "wall_s": 133.8,
+ "pages_per_min": 22.4,
+ "p50_s": 63.17,
+ "p95_s": 106.02,
+ "first_done_spread_s": 23.6,
+ "failure_rate": 0.0,
+ "unrecovered_length_rate": 0.0,
+ "loop_rate": 0.0,
+ "chains": {
+  "aldi": {
+   "pages": 10,
+   "first_done_s": 33.1,
+   "last_done_s": 125.8
+  },
+  "kaufland": {
+   "pages": 10,
+   "first_done_s": 46.7,
+   "last_done_s": 132.4
+  },
+  "netto": {
+   "pages": 10,
+   "first_done_s": 27.0,
+   "last_done_s": 129.0
+  },
+  "penny": {
+   "pages": 10,
+   "first_done_s": 50.6,
+   "last_done_s": 133.8
+  },
+  "rewe": {
+   "pages": 10,
+   "first_done_s": 33.4,
+   "last_done_s": 124.2
+  }
+ }
+}

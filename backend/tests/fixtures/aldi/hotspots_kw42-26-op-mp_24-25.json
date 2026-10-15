@@ -1,0 +1,99 @@
+[
+ {
+  "id": 155401521,
+  "type": "product",
+  "title": "{first_product_title}",
+  "showIndication": true,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.50929,
+   "top": 0.46866,
+   "width": 0.15394,
+   "height": 0.24839,
+   "iconLeft": 0.18456,
+   "iconTop": 0.50472
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "linksToWebshop": false,
+  "products": [
+   {
+    "id": 73850877,
+    "hotspotId": 155401521,
+    "title": "Joghurt",
+    "description": "3,5 % bzw. 1,5 % Fett; je 500 g-Becher",
+    "price": "0.89",
+    "removedFromFeed": false,
+    "webshopIdentifier": "203326_kw42",
+    "productType": "Joghurts/Quark - Joghurt Natur",
+    "brand": "WEIHENSTEPHAN",
+    "customLabel1": "16.10.",
+    "customLabel2": "je 500-g-Becher",
+    "customLabel4": "1.78",
+    "customLabel6": "new",
+    "customLabel8": "je Becher",
+    "customLabel9": "kg-Preis 1.78",
+    "customLabel12": "Aktion",
+    "photoSharingUrl": "https://aldi-assets.publitas.com/feed-images/2026/42/203326_002_Joghurt-Naturjoghurt-15-Fett_Produkt_001.png"
+   }
+  ],
+  "firstProductTitle": "Joghurt",
+  "touchedByAi": false
+ },
+ {
+  "id": 155401513,
+  "type": "product",
+  "title": "{first_product_title}",
+  "showIndication": true,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.83159,
+   "top": 0.33861,
+   "width": 0.15291,
+   "height": 0.60223,
+   "iconLeft": 0.49324,
+   "iconTop": 0.82296
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "linksToWebshop": false,
+  "products": [
+   {
+    "id": 73850869,
+    "hotspotId": 155401513,
+    "title": "Espresso Cremoso oder Caff\u00e8 Crema & Aroma",
+    "description": "Ganze Bohnen; 8 x 1-kg-Packung = 8-kg-Karton; (Einzelpreis 10.99, 8 Packungen \u00e0 1,0 kg = 87.92)",
+    "price": "87.92",
+    "removedFromFeed": false,
+    "discountedPrice": "65.94",
+    "webshopIdentifier": "520909_kw42",
+    "webshopUrl": "http://KAUFE 6 + 2 Gratis\u00b9",
+    "brand": "BARISSIMO",
+    "customLabel0": "25",
+    "customLabel1": "16.10.",
+    "customLabel2": "je 1-kg-Packung bzw. 8-kg-Karton",
+    "customLabel4": "8.24",
+    "customLabel6": "new",
+    "customLabel8": "je Packung bzw. Karton",
+    "customLabel9": "kg-Preis 8.24",
+    "photoSharingUrl": "https://aldi-assets.publitas.com/feed-images/2026/42/520909_001_Cremoso-Cremoso_Produkt_001.png"
+   }
+  ],
+  "firstProductTitle": "Espresso Cremoso oder Caff\u00e8 Crema & Aroma",
+  "touchedByAi": false
+ }
+]

@@ -1,0 +1,99 @@
+[
+ {
+  "id": 155401055,
+  "type": "product",
+  "title": "{first_product_title}",
+  "showIndication": true,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.75003,
+   "top": 0.43186,
+   "width": 0.23127,
+   "height": 0.18445,
+   "iconLeft": 0.03092,
+   "iconTop": 0.86207
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "linksToWebshop": false,
+  "products": [
+   {
+    "id": 73850469,
+    "hotspotId": 155401055,
+    "title": "Milk & Crisp",
+    "description": "9 x 23,5 g = 211,5-g-Packung",
+    "price": "1.99",
+    "removedFromFeed": false,
+    "discountedPrice": "1.69",
+    "webshopIdentifier": "689612_kw42",
+    "brand": "CHOCEUR",
+    "customLabel0": "15",
+    "customLabel1": "12.10.",
+    "customLabel2": "je 9 x 23,5 g = 211,5-g-Packung",
+    "customLabel4": "7.99",
+    "customLabel6": "new",
+    "customLabel8": "je Packung",
+    "customLabel9": "kg-Preis 7.99",
+    "photoSharingUrl": "https://aldi-assets.publitas.com/feed-images/2026/42/689612_001_Milk-Crisp-Milchschokolade_Produkt_001.png"
+   }
+  ],
+  "firstProductTitle": "Milk & Crisp",
+  "touchedByAi": false
+ },
+ {
+  "id": 155401047,
+  "type": "product",
+  "title": "{first_product_title}",
+  "showIndication": true,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.25635,
+   "top": 0.57528,
+   "width": 0.2335,
+   "height": 0.1966,
+   "iconLeft": 0.03097,
+   "iconTop": 0.76818
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "linksToWebshop": false,
+  "products": [
+   {
+    "id": 73850463,
+    "hotspotId": 155401047,
+    "title": "Emmentaler",
+    "description": "Am St\u00fcck; 400-g-Packung",
+    "price": "3.49",
+    "removedFromFeed": false,
+    "discountedPrice": "2.39",
+    "webshopIdentifier": "202667_kw42",
+    "productType": "K\u00e4se/K\u00e4seersatzprodukte - Hart-/Schnittk\u00e4se",
+    "brand": "MILSANI",
+    "customLabel0": "31",
+    "customLabel1": "12.10.",
+    "customLabel2": "je 400-g-Packung",
+    "customLabel4": "5.98",
+    "customLabel6": "new",
+    "customLabel8": "je Packung",
+    "customLabel9": "kg-Preis 5.98",
+    "photoSharingUrl": "https://aldi-assets.publitas.com/feed-images/2026/42/202667_001_Emmentaler-am-Stueck-Emmentaler-am-Stueck_Produkt_001.png"
+   }
+  ],
+  "firstProductTitle": "Emmentaler",
+  "touchedByAi": false
+ }
+]

@@ -1,36 +1,16 @@
-"""Per-retailer prospekt recipe registry.
+"""Chain module registry.
 
-Add a retailer by dropping in `<retailer>.py` (a Recipe) + `prompts/<retailer>_extract.txt`, then
-registering it here. See docs/adding-a-retailer.md.
+Each chain is a plain module (`agents/<chain>.py`) registered here by name. Chains are
+added back one by one as their acquisition tier is rebuilt.
 """
 from __future__ import annotations
 
-from app.agents.aldi import AldiRecipe
-from app.agents.base import ProspektPages, Recipe
-from app.agents.kaufland import KauflandRecipe
-from app.agents.lidl import LidlRecipe
-from app.agents.netto import NettoRecipe
-from app.agents.penny import PennyRecipe
-from app.agents.rewe import ReweRecipe
+from types import ModuleType
 
-_RECIPES: dict[str, type] = {
-    "lidl": LidlRecipe,
-    "kaufland": KauflandRecipe,
-    "aldi": AldiRecipe,
-    "penny": PennyRecipe,
-    "rewe": ReweRecipe,
-    "netto": NettoRecipe,
-}
+from app.agents import aldi, kaufland, lidl, netto, penny, rewe
+
+CHAINS: dict[str, ModuleType] = {m.NAME: m for m in (penny, kaufland, aldi, netto, lidl, rewe)}
 
 
-def get_recipe(name: str) -> Recipe:
-    if name not in _RECIPES:
-        raise KeyError(f"no prospekt recipe for '{name}' (have: {', '.join(_RECIPES)})")
-    return _RECIPES[name]()
-
-
-def available_retailers() -> list[str]:
-    return list(_RECIPES)
-
-
-__all__ = ["ProspektPages", "Recipe", "LidlRecipe", "get_recipe", "available_retailers"]
+def available_chains() -> list[str]:
+    return list(CHAINS)

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>Filialsuche (fixture)</title></head>
+<body>
+<!-- A stand-in for www.lidl.de/s/de-DE/filialen/: the same consent, search field, flyout and
+     result tiles; the page itself calls the store API, as the real finder does. -->
+<div id="banner"><button id="onetrust-accept-btn-handler">Alle akzeptieren</button></div>
+<input class="search-field__input" aria-label="PLZ">
+<ul id="flyout"></ul>
+<ul id="results"></ul>
+<script>
+const field = document.querySelector("input.search-field__input");
+document.getElementById("onetrust-accept-btn-handler").onclick = () => {
+  document.cookie = "OptanonAlertBoxClosed=1; path=/";
+  document.getElementById("banner").remove();
+};
+field.oninput = () => {
+  document.getElementById("flyout").innerHTML =
+    `<li class="search-field__flyout-item">${field.value} München</li>`;
+};
+field.onkeydown = async (e) => {
+  if (e.key !== "Enter") return;
+  const data = await (await fetch("/stores-frontend/stores?geo_box=48.1,11.5,48.2,11.6")).json();
+  const list = document.getElementById("results");
+  for (const s of data.items) {
+    const li = document.createElement("li");
+    li.className = "store-search-result__tile";
+    li.textContent = s.address.streetName + " ";
+    const b = document.createElement("button");
+    b.textContent = "Meine Filiale";
+    b.onclick = () => fetch("/stores-frontend/stores?object_number=" + s.objectNumber);
+    li.append(b);
+    list.append(li);
+  }
+};
+</script>
+</body></html>

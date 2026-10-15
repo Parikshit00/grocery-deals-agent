@@ -1,4 +1,4 @@
-"""Async SQLAlchemy engine + session factory. Shared across the app."""
+"""Async SQLAlchemy engine + session factory. Schema is owned by Alembic migrations."""
 from __future__ import annotations
 
 from sqlalchemy import text
@@ -16,11 +16,3 @@ async def ping() -> bool:
     async with engine.connect() as conn:
         await conn.execute(text("SELECT 1"))
     return True
-
-
-async def init_models() -> None:
-    """Create tables that do not yet exist."""
-    from app.persistence.models import Base
-
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)

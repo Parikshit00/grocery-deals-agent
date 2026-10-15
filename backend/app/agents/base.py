@@ -1,5 +1,19 @@
-"""Shared Playwright helpers + the Recipe protocol. Deterministic navigation only - no LLM
-in the browse loop."""
+"""The chain module contract plus shared HTTP and Playwright helpers.
+
+A chain module (`agents/<chain>.py`) is a plain module exposing:
+
+    NAME: str            registry key, e.g. "penny"
+    LABEL: str           display name
+    LOYALTY: str | None  name of the chain's app/card price program, if any
+    DOMAINS: tuple[str, ...]  hosts the chain may touch (browser and navigator allowlist)
+    async def stores(ctx) -> list[Store]               candidate stores near ctx.lat/ctx.lon
+    async def leaflets(ctx, store) -> list[Leaflet]    offer windows valid today or next week
+    async def acquire(ctx, store, leaflet) -> Acquired
+
+It raises NotCovered (location outside the chain's area), Blocked (the site refuses honest
+automation) or StepFailed (a scripted step's post-condition failed); the message is shown to
+users. No other module branches on a chain's name.
+"""
 from __future__ import annotations
 
 import asyncio
@@ -7,41 +21,137 @@ import io
 import re
 from collections.abc import Callable
 from contextlib import asynccontextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, timedelta
-from typing import Protocol
 
 import httpx
 from PIL import Image
-from playwright.async_api import Page, async_playwright
+from playwright.async_api import Page as BrowserPage
+from playwright.async_api import async_playwright
 
 from app.core.logging import get_logger
+from app.schemas.offer import Offer
 
 log = get_logger(__name__)
 
-# Publitas leaflet viewers (Aldi Sued, Netto) serve pages as <uuid>-at<width>.jpg at several widths.
-_PUBLITAS_PAGE = re.compile(r"/pages/([0-9a-f-]+)-at(\d+)\.jpg", re.I)
-_PUBLITAS_AT = re.compile(r"-at\d+\.jpg", re.I)
 
-_UA = (
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124 Safari/537.36"
-)
-# Realistic fingerprint for sites with bot walls (Netto/Rewe).
-_STEALTH_UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
-)
-_STEALTH_HEADERS = {
-    "Accept-Language": "de-DE,de;q=0.9,en;q=0.8",
-    "sec-ch-ua": '"Chromium";v="148", "Google Chrome";v="148", "Not?A_Brand";v="24"',
-    "sec-ch-ua-platform": '"Windows"',
-    "sec-ch-ua-mobile": "?0",
-}
-_STEALTH_JS = (
-    "Object.defineProperty(navigator,'webdriver',{get:()=>undefined});"
-    "window.chrome={runtime:{}};"
-)
+class NotCovered(Exception):
+    """The location is outside the area this chain (edition) serves."""
+
+
+class Blocked(Exception):
+    """The site refuses honest automation (bot challenge, 403); never worked around."""
+
+
+class StepFailed(Exception):
+    """A scripted step's post-condition failed (and healing, if any, did not recover it)."""
+
+
+@dataclass(frozen=True)
+class Store:
+    id: str | None
+    name: str
+    address: str
+    lat: float | None
+    lon: float | None
+    edition: str  # what the offers vary by: store id, selling region, or a national edition
+    located: bool = True  # False: edition known but no store position (offer wall only)
+
+
+@dataclass(frozen=True)
+class Leaflet:
+    key: str  # unique per (chain, edition); always contains the ISO year, e.g. "2026-W41"
+    title: str
+    kind: str  # main | extra | offers | preview (next week's not yet complete set)
+    valid_from: date
+    valid_to: date
+    dates_source: str  # feed | text | derived (derived = calendar estimate, shown as such)
+    source_url: str | None = None
+    pdf_url: str | None = None
+
+
+@dataclass(frozen=True)
+class Page:
+    """One leaflet page for the VLM tier: image plus its text layer, if any."""
+
+    image_url: str
+    text: str | None = None
+
+
+@dataclass
+class Acquired:
+    tier: int  # 1 structured feed, 2 leaflet pages via VLM, 3 browser
+    offers: list[Offer] = field(default_factory=list)
+    pages: list[Page] = field(default_factory=list)
+    complete: bool = True  # every request of the tier succeeded / every page accounted for
+
+
+@dataclass
+class ScanCtx:
+    """Everything a chain module may use for one scan of one location."""
+
+    http: httpx.AsyncClient
+    plz: str
+    lat: float
+    lon: float
+    today: date
+    emit: Callable[[dict], None] = lambda event: None
+
+
+def http_client(contact: str) -> httpx.AsyncClient:
+    """Honest HTTP client: identifies the project and a contact; small connection pool."""
+    return httpx.AsyncClient(
+        timeout=httpx.Timeout(20.0),
+        follow_redirects=True,
+        headers={
+            "User-Agent": f"grocery-deals-agent/0.1 (+{contact}; personal, non-commercial)",
+            "Accept-Language": "de-DE,de;q=0.9",
+        },
+        limits=httpx.Limits(max_connections=4),
+    )
+
+
+def iso_key(d: date) -> str:
+    """ISO week key with the ISO year, e.g. 2026-12-28 -> "2026-W53"."""
+    year, week, _ = d.isocalendar()
+    return f"{year}-W{week:02d}"
+
+
+def iso_week(d: date) -> tuple[date, date]:
+    """Monday and Sunday of the ISO week containing d."""
+    monday = d - timedelta(days=d.weekday())
+    return monday, monday + timedelta(days=6)
+
+
+_DATE = r"(\d{1,2})\.(\d{1,2})\.(\d{2,4})?"
+_RANGE = re.compile(_DATE + r"\s*(?:-|\u2013|bis(?:\s+(?:zum|einschl\.?))?)\s*" + _DATE)
+
+
+def _date(day: str, month: str, year: str | None, today: date) -> date | None:
+    try:
+        if year:
+            return date(int(year) + (2000 if len(year) == 2 else 0), int(month), int(day))
+        # No year printed: take the year that puts the date closest to today.
+        candidates = [date(today.year + dy, int(month), int(day)) for dy in (-1, 0, 1)]
+    except ValueError:
+        return None
+    return min(candidates, key=lambda c: abs((c - today).days))
+
+
+def parse_validity(text: str, today: date) -> tuple[date, date] | None:
+    """First printed date range in text, e.g. "vom 02.07. bis 08.07.2026" or "13.10.-18.10."."""
+    m = _RANGE.search(text)
+    if not m:
+        return None
+    end = _date(m.group(4), m.group(5), m.group(6), today)
+    if end is None:
+        return None
+    # A start without a year belongs to the end's year (or the year before, across New Year).
+    start = _date(m.group(1), m.group(2), m.group(3) or str(end.year), today)
+    if start is not None and start > end and not m.group(3):
+        start = _date(m.group(1), m.group(2), str(end.year - 1), today)
+    return (start, end) if start is not None and start <= end else None
+
 _COOKIE_SELECTORS = (
     '[data-testid="uc-accept-all-button"]',
     "#onetrust-accept-btn-handler",
@@ -65,40 +175,7 @@ _DISMISS_SELECTORS = _COOKIE_SELECTORS + (
     'button:has-text("Schließen")',
 )
 
-
-def current_week_bounds(days: int = 5) -> tuple[date, date]:
-    """Validity span for a weekly prospekt: this week's Monday .. Monday+`days` (default Sat)."""
-    monday = date.today() - timedelta(days=date.today().weekday())
-    return monday, monday + timedelta(days=days)
-
-
-@dataclass
-class ProspektPages:
-    retailer: str
-    region_key: str
-    valid_from: date | None
-    valid_to: date | None
-    pages: list[bytes]
-    # False when the capture demonstrably stopped early (e.g. never reached the page bottom);
-    # incomplete fetches are returned to the UI but never cached.
-    complete: bool = True
-
-
 OnFrame = Callable[[bytes], None]
-
-
-class Recipe(Protocol):
-    name: str
-
-    def region_key(self, zip_code: str) -> str: ...
-
-    async def fetch(
-        self,
-        zip_code: str,
-        max_pages: int = 80,
-        on_frame: OnFrame | None = None,
-        on_capture: OnFrame | None = None,
-    ) -> ProspektPages: ...
 
 
 def jpeg_thumb(data: bytes, width: int = 640, quality: int = 55) -> bytes:
@@ -114,7 +191,7 @@ def jpeg_thumb(data: bytes, width: int = 640, quality: int = 55) -> bytes:
 _frame_tasks: set[asyncio.Task] = set()
 
 
-def stream_frames(page: Page, on_frame: OnFrame | None, interval_ms: int = 700) -> None:
+def stream_frames(page: BrowserPage, on_frame: OnFrame | None, interval_ms: int = 700) -> None:
     """Stream live JPEG snapshots of `page` to `on_frame` until the page closes.
 
     Feeds the per-agent viewport in the UI. Fire-and-forget: the loop ends itself when the
@@ -137,7 +214,7 @@ def stream_frames(page: Page, on_frame: OnFrame | None, interval_ms: int = 700) 
     task.add_done_callback(_frame_tasks.discard)
 
 
-def dismiss_popups(page: Page, interval_ms: int = 1500) -> None:
+def dismiss_popups(page: BrowserPage, interval_ms: int = 1500) -> None:
     """Keep dismissing cookie banners and promo popups for the page's whole lifetime.
 
     The one-shot accept_cookies stays as the fast path; this sentinel catches banners that load
@@ -164,199 +241,25 @@ def dismiss_popups(page: Page, interval_ms: int = 1500) -> None:
 
 
 @asynccontextmanager
-async def browser_context(headless: bool = True, stealth: bool = False, channel: str | None = None):
-    # channel="chromium" uses the full Chromium (new headless) instead of the lightweight
-    # headless_shell - some sites (Netto) only respond to the full browser fingerprint.
-    args = ["--disable-blink-features=AutomationControlled"] if stealth else []
+async def browser_context(headless: bool = True):
+    """Plain Chromium with its default (honest) user agent; no fingerprint masking."""
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=headless, args=args, channel=channel)
+        browser = await p.chromium.launch(headless=headless)
         ctx = await browser.new_context(
             locale="de-DE",
-            user_agent=_STEALTH_UA if stealth else _UA,
             viewport={"width": 1440, "height": 1100},
             timezone_id="Europe/Berlin",
-            extra_http_headers=_STEALTH_HEADERS if stealth else {},
         )
-        if stealth:
-            await ctx.add_init_script(_STEALTH_JS)
         try:
             yield ctx
         finally:
             await browser.close()
 
 
-async def accept_cookies(page: Page) -> None:
+async def accept_cookies(page: BrowserPage) -> None:
     for sel in _COOKIE_SELECTORS:
         try:
             await page.click(sel, timeout=3000)
             return
         except Exception:  # noqa: BLE001 - banner may be absent or already dismissed
             continue
-
-
-def attach_image_capture(
-    page: Page,
-    store: dict[str, bytes],
-    url_contains: str,
-    min_bytes: int = 50000,
-    on_capture: OnFrame | None = None,
-    publitas_stream: bool = False,
-) -> list[asyncio.Task]:
-    """Collect leaflet page images by intercepting image responses from the leaflet CDN.
-
-    `on_capture` receives each new page's bytes as it arrives, so extraction can start while
-    the viewer is still flipping. With `publitas_stream`, on_capture instead fires once per NEW
-    Publitas page uuid with bytes refetched at high width (viewers emit several widths per page;
-    streaming raw captures would extract thumbnails and duplicates). Returns the refetch tasks -
-    Publitas recipes must gather them before returning so no streamed page is lost.
-    """
-    seen_uuids: set[str] = set()
-    tasks: list[asyncio.Task] = []
-
-    async def hi_res(url: str, body: bytes) -> bytes:
-        async with httpx.AsyncClient(timeout=30.0, headers={"User-Agent": _STEALTH_UA}) as client:
-            data = await _publitas_hi(client, url, body)
-        if on_capture:
-            on_capture(data)
-        return data
-
-    async def on_response(resp):
-        if url_contains not in resp.url:
-            return
-        if not resp.headers.get("content-type", "").startswith("image/"):
-            return
-        try:
-            body = await resp.body()
-        except Exception:  # noqa: BLE001 - response body may be gone
-            return
-        if len(body) >= min_bytes and resp.url not in store:
-            store[resp.url] = body
-            if on_capture:
-                if publitas_stream:
-                    m = _PUBLITAS_PAGE.search(resp.url)
-                    if m and m.group(1) not in seen_uuids:
-                        seen_uuids.add(m.group(1))
-                        tasks.append(asyncio.create_task(hi_res(resp.url, body)))
-                else:
-                    on_capture(body)
-
-    page.on("response", on_response)
-    return tasks
-
-
-async def paginate_capture(
-    page: Page,
-    store: dict[str, bytes],
-    max_pages: int,
-    max_stagnant: int = 8,
-    settle_ms: int = 500,
-) -> None:
-    """Flip a leaflet viewer with ArrowRight until no new pages load (bounded; no LLM, no loops).
-
-    `settle_ms` is how long to wait for each page image to load after a flip - slower viewers
-    (e.g. Netto) need more, or pagination stops early thinking no new page arrived.
-    """
-    await page.mouse.click(700, 550)  # focus the viewer
-    last, stagnant = 0, 0
-    for _ in range(max_pages + max_stagnant):
-        await page.keyboard.press("ArrowRight")
-        await page.wait_for_timeout(settle_ms)
-        if len(store) == last:
-            stagnant += 1
-            if stagnant >= max_stagnant:
-                break
-        else:
-            stagnant, last = 0, len(store)
-        if len(store) >= max_pages:
-            break
-
-
-# Every img intersecting the viewport has finished loading (lazy loaders included).
-_VIEWPORT_IMAGES_LOADED = """() => {
-  const vh = window.innerHeight;
-  return [...document.querySelectorAll('img')].every((img) => {
-    const r = img.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > vh || r.width === 0) return true;
-    return img.complete && img.naturalWidth > 0;
-  });
-}"""
-
-
-async def capture_screenshots(
-    page: Page,
-    max_tiles: int = 40,
-    overlap: float = 0.15,
-    settle_ms: int = 400,
-    on_capture: OnFrame | None = None,
-) -> tuple[list[bytes], bool]:
-    """Scroll a rendered page top to bottom, capturing overlapping viewport screenshots.
-
-    For sites that render offers as HTML (no leaflet image to intercept): the VLM reads these tiles
-    the same way it reads leaflet pages. Recomputes scrollHeight each step to follow lazy loading,
-    and waits for every image in the viewport to finish loading before each shot (bounded, so a
-    broken image can never stall the scan). Returns (tiles, reached_bottom) - False means the
-    scroll was cut off by `max_tiles` and the capture is incomplete.
-    `on_capture` receives each tile as it is taken, so extraction can start while scrolling.
-    """
-    vh = (page.viewport_size or {"height": 1100})["height"]
-    step = max(1, int(vh * (1 - overlap)))
-    shots: list[bytes] = []
-    y = 0
-    complete = False
-    while len(shots) < max_tiles:
-        await page.evaluate("(y) => window.scrollTo(0, y)", y)
-        await page.wait_for_timeout(settle_ms)
-        try:
-            await page.wait_for_function(_VIEWPORT_IMAGES_LOADED, timeout=2000)
-        except Exception:  # noqa: BLE001 - a stuck image must not stall the scan
-            pass
-        shots.append(await page.screenshot())
-        if on_capture:
-            on_capture(shots[-1])
-        height = await page.evaluate("() => document.body.scrollHeight")
-        if y + vh >= height:
-            complete = True
-            break
-        y += step
-    return shots, complete
-
-
-async def publitas_best_pages(
-    captured: dict[str, bytes], hi_widths: tuple[int, ...] = (2000, 1000)
-) -> list[bytes]:
-    """For a Publitas leaflet (pages are <uuid>-at<width>.jpg): one entry per page, upgraded to the
-    largest width the CDN serves (tries `hi_widths` high->low for OCR); fall back to captured bytes.
-    Capturing even small thumbnails per page is enough - each is re-fetched here at high resolution.
-    """
-    best: dict[str, tuple[int, str, bytes]] = {}
-    for url, body in captured.items():
-        m = _PUBLITAS_PAGE.search(url)
-        if not m:
-            continue
-        uuid, width = m.group(1), int(m.group(2))
-        if uuid not in best or width > best[uuid][0]:
-            best[uuid] = (width, url, body)
-
-    sem = asyncio.Semaphore(6)
-
-    async def one(client: httpx.AsyncClient, url: str, body: bytes) -> bytes:
-        async with sem:
-            return await _publitas_hi(client, url, body, hi_widths)
-
-    async with httpx.AsyncClient(timeout=30.0, headers={"User-Agent": _STEALTH_UA}) as client:
-        return list(await asyncio.gather(*[one(client, u, b) for _w, u, b in best.values()]))
-
-
-async def _publitas_hi(
-    client: httpx.AsyncClient, url: str, body: bytes, hi_widths: tuple[int, ...] = (2000, 1000)
-) -> bytes:
-    """Refetch one Publitas page at the highest width the CDN serves; fall back to `body`."""
-    for w in hi_widths:
-        hi = _PUBLITAS_AT.sub(f"-at{w}.jpg", url)
-        try:
-            r = await client.get(hi)
-            if r.status_code == 200 and len(r.content) >= len(body):
-                return r.content
-        except Exception:  # noqa: BLE001 - try the next width / fall back below
-            continue
-    return body

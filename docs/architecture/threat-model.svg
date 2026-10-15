@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="tm-title tm-desc" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+  <title id="tm-title">Grocery Deals Agent: threat model and trust boundaries</title>
+  <desc id="tm-desc">Untrusted inputs (retailer web pages, leaflets and feeds, user input, MCP clients) cross the Docker host boundary through implemented controls into the backend container, which talks to key-protected local model APIs, the Postgres cache and the self-hosted observability stack. Details in docs/security.md.</desc>
+  <defs>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#EF4444"/></marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3B82F6"/></marker>
+    <marker id="ah-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9FB0CC"/></marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#22C55E"/></marker>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="760" rx="16" fill="#0B1220"/>
+
+  <!-- Title -->
+  <text x="40" y="52" font-size="22" font-weight="700" fill="#E6EDF7">Grocery Deals Agent: threat model</text>
+  <text x="40" y="78" font-size="13" fill="#9FB0CC">Where untrusted content enters, which control meets it at the boundary, and what each component may do. Details and OWASP mapping in docs/security.md.</text>
+
+  <!-- Docker host boundary -->
+  <rect x="315" y="110" width="925" height="490" rx="14" fill="none" stroke="#9FB0CC" stroke-width="1.5" stroke-dasharray="8 6"/>
+  <text x="331" y="134" font-size="14" font-weight="700" fill="#E6EDF7">Docker host</text>
+  <text x="428" y="134" font-size="11" fill="#9FB0CC">compose network; Postgres and model ports never published beyond 127.0.0.1</text>
+
+  <!-- Backend container boundary -->
+  <rect x="480" y="150" width="420" height="410" rx="12" fill="#111A2E" fill-opacity="0.45" stroke="#24324D" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="496" y="176" font-size="14" font-weight="700" fill="#E6EDF7">Backend container</text>
+  <text x="648" y="176" font-size="11" fill="#9FB0CC">non-root pwuser, seccomp profile, init</text>
+
+  <!-- Untrusted inputs -->
+  <text x="40" y="186" font-size="11" font-weight="700" letter-spacing="1.5" fill="#EF4444">UNTRUSTED INPUT</text>
+  <g font-size="11" fill="#9FB0CC">
+    <rect x="40" y="200" width="250" height="64" rx="10" fill="#111A2E" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="56" y="222" font-size="14" font-weight="700" fill="#E6EDF7">Retailer web pages</text>
+    <text x="56" y="240">store finders, banners, links</text>
+    <text x="56" y="254">(tier 3 browser chains)</text>
+
+    <rect x="40" y="290" width="250" height="64" rx="10" fill="#111A2E" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="56" y="312" font-size="14" font-weight="700" fill="#E6EDF7">Leaflets and feeds</text>
+    <text x="56" y="330">page images, PDF text layer,</text>
+    <text x="56" y="344">JSON offers, image URLs</text>
+
+    <rect x="40" y="380" width="250" height="64" rx="10" fill="#111A2E" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="56" y="402" font-size="14" font-weight="700" fill="#E6EDF7">User input</text>
+    <text x="56" y="420">location, recipe text,</text>
+    <text x="56" y="434">shopping list, store overrides</text>
+
+    <rect x="40" y="470" width="250" height="64" rx="10" fill="#111A2E" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="56" y="492" font-size="14" font-weight="700" fill="#E6EDF7">MCP clients</text>
+    <text x="56" y="510">external agents and IDEs</text>
+    <text x="56" y="524">calling /mcp</text>
+  </g>
+
+  <!-- Boundary-crossing arrows: red attack label below, green control pill above -->
+  <g stroke="#EF4444" stroke-width="1.8" fill="none">
+    <line x1="290" y1="232" x2="497" y2="232" marker-end="url(#ah-red)"/>
+    <line x1="290" y1="322" x2="497" y2="322" marker-end="url(#ah-red)"/>
+    <line x1="290" y1="412" x2="497" y2="412" marker-end="url(#ah-red)"/>
+    <line x1="290" y1="502" x2="497" y2="502" marker-end="url(#ah-red)"/>
+  </g>
+  <g font-size="10.5" fill="#F87171">
+    <text x="322" y="250">planted instructions, lures</text>
+    <text x="322" y="340">injected text, fake prices</text>
+    <text x="322" y="430">oversized or hostile input</text>
+    <text x="322" y="520">untrusted callers</text>
+  </g>
+  <g>
+    <rect x="305" y="202" width="164" height="22" rx="11" fill="#0B1220" stroke="#22C55E" stroke-width="1.5"/>
+    <rect x="305" y="292" width="164" height="22" rx="11" fill="#0B1220" stroke="#22C55E" stroke-width="1.5"/>
+    <rect x="305" y="382" width="164" height="22" rx="11" fill="#0B1220" stroke="#22C55E" stroke-width="1.5"/>
+    <rect x="305" y="472" width="164" height="22" rx="11" fill="#0B1220" stroke="#22C55E" stroke-width="1.5"/>
+  </g>
+  <g font-size="11" font-weight="600" fill="#22C55E" text-anchor="middle">
+    <text x="387" y="217">route guard + allowlist</text>
+    <text x="387" y="307">fetched by code only</text>
+    <text x="387" y="397">Pydantic size limits</text>
+    <text x="387" y="487">read-only, no writes</text>
+  </g>
+
+  <!-- Backend components -->
+  <g font-size="11" fill="#9FB0CC">
+    <rect x="500" y="200" width="190" height="64" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="514" y="222" font-size="14" font-weight="700" fill="#E6EDF7">Chromium page</text>
+    <text x="514" y="240">sandbox on, no downloads,</text>
+    <text x="514" y="254">popups closed</text>
+
+    <rect x="700" y="200" width="190" height="64" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="714" y="222" font-size="14" font-weight="700" fill="#E6EDF7">Navigator (VLM)</text>
+    <text x="714" y="240">five actions, inputs by key</text>
+    <text x="714" y="254">no model JavaScript or URLs</text>
+
+    <rect x="500" y="290" width="190" height="64" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="514" y="312" font-size="14" font-weight="700" fill="#E6EDF7">Leaflet reader (VLM)</text>
+    <text x="514" y="330">image + text layer in,</text>
+    <text x="514" y="344">JSON offers out, no tools</text>
+
+    <rect x="700" y="290" width="190" height="64" rx="10" fill="#111A2E" stroke="#22C55E" stroke-width="1.5"/>
+    <text x="714" y="312" font-size="14" font-weight="700" fill="#E6EDF7">Price check (code)</text>
+    <text x="714" y="330">printed price must appear</text>
+    <text x="714" y="344">in the page text layer</text>
+
+    <rect x="500" y="380" width="190" height="64" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="514" y="402" font-size="14" font-weight="700" fill="#E6EDF7">API (FastAPI)</text>
+    <text x="514" y="420">REST and SSE endpoints</text>
+    <text x="514" y="434">validated request schemas</text>
+
+    <rect x="700" y="380" width="190" height="64" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="714" y="402" font-size="14" font-weight="700" fill="#E6EDF7">Basket agent (LLM)</text>
+    <text x="714" y="420">search, inspect, answer:</text>
+    <text x="714" y="434">read-only, 3 turns, 20 s</text>
+
+    <rect x="500" y="470" width="190" height="64" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="514" y="492" font-size="14" font-weight="700" fill="#E6EDF7">MCP endpoint</text>
+    <text x="514" y="510">read-only tools over</text>
+    <text x="514" y="524">cached offers and runs</text>
+
+    <rect x="700" y="470" width="190" height="64" rx="10" fill="#111A2E" stroke="#22C55E" stroke-width="1.5"/>
+    <text x="714" y="492" font-size="14" font-weight="700" fill="#E6EDF7">Optimizer (code)</text>
+    <text x="714" y="510">every price and total</text>
+    <text x="714" y="524">computed in code</text>
+  </g>
+
+  <!-- Right column: models, cache, observability -->
+  <g font-size="11" fill="#9FB0CC">
+    <rect x="960" y="200" width="260" height="130" rx="10" fill="#111A2E" stroke="#3B82F6" stroke-width="1.8"/>
+    <text x="976" y="224" font-size="14" font-weight="700" fill="#E6EDF7">Local model APIs (vLLM)</text>
+    <text x="976" y="246">llm :28800 on GPU 0</text>
+    <text x="976" y="264">vlm :28801 on GPU 1</text>
+    <text x="976" y="282">127.0.0.1 only, API key required</text>
+    <text x="976" y="300">weights read-only, HF offline,</text>
+    <text x="976" y="316">usage stats off</text>
+
+    <rect x="960" y="355" width="260" height="75" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="976" y="379" font-size="14" font-weight="700" fill="#E6EDF7">Postgres cache</text>
+    <text x="976" y="399">offers with provenance and validity</text>
+    <text x="976" y="417">complete rows never overwritten</text>
+
+    <rect x="960" y="455" width="260" height="90" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="976" y="479" font-size="14" font-weight="700" fill="#E6EDF7">Observability</text>
+    <text x="976" y="499">Langfuse, Prometheus, Grafana</text>
+    <text x="976" y="517">self-hosted, telemetry off,</text>
+    <text x="976" y="533">every agent step traced</text>
+  </g>
+
+  <!-- Internal flows -->
+  <line x1="900" y1="265" x2="957" y2="265" stroke="#3B82F6" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <line x1="900" y1="392" x2="957" y2="392" stroke="#9FB0CC" stroke-width="1.5" marker-end="url(#ah-grey)"/>
+  <line x1="900" y1="500" x2="957" y2="500" stroke="#9FB0CC" stroke-width="1.5" marker-end="url(#ah-grey)"/>
+  <g font-size="10.5" fill="#9FB0CC" text-anchor="middle">
+    <text x="929" y="258" fill="#3B82F6">API key</text>
+    <text x="929" y="385">SQL</text>
+    <text x="929" y="493">OTLP</text>
+  </g>
+
+  <!-- External services below the host -->
+  <line x1="610" y1="560" x2="610" y2="647" stroke="#9FB0CC" stroke-width="1.5" marker-end="url(#ah-grey)"/>
+  <text x="620" y="625" font-size="10.5" fill="#9FB0CC">location query only</text>
+  <g font-size="11" fill="#9FB0CC">
+    <rect x="480" y="650" width="260" height="70" rx="10" fill="#111A2E" stroke="#24324D" stroke-width="1.5"/>
+    <text x="496" y="674" font-size="14" font-weight="700" fill="#E6EDF7">OpenStreetMap Nominatim</text>
+    <text x="496" y="694">third party, fixed base URL,</text>
+    <text x="496" y="708">identified client, 1 request/s</text>
+
+    <rect x="960" y="650" width="260" height="70" rx="10" fill="#111A2E" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="976" y="674" font-size="14" font-weight="700" fill="#E6EDF7">Registries + Hugging Face</text>
+    <text x="976" y="694">images pinned by digest, weights</text>
+    <text x="976" y="708">by revision + sha256 lock</text>
+  </g>
+  <line x1="1090" y1="650" x2="1090" y2="603" stroke="#22C55E" stroke-width="1.8" marker-end="url(#ah-green)"/>
+  <rect x="1100" y="614" width="124" height="22" rx="11" fill="#0B1220" stroke="#22C55E" stroke-width="1.5"/>
+  <text x="1162" y="629" font-size="11" font-weight="600" fill="#22C55E" text-anchor="middle">pinned + verified</text>
+
+  <!-- Legend -->
+  <g font-size="11" fill="#9FB0CC">
+    <rect x="40" y="652" width="16" height="12" rx="3" fill="#111A2E" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="64" y="662">Untrusted source</text>
+    <rect x="240" y="652" width="16" height="12" rx="3" fill="#111A2E" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="264" y="662">Local model</text>
+    <rect x="40" y="678" width="16" height="12" rx="3" fill="#111A2E" stroke="#22C55E" stroke-width="1.5"/>
+    <text x="64" y="688">Implemented control</text>
+    <line x1="240" y1="684" x2="256" y2="684" stroke="#9FB0CC" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="264" y="688">Trust boundary</text>
+    <text x="40" y="716">Model output is data: it never becomes a URL,</text>
+    <text x="40" y="732">JavaScript, SQL or a price in a plan unchecked.</text>
+  </g>
+</svg>

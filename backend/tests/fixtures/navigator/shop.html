@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- Synthetic test page (not a recording), shaped like a chain's store finder: PLZ search that
+     loads stores.json, a "Markt wählen" button per store, an off-domain link (same server under
+     the host name localhost), a link that redirects off-domain, a new-tab link, a window.open
+     button, a link to a bot wall, a password field and a consent banner inside an open shadow
+     root. -->
+<html lang="de">
+<head><meta charset="utf-8"><title>Filialfinder</title></head>
+<body>
+<nav>
+  <a href="shop.html">Start</a>
+  <a id="out" href="#">Partnerseite</a>
+  <a id="away" href="away">Weiterleitung</a>
+  <a id="tab" href="shop.html" target="_blank">Neues Fenster</a>
+  <button id="popup" type="button" onclick="window.open('shop.html')">Prospekt öffnen</button>
+  <a id="wall" href="cloudflare.html">Angebote</a>
+</nav>
+<div id="consent"></div>
+<main>
+  <input id="plz" placeholder="PLZ oder Ort">
+  <button id="search" type="button">Suchen</button>
+  <input id="pw" type="password" aria-label="Passwort">
+  <ul id="results"></ul>
+  <p id="selected" hidden></p>
+</main>
+<script>
+const consent = document.getElementById('consent');
+const accept = document.createElement('button');
+accept.textContent = 'Alle akzeptieren';
+accept.onclick = () => { consent.hidden = true; };
+consent.attachShadow({mode: 'open'}).appendChild(accept);
+document.getElementById('out').href = 'http://localhost:' + location.port + '/shop.html';
+async function search() {
+  const plz = document.getElementById('plz').value;
+  if (!plz) return;
+  const r = await fetch('stores.json?plz=' + encodeURIComponent(plz));
+  const data = await r.json();
+  const ul = document.getElementById('results');
+  for (const s of data.stores) {
+    const li = document.createElement('li');
+    li.textContent = s.name + ' ';
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = 'Markt wählen';
+    b.onclick = () => {
+      const p = document.getElementById('selected');
+      p.textContent = 'Ihr Markt: ' + s.name;
+      p.hidden = false;
+    };
+    li.appendChild(b);
+    ul.appendChild(li);
+  }
+}
+document.getElementById('search').onclick = search;
+document.getElementById('plz').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+</script>
+</body>
+</html>

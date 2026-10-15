@@ -1,0 +1,112 @@
+{
+  "chain": "aldi",
+  "pdf": "Experiments/Prospekts/ALDI.pdf",
+  "drafted_by": "claude-text-layer",
+  "reviewed": false,
+  "pages": {
+    "1": [
+      {"n": "Vorlesebücher", "b": null, "p": 399, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Kleid", "b": "LILY & DAN", "p": 349, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Outdoor-Sandalen", "b": "LILY & DAN", "p": 999, "o": null, "lp": null, "q": "je Paar", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Sneaker-Socken", "b": "LILY & DAN", "p": 149, "o": null, "lp": null, "q": "3 Paar", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Hipster oder Retro-Boxer", "b": "LILY & DAN", "p": 499, "o": null, "lp": null, "q": "3er-/5er-Set", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Sommer-Set", "b": "LILY & DAN", "p": 499, "o": null, "lp": null, "q": "2er-Set", "bp": null, "c": null, "cat": "nonfood"}
+    ],
+    "3": [
+      {"n": "Interaktives Katzenspielzeug", "b": "CACHET", "p": 799, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Yoga- oder Pilates-Zubehör", "b": "CRANE", "p": 249, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Massage-Zubehör", "b": "CRANE", "p": 249, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Garten-Rosen oder Sommer-Stauden", "b": "GARDENLINE", "p": 349, "o": null, "lp": null, "q": "ca. 15-cm-Kulturtopf; je Stück", "bp": null, "c": "ab", "cat": "nonfood"},
+      {"n": "Grasnelke „Ballerina Red“", "b": null, "p": 349, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Edelrosen in versch. Sorten", "b": null, "p": 999, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Rosen-Stamm „Palace“", "b": null, "p": 1499, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Coreopsis „Golden Sphere“", "b": null, "p": 349, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Kokardenblume „Barbican Red Improved“", "b": null, "p": 349, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"}
+    ],
+    "5": [
+      {"n": "Mini-Lautsprecher BS-95 Bluetooth Speaker „Beach“", "b": null, "p": null, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "PREIS FOLGT", "cat": "nonfood"},
+      {"n": "IQ Denkspiele", "b": null, "p": 899, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Outdoor-Spiele", "b": "CRANE", "p": 149, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Magnetisches Reise-Spielset", "b": null, "p": 799, "o": null, "lp": null, "q": "je Set", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Ferngesteuertes Speed-Boot", "b": "TOYLINO", "p": 999, "o": null, "lp": null, "q": "je Set", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Vakuum-Beutel und -Pumpe", "b": "AMBIANO", "p": 1299, "o": null, "lp": null, "q": "16er-Set", "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Geschicklichkeitsspiele aus Holz", "b": "TOYLINO", "p": 399, "o": null, "lp": null, "q": null, "bp": null, "c": null, "cat": "nonfood"},
+      {"n": "Kaleidoskop-Malbuch-Set", "b": null, "p": 499, "o": null, "lp": null, "q": "je Set", "bp": null, "c": null, "cat": "nonfood"}
+    ],
+    "9": [
+      {"n": "Wandpaneele", "b": "HOME CREATION", "p": 1999, "o": null, "lp": null, "q": "2er-Packung", "bp": null, "c": "ab Do. 16.7.", "cat": "nonfood"},
+      {"n": "Solar-Tischleuchte", "b": "CASALUX", "p": 299, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "nonfood"},
+      {"n": "Beistelltisch", "b": "HOME CREATION", "p": 1299, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "nonfood"},
+      {"n": "Kokos-Fußmatte", "b": "HOME CREATION", "p": 399, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "nonfood"},
+      {"n": "Solar-Gartenfackeln", "b": "CASALUX", "p": 699, "o": null, "lp": null, "q": "5er-Packung", "bp": null, "c": "ab Do. 16.7.", "cat": "nonfood"},
+      {"n": "Spätsommer- und Herbstblüher", "b": "GARDENLINE", "p": 399, "o": null, "lp": null, "q": "ca. 17-cm-Kulturtopf; je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "nonfood"}
+    ],
+    "11": [
+      {"n": "Tür-Wäschehänger", "b": "HOME CREATION", "p": 999, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "household"},
+      {"n": "Nagellack oder Make-up", "b": null, "p": 249, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "drugstore"},
+      {"n": "Insektenstich-Pflaster", "b": "MULTINORM", "p": 259, "o": null, "lp": null, "q": "20er-Packung", "bp": null, "c": "ab Do. 16.7.", "cat": "drugstore"},
+      {"n": "Melkfett Soft", "b": "LACURA", "p": 99, "o": null, "lp": null, "q": "je 150-ml-Tube", "bp": "l-Preis 6.60", "c": "ab Do. 16.7.", "cat": "drugstore"},
+      {"n": "Ausziehbarer Wäscheständer", "b": "HOME CREATION", "p": 1999, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": "ab Do. 16.7.", "cat": "household"},
+      {"n": "Toilettenpapier", "b": "KOKETT", "p": 749, "o": null, "lp": null, "q": "20 Rollen à 200 Blatt; je Packung", "bp": null, "c": "ab Do. 16.7.", "cat": "household"},
+      {"n": "Selbst Aktiv oder Kraft Aktiv", "b": null, "p": 479, "o": null, "lp": null, "q": "4 x 50 g = 200-g-Packung", "bp": "kg-Preis 23.95", "c": "ab; ab Do. 16.7.", "cat": "household"}
+    ],
+    "13": [
+      {"n": "Sauce & Style", "b": "DEVELEY", "p": null, "o": null, "lp": null, "q": "je 225-ml-Flasche", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Secco & Limo", "b": "STOLZENFELS", "p": 99, "o": null, "lp": null, "q": "je 275-ml-Flasche", "bp": "l-Preis 3.60", "c": "ab Fr. 17.7.", "cat": "drinks"},
+      {"n": "Entrecôte", "b": "BBQ", "p": 499, "o": null, "lp": null, "q": "versch. Gewichte, z. B. 249 g", "bp": "kg-Preis 19.99", "c": "ab Fr. 17.7.", "cat": "food"},
+      {"n": "Nastro Azzurro", "b": "PERONI", "p": null, "o": null, "lp": null, "q": "0,33-l-Dose", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "drinks"},
+      {"n": "Feinkostsauce", "b": "HEINZ", "p": null, "o": null, "lp": null, "q": "220-ml-Flasche", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Grillbauch „Hot & Smoky“", "b": "BBQ", "p": 699, "o": null, "lp": null, "q": "versch. Gewichte 1 kg", "bp": null, "c": "ab Fr. 17.7.", "cat": "food"},
+      {"n": "Meerestiere-Antipasti", "b": "MEDUSA", "p": null, "o": null, "lp": null, "q": "je 120-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Vegetarische Vielfalt", "b": "VALESS", "p": null, "o": null, "lp": null, "q": "je 160- bzw. 180-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"}
+    ],
+    "14": [
+      {"n": "Hitschies", "b": "HITSCHLER", "p": null, "o": null, "lp": null, "q": "210-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Prinzen-Rolle", "b": "DE BEUKELAER", "p": null, "o": null, "lp": null, "q": "je 352-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Wundversorgung", "b": "SOS", "p": 299, "o": null, "lp": null, "q": "je Packung", "bp": null, "c": "ab; ab Fr. 17.7.", "cat": "drugstore"},
+      {"n": "kinder- oder duplo-Schokoriegel", "b": "FERRERO", "p": null, "o": null, "lp": null, "q": "z. B. kinder-bueno; 10 Riegel; 215-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Geschmacks- und Protein-Zusätze", "b": "IRONMAXX", "p": null, "o": null, "lp": null, "q": "je 60-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Espresso Forte oder Bella Crema", "b": "BARISSIMO", "p": 899, "o": null, "lp": null, "q": "je 1,1-kg-Packung", "bp": "kg-Preis 8.17", "c": "ab Fr. 17.7.", "cat": "drinks"}
+    ],
+    "15": [
+      {"n": "Fruchtgummi", "b": "TROLLI", "p": null, "o": null, "lp": null, "q": "je 180-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Käsescheiben", "b": "GRÜNLÄNDER", "p": null, "o": null, "lp": null, "q": "je 210- bzw. 240-g-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "food"},
+      {"n": "Hähnchengeschnetzeltes", "b": "MEINE METZGEREI", "p": 699, "o": null, "lp": null, "q": "800-g-Packung", "bp": "kg-Preis 8.74", "c": "ab Fr. 17.7.", "cat": "food"},
+      {"n": "Küchenrolle", "b": "KOKETT", "p": 669, "o": null, "lp": null, "q": "12 Rollen à 64 Blatt; je Packung", "bp": null, "c": "ab Fr. 17.7.", "cat": "household"},
+      {"n": "Flüssigwaschmittel", "b": "PERWOLL", "p": 999, "o": null, "lp": null, "q": "je 52 Waschladungen; je 2,6-l-Flasche", "bp": "Preis je Anwendung 0.19", "c": "ab Fr. 17.7.", "cat": "household"},
+      {"n": "Lachsfilet-Portionen", "b": "GOLDEN SEAFOOD", "p": 1599, "o": null, "lp": null, "q": "8 x 125 g = 1-kg-Packung", "bp": null, "c": "ab Fr. 17.7.", "cat": "food"},
+      {"n": "Coca-Cola", "b": null, "p": null, "o": null, "lp": null, "q": "18 x 0,33 l = 5,94-l-Packung", "bp": null, "c": "PREIS FOLGT; ab Fr. 17.7.", "cat": "drinks"},
+      {"n": "Mundspülung", "b": "LISTERINE", "p": 649, "o": null, "lp": null, "q": "je 500 + 600 ml = 1,1-l-Packung", "bp": "l-Preis 5.90", "c": "ab Fr. 17.7.", "cat": "drugstore"}
+    ],
+    "17": [
+      {"n": "Plant & Meat Combo Burger", "b": "BBQ", "p": 449, "o": null, "lp": null, "q": "400-g-Packung", "bp": "kg-Preis 11.23", "c": null, "cat": "food"},
+      {"n": "Geflügelbratwurst", "b": "BBQ", "p": 399, "o": null, "lp": null, "q": "500-g-Packung", "bp": "kg-Preis 7.98", "c": null, "cat": "food"},
+      {"n": "Thüringer Rostbratwurst", "b": "BBQ", "p": 379, "o": null, "lp": null, "q": "500-g-Packung", "bp": "kg-Preis 7.58", "c": null, "cat": "food"},
+      {"n": "Brioche-Burger-Buns", "b": "BBQ", "p": 169, "o": null, "lp": null, "q": "4 Stück; 300-g-Packung", "bp": "kg-Preis 5.63", "c": null, "cat": "food"},
+      {"n": "Grillies", "b": "BBQ", "p": 169, "o": null, "lp": null, "q": "je 300-g-Packung", "bp": "kg-Preis 5.63", "c": null, "cat": "food"},
+      {"n": "Berner Würstchen", "b": "BBQ", "p": 259, "o": null, "lp": null, "q": "je 250- bzw. 300-g-Packung", "bp": "kg-Preis 10.36 bzw. 8.63", "c": null, "cat": "food"},
+      {"n": "Kräuter- oder Knoblauchbrot", "b": "BBQ", "p": 139, "o": null, "lp": null, "q": "Je 250-g-Packung", "bp": "kg-Preis 5.56", "c": null, "cat": "food"}
+    ],
+    "18": [
+      {"n": "Grillsauce", "b": "DELIKATO", "p": 99, "o": null, "lp": null, "q": "je 250-ml-Flasche", "bp": "l-Preis 3.96", "c": null, "cat": "food"},
+      {"n": "Vegane oder vegetarische Grillwürstchen", "b": "MYVAY/MEINVEGGIETAG", "p": 249, "o": null, "lp": null, "q": "je 180- bzw. 190-g-Packung", "bp": "kg-Preis 13.83 bzw. 13.11", "c": null, "cat": "food"},
+      {"n": "Halloumi", "b": "LYTTOS", "p": 249, "o": null, "lp": null, "q": "225-g-Packung", "bp": "kg-Preis 11.07", "c": null, "cat": "food"},
+      {"n": "Mini-Burrata", "b": "CUCINA", "p": 279, "o": null, "lp": null, "q": "3 Stück; 305-g-Becher; Abtropfgewicht 3 x 50 g = 150 g", "bp": "kg-Preis 18.60 / Abtropfgewicht", "c": null, "cat": "food"},
+      {"n": "Vegane Grill- und Flammenspieße", "b": "MYVAY", "p": 299, "o": null, "lp": null, "q": "je 160-g-Packung", "bp": "kg-Preis 18.69", "c": null, "cat": "food"},
+      {"n": "2025 Bianco Toscana IGT", "b": null, "p": 399, "o": null, "lp": null, "q": "je 0,75-l-Flasche", "bp": "l-Preis 5.32", "c": null, "cat": "drinks"},
+      {"n": "Orientalischer Salat", "b": "WONNEMEYER", "p": 99, "o": null, "lp": null, "q": "je 200- bzw. 220-g-Packung", "bp": "kg-Preis 4.95 bzw. 4.50", "c": null, "cat": "food"},
+      {"n": "2025 Zibibbo Sicilia DOC", "b": null, "p": 379, "o": null, "lp": null, "q": "je 0,75-l-Flasche", "bp": "l-Preis 5.05", "c": null, "cat": "drinks"},
+      {"n": "Grill-Maiskolben", "b": "BBQ", "p": 199, "o": null, "lp": null, "q": "600-g-Packung", "bp": "kg-Preis 3.32", "c": null, "cat": "food"}
+    ]
+  },
+  "notes": {
+    "_leaflet": "ALDI SÜD weekly leaflet, valid Mo. 13.7. to Sa. 18.7. (cover). Mostly non-food Aktionsartikel: only pages 11 to 18 carry food, so the 10 picks cannot all be food and are not fully non-consecutive (13/14/15 and 17/18 adjacent). Page 12 was skipped: 1 printed price, all other items PREIS FOLGT. ALDI shows no struck prices in this leaflet. Many items are PREIS FOLGT (price not printed): p null, c \"PREIS FOLGT\". Price-to-product links are by layout (price box below or right of the text block); text layer has no explicit link. \"*\" after prices is the Aktionsartikel footnote, not a condition. Header date (ab Do./ab Fr.) copied into c where it differs from the leaflet start.",
+    "3": "Plant callouts (Grasnelke, Edelrosen, Rosen-Stamm, Coreopsis, Kokardenblume) are printed z. B. variants of the GARDENLINE offer with their own price; listed as separate offers. Yoga/Pilates and Massage items: several named sub-items (Pilates-Kissen, Pilates-Ring, Yoga-Blöcke, Yoga-Gurte, Massage-Bälle, etc.) appear as image callouts without own prices; not listed.",
+    "5": "Price links ambiguous for IQ Denkspiele (8.99 sits above-right of its text), Geschicklichkeitsspiele aus Holz (3.99) and Kaleidoskop-Malbuch-Set (4.99): assigned by nearest price box above-right; verify on image.",
+    "9": "Beistelltisch 12.99 and Kokos-Fußmatte 3.99 assigned by layout; could be swapped, verify on image.",
+    "11": "Nagellack oder Make-up 2.49: price box is above-right of its text, assignment by layout. Unnamed callout \"5.99* 4 x 50 g = 200-g-Packung, kg-Preis 29.95\" is a variant of the Selbst Aktiv/Kraft Aktiv offer whose name is only in the image: not listed.",
+    "13": "Grillbauch: text \"versch. Gewichte 1 kg\" with 6.99; read as price per 1 kg. Entrecôte 4.99 is for the z. B. 249 g example weight.",
+    "14": "Unnamed SOS variant callouts with own prices (name only in image): \"6.99* 34-tlg.\", \"3.49* 50-ml-Sprühflasche, l-Preis 69.80\", \"3.49* 125-ml-Tube, l-Preis 27.92\": not listed. Coffee categorized drinks.",
+    "18": "Wine brand/producer not in text layer (falstaff rating badges 88+/89 only)."
+  }
+}

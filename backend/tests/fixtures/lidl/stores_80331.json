@@ -1,0 +1,60 @@
+{
+ "items": [
+  {
+   "objectNumber": "DE05452",
+   "storeName": "M\u00fcnchen - Schwanthaler Str.",
+   "address": {
+    "streetName": "Schwanthaler Str. 31",
+    "city": "M\u00fcnchen",
+    "zip": "80336",
+    "latitude": 48.1373,
+    "longitude": 11.56004
+   },
+   "marketingData": {
+    "offerRegion": 9
+   }
+  },
+  {
+   "objectNumber": "DE05993",
+   "storeName": "M\u00fcnchen-Elisenhof",
+   "address": {
+    "streetName": "Elisenstra\u00dfe 3",
+    "city": "M\u00fcnchen",
+    "zip": "80335",
+    "latitude": 48.14123,
+    "longitude": 11.56201
+   },
+   "marketingData": {
+    "offerRegion": 9
+   }
+  },
+  {
+   "objectNumber": "DE05015",
+   "storeName": "M\u00fcnchen - Hackerbr\u00fccke",
+   "address": {
+    "streetName": "Hackerbr\u00fccke 4",
+    "city": "M\u00fcnchen",
+    "zip": "80335",
+    "latitude": 48.14261,
+    "longitude": 11.55255
+   },
+   "marketingData": {
+    "offerRegion": 9
+   }
+  },
+  {
+   "objectNumber": "DE06637",
+   "storeName": "M\u00fcnchen - Kapuzinerstra\u00dfe",
+   "address": {
+    "streetName": "Kapuziner Stra\u00dfe",
+    "city": "M\u00fcnchen",
+    "zip": "80337",
+    "latitude": 48.12693,
+    "longitude": 11.55712
+   },
+   "marketingData": {
+    "offerRegion": 9
+   }
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "view": "offers",
+ "actions": [
+  "scan",
+  "wait:Cancel",
+  "cancel"
+ ],
+ "note_state": "The canned scan stream ends after its first steps, so the scan stays open (the client reattaches) while the test clicks Cancel; the reattach then delivers the cancelled ends.",
+ "routes": {
+  "POST /api/scan": {
+   "sse": [
+    {
+     "event": "run",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "location": {
+      "lat": 48.1371079,
+      "lon": 11.5753822,
+      "plz": "80331",
+      "label": "M\u00fcnchen, Bayern"
+     },
+     "radius_km": 5.0,
+     "chains": [
+      "kaufland",
+      "penny"
+     ]
+    },
+    {
+     "seq": 1,
+     "chain": "kaufland",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 2,
+     "chain": "penny",
+     "event": "step",
+     "step": "stores"
+    }
+   ]
+  },
+  "GET /api/scan/*/events": {
+   "delay_s": 2,
+   "sse": [
+    {
+     "seq": 3,
+     "chain": "kaufland",
+     "event": "chain_done",
+     "status": "cancelled",
+     "reason": "Cancelled.",
+     "store": null,
+     "leaflets": []
+    },
+    {
+     "seq": 4,
+     "chain": "penny",
+     "event": "chain_done",
+     "status": "cancelled",
+     "reason": "Cancelled.",
+     "store": null,
+     "leaflets": []
+    },
+    {
+     "event": "done",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11"
+    }
+   ]
+  }
+ },
+ "expect": [
+  "Cancelled.",
+  "Scan finished."
+ ],
+ "requested": [
+  "POST /api/scan/*/cancel*"
+ ],
+ "count": {
+  ".agent": 2
+ }
+}

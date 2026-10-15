@@ -1,45 +1,54 @@
-# Full stack: Postgres + both vLLM model servers + API + UI.
-# Model weights stay on the host (MODELS_DIR) and are mounted read-only; images hold no weights.
-# Keep the llm/vlm command args in sync with scripts/serve_llm.sh / scripts/serve_vlm.sh.
+# Default stack: Postgres + API + UI. Run through the Makefile (`make init`, `make up`), which
+# passes the repo-root .env. The two model servers are the `models` profile, started and stopped
+# on demand (`make models-up` / `make models-down`); the API serves without them.
 #
-#   sudo docker compose -f infra/docker-compose.yml up -d --build
-#
-# UI on :28735, API on :28734. Models need the NVIDIA container toolkit.
+# UI on :28735, API on :28734, bound to BIND_ADDR (127.0.0.1 unless .env says otherwise).
+# Model APIs on 127.0.0.1:28800 (GPU 0) and 127.0.0.1:28801 (GPU 1), key-protected.
+
+name: grocery-deals-agent
+
+x-vllm: &vllm
+  build:
+    context: .
+    dockerfile: vllm.Dockerfile
+  image: grocery-deals-agent-vllm:0.30.0-cu129
+  profiles: ["models"]
+  shm_size: 8gb
+  environment:
+    VLLM_NO_USAGE_STATS: "1"
+    DO_NOT_TRACK: "1"
+    HF_HUB_OFFLINE: "1"
+  volumes:
+    - type: bind
+      source: ${MODELS_DIR:?run make init}
+      target: /models
+      read_only: true
+      bind:
+        create_host_path: false
+    - vllm-cache:/root/.cache
+  restart: unless-stopped
 
 services:
-  postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-angebot}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-angebot}
-      POSTGRES_DB: ${POSTGRES_DB:-angebot}
-    ports:
-      # localhost-only: the DB must not be network-exposed.
-      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-angebot}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
   llm:
-    image: vllm/vllm-openai:v0.11.0
-    ipc: host
-    volumes:
-      - ${MODELS_DIR:-/home/parikshitk/models}:/models:ro
+    <<: *vllm
+    # Navigator, basket agent and recipe planning: long context and tool calling.
     command:
-      [
-        "--model", "/models/Qwen3-30B-A3B-Thinking-2507-FP8",
-        "--served-model-name", "qwen3-thinking",
-        "--host", "0.0.0.0", "--port", "28800",
-        "--gpu-memory-utilization", "0.85", "--max-model-len", "32768",
-        "--enable-auto-tool-choice", "--tool-call-parser", "hermes",
-        "--reasoning-parser", "qwen3",
-      ]
+      - --model=/models/${LLM_MODEL_DIR:-qwen3.5-9b}
+      - --served-model-name=llm
+      - --port=28800
+      - --gpu-memory-utilization=${LLM_GPU_MEMORY_UTILIZATION:-0.80}
+      - --max-model-len=32768
+      - --max-num-seqs=24
+      - --enable-auto-tool-choice
+      - --tool-call-parser=qwen3_coder
+      # Shared by both servers (YAML cannot splice lists, so keep these two blocks identical).
+      - --host=0.0.0.0
+      - "--api-key=${VLLM_API_KEY:?run make init}"
+      - --scheduling-policy=priority
+      - '--limit-mm-per-prompt={"image":1,"video":0}'
+      - --reasoning-parser=qwen3
     ports:
-      - "28800:28800"
+      - "127.0.0.1:28800:28800"
     deploy:
       resources:
         reservations:
@@ -51,27 +60,28 @@ services:
       test: ["CMD", "python3", "-c", "import urllib.request as u; u.urlopen('http://localhost:28800/health', timeout=4)"]
       interval: 15s
       timeout: 5s
-      start_period: 300s
+      start_period: 600s
       retries: 40
 
   vlm:
-    image: vllm/vllm-openai:v0.11.0
-    ipc: host
-    volumes:
-      - ${MODELS_DIR:-/home/parikshitk/models}:/models:ro
+    <<: *vllm
+    # Leaflet page extraction: short context, many concurrent pages.
     command:
-      [
-        "--model", "/models/Qwen3-VL-32B-Instruct-FP8",
-        "--served-model-name", "qwen3-vl",
-        "--host", "0.0.0.0", "--port", "28801",
-        "--gpu-memory-utilization", "0.95", "--max-model-len", "4096",
-        "--max-num-seqs", "32", "--max-num-batched-tokens", "8192",
-        "--scheduling-policy", "priority",
-        "--limit-mm-per-prompt", '{"image":1,"video":0}',
-        "--mm-processor-kwargs", '{"max_pixels":1350000}',
-      ]
+      - --model=/models/${VLM_MODEL_DIR:-qwen3.5-9b}
+      - --served-model-name=vlm
+      - --port=28801
+      - --gpu-memory-utilization=${VLM_GPU_MEMORY_UTILIZATION:-0.80}
+      - --max-model-len=${VLM_MAX_MODEL_LEN:-8192}
+      - --max-num-seqs=32
+      - --max-num-batched-tokens=8192
+      # Shared by both servers (YAML cannot splice lists, so keep these two blocks identical).
+      - --host=0.0.0.0
+      - "--api-key=${VLLM_API_KEY:?run make init}"
+      - --scheduling-policy=priority
+      - '--limit-mm-per-prompt={"image":1,"video":0}'
+      - --reasoning-parser=qwen3
     ports:
-      - "28801:28801"
+      - "127.0.0.1:28801:28801"
     deploy:
       resources:
         reservations:
@@ -83,45 +93,290 @@ services:
       test: ["CMD", "python3", "-c", "import urllib.request as u; u.urlopen('http://localhost:28801/health', timeout=4)"]
       interval: 15s
       timeout: 5s
-      start_period: 300s
+      start_period: 600s
       retries: 40
+
+
+  postgres:
+    image: postgres:16@sha256:1a6ab3f5345eb6dbe04a1349529caabdb0ab09293a09590fad07b2246bfa4b54
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-angebot}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-angebot}
+      POSTGRES_DB: ${POSTGRES_DB:-angebot}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # TCP, not the unix socket: the socket already answers during the image's init-only server.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
 
   backend:
     build:
       context: ..
       dockerfile: infra/backend.Dockerfile
-    ipc: host
+      target: runtime
+    init: true
+    shm_size: 1gb
+    # Playwright's seccomp profile (pinned to v1.60.0) lets Chromium keep its sandbox as pwuser.
+    security_opt:
+      - seccomp=./chromium-seccomp.json
     environment:
       APP_ENV: docker
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      TZ: Europe/Berlin
       POSTGRES_HOST: postgres
+      POSTGRES_USER: ${POSTGRES_USER:-angebot}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-angebot}
+      POSTGRES_DB: ${POSTGRES_DB:-angebot}
       LLM_BASE_URL: http://llm:28800/v1
       VLM_BASE_URL: http://vlm:28801/v1
+      VLLM_API_KEY: ${VLLM_API_KEY:?run make init}
+      EMBEDDING_MODEL: /models/bge-m3
+      HF_HUB_OFFLINE: "1"
+      CONTACT: ${CONTACT:?run make init}
+      NOMINATIM_BASE_URL: ${NOMINATIM_BASE_URL:-https://nominatim.openstreetmap.org}
+      CHAIN_BUDGET_S: ${CHAIN_BUDGET_S:-300}
+      MAX_BROWSERS: ${MAX_BROWSERS:-3}
+      VLM_MAX_INFLIGHT: ${VLM_MAX_INFLIGHT:-32}
+      VLM_MAX_MODEL_LEN: ${VLM_MAX_MODEL_LEN:-8192}
+      CHROMIUM_SANDBOX: ${CHROMIUM_SANDBOX:-true}
+      FORCE_HEAL: ${FORCE_HEAL:-}
+      MCP_TOKEN: ${MCP_TOKEN:-}
+      # OpenTelemetry traces to Langfuse (the observability profile); unreachable means dropped.
+      TRACING_ENABLED: ${TRACING_ENABLED:-false}
+      LANGFUSE_BASE_URL: http://langfuse-web:3000
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
+    volumes:
+      - type: bind
+        source: ${MODELS_DIR:?run make init}
+        target: /models
+        read_only: true
+        bind:
+          create_host_path: false
+      # Scored eval results for GET /api/evals (written by `python -m app.eval`).
+      - type: bind
+        source: ../eval/results
+        target: /srv/eval/results
+        read_only: true
     ports:
-      - "28734:28734"
+      - "${BIND_ADDR:-127.0.0.1}:28734:28734"
     depends_on:
       postgres:
         condition: service_healthy
-      llm:
-        condition: service_healthy
-      vlm:
-        condition: service_healthy
-    deploy:
-      resources:
-        reservations:
-          devices:
-            # bge-m3 embeddings share GPU 0 with the reasoning model.
-            - driver: nvidia
-              device_ids: ["0"]
-              capabilities: [gpu]
+    restart: unless-stopped
 
   frontend:
     build:
       context: ..
       dockerfile: infra/frontend.Dockerfile
     ports:
-      - "28735:80"
+      - "${BIND_ADDR:-127.0.0.1}:28735:80"
     depends_on:
       - backend
+    restart: unless-stopped
+
+  # Observability profile (`make obs-up`): Langfuse traces on :28736, Grafana on :28737,
+  # Prometheus on 127.0.0.1:28738. Secrets come from .env (make init); telemetry is off.
+  langfuse-worker:
+    image: langfuse/langfuse-worker:4.59.0@sha256:246a3a0fab57810734080d302492aa99d7ed0b6acc909c84b58832074b564175
+    profiles: ["observability"]
+    environment: &langfuse-env
+      DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD:?run make init}@langfuse-db:5432/langfuse
+      SALT: ${LANGFUSE_SALT:?run make init}
+      ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:?run make init}
+      TELEMETRY_ENABLED: "false"
+      NEXT_TELEMETRY_DISABLED: "1"
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?run make init}
+      CLICKHOUSE_CLUSTER_ENABLED: "false"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?run make init}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_EVENT_UPLOAD_PREFIX: events/
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_MEDIA_UPLOAD_REGION: auto
+      LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?run make init}
+      LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_MEDIA_UPLOAD_PREFIX: media/
+      REDIS_HOST: valkey
+      REDIS_PORT: "6379"
+      REDIS_AUTH: ${LANGFUSE_REDIS_PASSWORD:?run make init}
+      REDIS_TLS_ENABLED: "false"
+    depends_on: &langfuse-deps
+      langfuse-db:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    restart: unless-stopped
+
+  langfuse-web:
+    image: langfuse/langfuse:4.59.0@sha256:48ecae32cd74d3a567588602c144de0ec626daf32dc5f2e831a03cebd0bb2d34
+    profiles: ["observability"]
+    environment:
+      <<: *langfuse-env
+      NEXTAUTH_URL: ${LANGFUSE_URL:-http://localhost:28736}
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:?run make init}
+      AUTH_DISABLE_SIGNUP: "true"
+      # Headless init: org, project "grocery-deals-agent", its API keys and the admin user.
+      LANGFUSE_INIT_ORG_ID: gda
+      LANGFUSE_INIT_ORG_NAME: grocery-deals-agent
+      LANGFUSE_INIT_PROJECT_ID: grocery-deals-agent
+      LANGFUSE_INIT_PROJECT_NAME: grocery-deals-agent
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:?run make init}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_SECRET_KEY:?run make init}
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_ADMIN_EMAIL:-admin@gda.local}
+      LANGFUSE_INIT_USER_NAME: admin
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_ADMIN_PASSWORD:?run make init}
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:28736:3000"
+    depends_on: *langfuse-deps
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://$$HOSTNAME:3000/api/public/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      start_period: 120s
+      retries: 30
+    restart: unless-stopped
+
+  langfuse-db:
+    image: postgres:16@sha256:1a6ab3f5345eb6dbe04a1349529caabdb0ab09293a09590fad07b2246bfa4b54
+    profiles: ["observability"]
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${LANGFUSE_DB_PASSWORD:?run make init}
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U langfuse -d langfuse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.12@sha256:8a790dd3468db22b1d4e7b18a176f378ff5ff6053b9c48dd4ea1fa71a24c5ba6
+    profiles: ["observability"]
+    user: "101:101"
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?run make init}
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./clickhouse-ttl.xml:/etc/clickhouse-server/config.d/ttl.xml:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8123/ping || exit 1"]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 20
+    restart: unless-stopped
+
+  valkey:
+    image: valkey/valkey:8.1-alpine@sha256:081c2f5cb575efc901aa80ff9cdbd1ec6a301682fd35e1ebb4b0990a4a4a8507
+    profiles: ["observability"]
+    command: ["valkey-server", "--requirepass", "${LANGFUSE_REDIS_PASSWORD:?run make init}",
+              "--maxmemory-policy", "noeviction"]
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli -a \"$$REDISCLI_AUTH\" ping | grep -q PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      REDISCLI_AUTH: ${LANGFUSE_REDIS_PASSWORD:?run make init}
+    restart: unless-stopped
+
+  minio:
+    image: cgr.dev/chainguard/minio@sha256:2136d593beacf4461187035eca949fe49abd589d5079735025c711ca58fee0c8
+    profiles: ["observability"]
+    # A top-level directory is a bucket: creating /data/langfuse first replaces a bucket-init job.
+    entrypoint: sh
+    command: ["-c", "mkdir -p /data/langfuse && exec minio server --address :9000 /data"]
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?run make init}
+      MINIO_BROWSER: "off"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
+    profiles: ["observability"]
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+      - --storage.tsdb.retention.size=2GB
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "127.0.0.1:28738:9090"
+    restart: unless-stopped
+
+  dcgm-exporter:
+    image: nvcr.io/nvidia/k8s/dcgm-exporter:4.5.2-4.8.1-ubuntu22.04@sha256:17e9d49093f2d86d90260eec3c07b18b3f78fc5eadef3c8ab26a24fa5a9c1b2c
+    profiles: ["observability"]
+    # DCGM's host engine refuses to watch GPU fields without it (upstream run instructions).
+    cap_add: [SYS_ADMIN]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:12.4.13@sha256:41bbc1b5e04416f81891806076db2a2ff60a5d4da5f78d36a88b033a8c199185
+    profiles: ["observability"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?run make init}
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/dashboards/gda-vllm.json
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/etc/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:28737:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
 
 volumes:
   pgdata:
+  vllm-cache:
+  langfuse-pgdata:
+  clickhouse-data:
+  minio-data:
+  prometheus-data:
+  grafana-data:

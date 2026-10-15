@@ -1,49 +1,42 @@
+/** Logos and brand colours keyed by chain id. Labels and loyalty programmes come from
+ * /api/status, so a chain without an entry here still renders (as text). */
+import { createContext, useContext } from "react";
+
 import aldi from "../assets/logos/aldi.svg";
 import kaufland from "../assets/logos/kaufland.png";
 import lidl from "../assets/logos/lidl.svg";
 import netto from "../assets/logos/netto.svg";
 import penny from "../assets/logos/penny.svg";
 import rewe from "../assets/logos/rewe.svg";
+import type { ChainInfo } from "../lib/api";
 
-export interface Retailer {
-  id: string;
-  name: string;
-  logo: string;
-  color: string;
-}
+const BRAND: Record<string, { logo: string; color: string }> = {
+  lidl: { logo: lidl, color: "#0050aa" },
+  kaufland: { logo: kaufland, color: "#e10915" },
+  aldi: { logo: aldi, color: "#00005f" },
+  penny: { logo: penny, color: "#cd1316" },
+  rewe: { logo: rewe, color: "#cc071e" },
+  netto: { logo: netto, color: "#e41d25" },
+};
 
-export const RETAILERS: Retailer[] = [
-  { id: "lidl", name: "Lidl", logo: lidl, color: "#0050aa" },
-  { id: "kaufland", name: "Kaufland", logo: kaufland, color: "#e10915" },
-  { id: "aldi", name: "Aldi Süd", logo: aldi, color: "#00005f" },
-  { id: "penny", name: "Penny", logo: penny, color: "#cd1316" },
-  { id: "rewe", name: "Rewe", logo: rewe, color: "#cc071e" },
-  { id: "netto", name: "Netto", logo: netto, color: "#e41d25" },
-];
+export const ChainsContext = createContext<Record<string, ChainInfo>>({});
 
-const byId = new Map(RETAILERS.map((r) => [r.id, r]));
+export const useChain = (id: string): ChainInfo =>
+  useContext(ChainsContext)[id] ?? { id, label: id, loyalty: null };
 
-export const nameOf = (id: string) => byId.get(id)?.name ?? id;
+export const brandColor = (id: string) => BRAND[id]?.color ?? "#5c6a61";
 
-/** Resolve a retailer from an id or a display string coming back with offer data. */
-export const retailerOf = (value?: string | null): Retailer | undefined =>
-  value ? byId.get(value.trim().toLowerCase().split(" ")[0]) : undefined;
-
-export function ChainMark({
-  id,
-  size = 20,
-  withName = false,
-}: {
+export function ChainMark({ id, size = 20, withName = false }: {
   id: string;
   size?: number;
   withName?: boolean;
 }) {
-  const r = retailerOf(id);
-  if (!r) return <span className="chain-mark">{id}</span>;
+  const { label } = useChain(id);
+  const logo = BRAND[id]?.logo;
   return (
-    <span className="chain-mark" title={r.name}>
-      <img src={r.logo} alt={r.name} style={{ height: size }} />
-      {withName && <span className="chain-name">{r.name}</span>}
+    <span className="chain-mark" title={label}>
+      {logo ? <img src={logo} alt={withName ? "" : label} style={{ height: size }} /> : null}
+      {withName || !logo ? <span className="chain-name">{label}</span> : null}
     </span>
   );
 }

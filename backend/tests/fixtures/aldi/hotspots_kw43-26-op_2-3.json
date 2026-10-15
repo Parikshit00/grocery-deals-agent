@@ -1,0 +1,104 @@
+[
+ {
+  "id": 155165159,
+  "type": "product",
+  "title": "{first_product_title}",
+  "showIndication": false,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.51826,
+   "top": 0.68522,
+   "width": 0.17225,
+   "height": 0.06686,
+   "iconLeft": 0.5,
+   "iconTop": 0.5
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "linksToWebshop": false,
+  "products": [
+   {
+    "id": 73796497,
+    "hotspotId": 155165159,
+    "title": "Mango-Frischk\u00e4se-Torte",
+    "description": "Mango-Frischk\u00e4se-Torte: sommerlich-sonnige Torte mit leichte Frischk\u00e4se-F\u00fcllung. Die Torte zergeht auf der Zunge und wird jeden erfreuen.\n\nZutaten f\u00fcr 1 Portion\n\n225 g BISCOTTO American Style Cookies\n100 g MILSANI Butter\n300 g Hofburger Frischk\u00e4se, Sorte: cremig-sahnig\n200 g MILSANI Joghurt, 3,5 %\n160 g Zucker\n1 Packung Back Family Vanillinzucker\n9 Blatt Gelatine\nSaft einer Zitrone\n3 St\u00fcck Mangos\n50 g Choceur\u00ae Feine wei\u00dfe Schokolade\nMinzbl\u00e4tter zur Dekoration\nSpringform oder Tortenring 18 cm Durchmesser",
+    "webshopIdentifier": "recipe-2345",
+    "webshopUrl": "https://www.aldi-sued.de/rezepte/backen/torten/rdp-mango-frischkaese-torte",
+    "photoSharingUrl": "https://production-revolution-publitas-com.s3.eu-west-1.amazonaws.com/73714/3409627/images/593dff30-bab1-4643-aa58-662e58ee1064.avif"
+   }
+  ],
+  "firstProductTitle": "Mango-Frischk\u00e4se-Torte",
+  "touchedByAi": false
+ },
+ {
+  "id": 155165982,
+  "type": "product",
+  "title": "{first_product_title}",
+  "showIndication": false,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.72584,
+   "top": 0.05734,
+   "width": 0.17225,
+   "height": 0.06686,
+   "iconLeft": 0.5,
+   "iconTop": 0.5
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "linksToWebshop": false,
+  "products": [
+   {
+    "id": 73797147,
+    "hotspotId": 155165982,
+    "title": "Fruchtiges Puten-Curry mit Mandarinen und Jasminreis",
+    "description": "Fruchtig aromatische Currysauce mit zartem Putenfleisch und Mandarinen ist nach dieser Anleitung schnell zubereitet. Mit duftigem Jasminreis ist die Mahlzeit vollkommen.\n\nZutaten f\u00fcr 4 Portionen\n\n300 g Jasminreis\n4 Mandarinen\n400 g Puten-Minifilet\n2 EL Bellasan\u00ae Reines Pflanzen\u00f6l\n500 g Brokkoli\n1 rote Paprika\n2 Stangen Fr\u00fchlingszwiebeln\n100 ml Le Gusto Klare Br\u00fche im Glas, Sorte: Gem\u00fcse\n1 EL Le Gusto Curry\n50 ml Mandarinensaft (= ca. 2 Mandarinen) (frisch gepresst)\n250 ml ASIA GREEN GARDEN\u00ae Kokosnussmilch\n50 g Farmer Macadamia, ger\u00f6stet und gesalzen\n2 Stiele Koriander (frisch)\nSalz\nLe Gusto Pfeffer",
+    "webshopIdentifier": "recipe-2345",
+    "webshopUrl": "https://www.aldi-sued.de/rezepte/hauptzutat/fleisch/gefluegel/rdp-fruchtiges-puten-curry-mit-mandarinen-und-jasminreis",
+    "photoSharingUrl": "https://production-revolution-publitas-com.s3.eu-west-1.amazonaws.com/73714/3409627/images/3ff499c5-9418-4903-88b4-4900a835c6e8.avif"
+   }
+  ],
+  "firstProductTitle": "Fruchtiges Puten-Curry mit Mandarinen und Jasminreis",
+  "touchedByAi": false
+ },
+ {
+  "id": 155165164,
+  "type": "externalLink",
+  "title": "Website aufrufen",
+  "showIndication": false,
+  "showTooltip": true,
+  "coverImageSource": null,
+  "version": null,
+  "position": {
+   "left": 0.84919,
+   "top": 0.33742,
+   "width": 0.04891,
+   "height": 0.04664,
+   "iconLeft": 0.5,
+   "iconTop": 0.5
+  },
+  "tabIndex": null,
+  "clickable": true,
+  "embeddedContent": false,
+  "dynamic": false,
+  "productThemeId": null,
+  "zIndex": null,
+  "rotation": null,
+  "url": "https://herkunft-deutschland.de/",
+  "products": []
+ }
+]

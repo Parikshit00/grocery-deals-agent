@@ -1,0 +1,10 @@
+# vLLM serves /metrics without the API key (the key guards /v1 only); DCGM exports both GPUs.
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: vllm
+    static_configs:
+      - targets: ["llm:28800", "vlm:28801"]
+  - job_name: dcgm
+    static_configs:
+      - targets: ["dcgm-exporter:9400"]

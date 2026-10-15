@@ -1,154 +1,233 @@
-import { type CSSProperties, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 
-import { getCacheStatus, getProfile, type CacheStatus } from "./lib/api";
 import { Leaf } from "./components/icons";
-import { deDate } from "./components/OfferCard";
-import { ChainMark, RETAILERS } from "./components/retailers";
+import { ChainsContext } from "./components/retailers";
+import { Stores } from "./components/Stores";
 import { BasketPanel } from "./features/basket/BasketPanel";
+import { EvalsPanel } from "./features/evals/EvalsPanel";
+import { RunsPanel } from "./features/runs/RunsPanel";
 import { ScannerPanel } from "./features/scan/ScannerPanel";
+import { getStatus, type Status, type StoresResponse, getStores } from "./lib/api";
+import { load, save } from "./lib/storage";
+import { useScan } from "./lib/useScan";
 
-function getUserId(): string {
-  let id = localStorage.getItem("gda_uid");
-  if (!id) {
-    // crypto.randomUUID() only exists in secure contexts (HTTPS/localhost); fall back over plain HTTP.
-    id = crypto.randomUUID?.() ?? `u-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    localStorage.setItem("gda_uid", id);
+type View = "plan" | "offers" | "runs" | "evals";
+const VIEWS: [View, string][] = [
+  ["plan", "Plan"], ["offers", "Offers"], ["runs", "Runs"], ["evals", "Evals"],
+];
+const RADII = [1, 2, 5, 10, 15, 25];
+
+/** Why scans or plans cannot run right now, or null when they can. */
+function blockers(s: Status | null | undefined) {
+  if (s === undefined) return { scan: null, plan: null };
+  if (s === null) {
+    const msg = "The backend is not reachable. Check that the stack is running (make up).";
+    return { scan: msg, plan: msg };
   }
-  return id;
+  if (s.db !== "up") {
+    const msg = "The database is down, so nothing can be scanned or planned.";
+    return { scan: msg, plan: msg };
+  }
+  const models =
+    s.llm !== "up" || s.vlm !== "up"
+      ? "The local models are offline (start them with make models-up). Scans and plans are " +
+        "disabled until they are up; cached offers stay browsable."
+      : null;
+  const embeddings =
+    s.embeddings !== "up" ? "The embedding model is missing (make models-pull NAME=bge-m3)." : null;
+  return { scan: models ?? embeddings, plan: models ?? embeddings };
 }
 
-function HeroShelf() {
+function StatusPill({ status }: { status: Status | null | undefined }) {
+  const up = (k: "llm" | "vlm" | "db" | "embeddings") => status?.[k] === "up";
+  const ok = up("llm") && up("vlm") && up("db") && up("embeddings");
+  const text =
+    status === undefined
+      ? "Checking models"
+      : status === null
+        ? "Backend offline"
+        : ok
+          ? "Models ready"
+          : !up("db")
+            ? "Database down"
+            : !up("llm") || !up("vlm")
+              ? "Models offline"
+              : "Embeddings missing";
+  const detail = status
+    ? `LLM ${status.llm}, VLM ${status.vlm}, database ${status.db}, embeddings ${status.embeddings}`
+    : text;
   return (
-    <div className="shelf" aria-hidden>
-      {RETAILERS.map((r, i) => (
-        <motion.span
-          key={r.id}
-          className="shelf-tile"
-          style={{ "--brand": r.color } as CSSProperties}
-          initial={{ opacity: 0, y: 20, rotate: -3 }}
-          animate={{ opacity: 1, y: 0, rotate: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <img src={r.logo} alt="" />
-        </motion.span>
-      ))}
-    </div>
-  );
-}
-
-function CacheMarquee({ rows }: { rows: CacheStatus[] }) {
-  if (!rows.length) return null;
-  // content rendered twice for a seamless CSS loop
-  const lap = (suffix: string) =>
-    rows.map((c) => (
-      <span key={c.retailer + suffix} className="marquee-item">
-        <ChainMark id={c.retailer} size={14} />
-        <strong>{c.offers}</strong> deals
-        {c.valid_to ? <em>bis {deDate(c.valid_to)}</em> : null}
-      </span>
-    ));
-  return (
-    <div className="marquee" aria-hidden>
-      <div className="marquee-track">
-        {lap("a")}
-        {lap("b")}
-      </div>
-    </div>
+    <span className={`pill status ${ok ? "good" : status === undefined ? "warn" : "bad"}`}
+      role="status" aria-live="polite" title={detail}>
+      <span className="dot" aria-hidden="true" />
+      {text}
+    </span>
   );
 }
 
 export default function App() {
-  const [userId] = useState(getUserId);
-  const [view, setView] = useState<"scan" | "basket">("scan");
-  const [location, setLocation] = useState("10115");
-  const [cache, setCache] = useState<CacheStatus[]>([]);
+  const [view, setView] = useState<View>("plan");
+  const [status, setStatus] = useState<Status | null | undefined>(undefined);
+  const [location, setLocation] = useState<string>(() => load("gda.location", ""));
+  const [draft, setDraft] = useState(location);
+  const [recent, setRecent] = useState<string[]>(() => load("gda.recent", []));
+  const [radius, setRadius] = useState<number>(() => load("gda.radius", 5));
+  const [loyalty, setLoyalty] = useState<boolean>(() => load("gda.loyalty", false));
+  const [overrides, setOverrides] = useState<Record<string, string>>(() => load("gda.overrides", {}));
+  const [stores, setStores] = useState<{ data?: StoresResponse; error?: string }>({});
+  const scan = useScan();
 
   useEffect(() => {
-    getProfile(userId)
-      .then((p) => {
-        if (p.last_location) setLocation(p.last_location);
-      })
-      .catch(() => {});
-  }, [userId]);
+    let alive = true;
+    const tick = () =>
+      getStatus()
+        .then((s) => alive && setStatus(s))
+        .catch(() => alive && setStatus(null));
+    void tick();
+    const timer = setInterval(tick, 10_000);
+    return () => {
+      alive = false;
+      clearInterval(timer);
+    };
+  }, []);
 
+  useEffect(() => save("gda.radius", radius), [radius]);
+  useEffect(() => save("gda.loyalty", loyalty), [loyalty]);
+  useEffect(() => save("gda.overrides", overrides), [overrides]);
+
+  const scanPhase = scan.state.phase;
   useEffect(() => {
-    getCacheStatus(location)
-      .then((cs) => setCache(cs.filter((c) => c.cached)))
-      .catch(() => {});
+    // Geocoding happens server-side, only for a submitted location (never as-you-type).
+    if (!location || scanPhase === "running") return;
+    let alive = true;
+    getStores(location, radius)
+      .then((data) => alive && setStores({ data }))
+      .catch((e: Error) => alive && setStores({ error: e.message }));
+    return () => {
+      alive = false;
+    };
+  }, [location, radius, scanPhase]);
+
+  const choose = useCallback((value: string) => {
+    if (value !== location) {
+      setOverrides({});
+      setStores({});
+    }
+    setLocation(value);
+    setDraft(value);
+    save("gda.location", value);
+    setRecent((r) => {
+      const next = [value, ...r.filter((x) => x !== value)].slice(0, 6);
+      save("gda.recent", next);
+      return next;
+    });
   }, [location]);
 
-  const cacheStat = {
-    offers: cache.reduce((s, c) => s + c.offers, 0),
-    chains: cache.length,
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    const value = draft.trim();
+    if (value) choose(value);
   };
 
+  const setOverride = useCallback((chain: string, id: string | null) => {
+    setOverrides((o) => {
+      const { [chain]: _old, ...rest } = o;
+      void _old;
+      return id ? { ...rest, [chain]: id } : rest;
+    });
+  }, []);
+
+  const chains = useMemo(() => Object.fromEntries((status?.chains ?? []).map((c) => [c.id, c])),
+    [status]);
+  const block = blockers(status);
+  const shared = { location, radius, loyalty, overrides, scan };
+
   return (
-    <>
+    <ChainsContext.Provider value={chains}>
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark">
+          <span className="brand-mark" aria-hidden="true">
             <Leaf />
           </span>
           <span className="brand-name">Grocery Deals</span>
         </div>
-        <nav className="view-switch" aria-label="Feature">
-          {(["scan", "basket"] as const).map((v) => (
-            <button
-              key={v}
-              className={view === v ? "view-tab active" : "view-tab"}
-              onClick={() => setView(v)}
-            >
-              {view === v && <motion.span layoutId="view-thumb" className="view-thumb" />}
-              <span>{v === "scan" ? "Scan chains" : "Build basket"}</span>
+        <nav className="view-switch" aria-label="Views">
+          {VIEWS.map(([id, label]) => (
+            <button key={id} type="button" className={view === id ? "view-tab active" : "view-tab"}
+              aria-current={view === id ? "page" : undefined} onClick={() => setView(id)}>
+              {label}
             </button>
           ))}
         </nav>
+        <StatusPill status={status} />
       </header>
 
-      <div className="app">
-        <motion.div
-          className="hero"
-          key={view}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="hero-copy">
-            {view === "scan" ? (
-              <>
-                <span className="eyebrow">Live sweep</span>
-                <h1>Six chains. One sweep.</h1>
-                <p>Agents read this week&apos;s prospekts live. Deals land as they are found.</p>
-              </>
-            ) : (
-              <>
-                <span className="eyebrow">Basket</span>
-                <h1>The cheapest basket.</h1>
-                <p>A list or a recipe, matched to the deals already on your shelf.</p>
-              </>
-            )}
-            {cacheStat.chains > 0 && (
-              <p className="hero-stat">
-                <strong>{cacheStat.offers.toLocaleString("de-DE")}</strong> deals cached this week
-                across <strong>{cacheStat.chains}</strong>{" "}
-                {cacheStat.chains === 1 ? "chain" : "chains"}
-              </p>
-            )}
-          </div>
-          <HeroShelf />
-        </motion.div>
+      <form className="where" onSubmit={submit}>
+        <label className="grow">
+          <span>Address or postcode</span>
+          <input value={draft} onChange={(e) => setDraft(e.target.value)} list="gda-recent"
+            placeholder={"e.g. 80331 or Marienplatz 1, M\u00fcnchen"} autoComplete="off" />
+          <datalist id="gda-recent">
+            {recent.map((r) => (
+              <option key={r} value={r} />
+            ))}
+          </datalist>
+        </label>
+        <button className="primary" type="submit" disabled={!draft.trim()}>
+          Set location
+        </button>
+        <label>
+          <span>Radius</span>
+          <select value={radius} onChange={(e) => setRadius(Number(e.target.value))}>
+            {RADII.map((r) => (
+              <option key={r} value={r}>
+                {r} km
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="toggle">
+          <input type="checkbox" checked={loyalty} onChange={(e) => setLoyalty(e.target.checked)} />
+          <span>I have the app/card</span>
+        </label>
+      </form>
 
-        <CacheMarquee rows={cache} />
-
-        <div hidden={view !== "scan"} className="view-body">
-          <ScannerPanel location={location} setLocation={setLocation} />
+      {scan.state.reconnecting ? (
+        <div className="banner warn" role="status" aria-live="assertive">
+          Connection to the scan lost. Reconnecting{"\u2026"}
         </div>
+      ) : null}
 
-        <div hidden={view !== "basket"} className="view-body">
-          <BasketPanel location={location} setLocation={setLocation} userId={userId} />
+      <main className="app">
+        {view === "plan" && !location ? (
+          <p className="empty">Enter an address or a German postcode above to start.</p>
+        ) : stores.error && view !== "runs" && view !== "evals" ? (
+          <p className="error" role="alert">{stores.error}</p>
+        ) : null}
+
+        {/* Views stay mounted (hidden) so a plan or a scan survives switching views. */}
+        <div hidden={view !== "plan"}>
+          {location ? (
+            <>
+              {stores.data ? (
+                <Stores data={stores.data} chains={status?.chains ?? []} radius={radius}
+                  overrides={overrides} setOverride={setOverride} />
+              ) : null}
+              <BasketPanel {...shared} blocker={block.plan} />
+            </>
+          ) : null}
         </div>
-      </div>
-    </>
+        <div hidden={view !== "offers"}>
+          <ScannerPanel {...shared} blocker={block.scan} chains={status?.chains ?? []}
+            onLocate={choose} />
+        </div>
+        <div hidden={view !== "runs"}>
+          <RunsPanel active={view === "runs"} />
+        </div>
+        <div hidden={view !== "evals"}>
+          <EvalsPanel active={view === "evals"} />
+        </div>
+      </main>
+    </ChainsContext.Provider>
   );
 }

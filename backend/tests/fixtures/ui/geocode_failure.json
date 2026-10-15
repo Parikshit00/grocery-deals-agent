@@ -1,0 +1,13 @@
+{
+ "routes": {
+  "GET /api/stores": {
+   "status": 503,
+   "json": {
+    "detail": "Geocoding service unavailable, try again shortly."
+   }
+  }
+ },
+ "expect": [
+  "Geocoding service unavailable, try again shortly."
+ ]
+}

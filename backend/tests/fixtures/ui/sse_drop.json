@@ -1,0 +1,257 @@
+{
+ "view": "offers",
+ "actions": [
+  "scan"
+ ],
+ "routes": {
+  "POST /api/scan": {
+   "sse": [
+    {
+     "event": "run",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "location": {
+      "lat": 48.1371079,
+      "lon": 11.5753822,
+      "plz": "80331",
+      "label": "M\u00fcnchen, Bayern"
+     },
+     "radius_km": 5.0,
+     "chains": [
+      "kaufland",
+      "penny"
+     ]
+    },
+    {
+     "seq": 1,
+     "chain": "kaufland",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 2,
+     "chain": "kaufland",
+     "event": "store",
+     "store": {
+      "id": "DE8700",
+      "km": 4.0,
+      "lat": 48.1295951,
+      "lon": 11.6260178,
+      "name": "Kaufland M\u00fcnchen-Berg am Laim",
+      "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+      "edition": "DE8700",
+      "located": true
+     }
+    },
+    {
+     "seq": 3,
+     "chain": "kaufland",
+     "event": "step",
+     "step": "leaflets"
+    },
+    {
+     "seq": 4,
+     "chain": "kaufland",
+     "event": "leaflet",
+     "key": "2026-W40:1001-1031",
+     "title": "Angebote 01.10.-31.10.2026",
+     "kind": "extra",
+     "valid_from": "2026-10-01",
+     "valid_to": "2026-10-31",
+     "dates_source": "feed",
+     "tier": 1,
+     "status": "cached",
+     "offers": 68
+    },
+    {
+     "seq": 5,
+     "chain": "kaufland",
+     "event": "leaflet",
+     "key": "2026-W41:1008-1014",
+     "title": "Angebote 08.10.-14.10.2026",
+     "kind": "extra",
+     "valid_from": "2026-10-08",
+     "valid_to": "2026-10-14",
+     "dates_source": "feed",
+     "tier": 1,
+     "status": "cached",
+     "offers": 208
+    },
+    {
+     "seq": 6,
+     "chain": "kaufland",
+     "event": "leaflet",
+     "key": "2026-W42:1012-1017",
+     "title": "Angebote 12.10.-17.10.2026",
+     "kind": "main",
+     "valid_from": "2026-10-12",
+     "valid_to": "2026-10-17",
+     "dates_source": "feed",
+     "tier": 1,
+     "status": "cached",
+     "offers": 348
+    }
+   ]
+  },
+  "GET /api/scan/*/events": [
+   {
+    "abort": true
+   },
+   {
+    "sse": [
+     {
+      "seq": 6,
+      "chain": "kaufland",
+      "event": "leaflet",
+      "key": "2026-W42:1012-1017",
+      "title": "Angebote 12.10.-17.10.2026",
+      "kind": "main",
+      "valid_from": "2026-10-12",
+      "valid_to": "2026-10-17",
+      "dates_source": "feed",
+      "tier": 1,
+      "status": "cached",
+      "offers": 348
+     },
+     {
+      "seq": 7,
+      "chain": "kaufland",
+      "event": "chain_done",
+      "status": "ok",
+      "reason": null,
+      "store": {
+       "id": "DE8700",
+       "km": 4.0,
+       "lat": 48.1295951,
+       "lon": 11.6260178,
+       "name": "Kaufland M\u00fcnchen-Berg am Laim",
+       "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+       "edition": "DE8700",
+       "located": true
+      },
+      "leaflets": [
+       {
+        "key": "2026-W40:1001-1031",
+        "title": "Angebote 01.10.-31.10.2026",
+        "kind": "extra",
+        "valid_from": "2026-10-01",
+        "valid_to": "2026-10-31",
+        "dates_source": "feed",
+        "tier": 1,
+        "status": "complete",
+        "offers": 68
+       },
+       {
+        "key": "2026-W41:1008-1014",
+        "title": "Angebote 08.10.-14.10.2026",
+        "kind": "extra",
+        "valid_from": "2026-10-08",
+        "valid_to": "2026-10-14",
+        "dates_source": "feed",
+        "tier": 1,
+        "status": "complete",
+        "offers": 208
+       },
+       {
+        "key": "2026-W42:1012-1017",
+        "title": "Angebote 12.10.-17.10.2026",
+        "kind": "main",
+        "valid_from": "2026-10-12",
+        "valid_to": "2026-10-17",
+        "dates_source": "feed",
+        "tier": 1,
+        "status": "complete",
+        "offers": 348
+       }
+      ]
+     },
+     {
+      "seq": 8,
+      "chain": "penny",
+      "event": "step",
+      "step": "stores"
+     },
+     {
+      "seq": 9,
+      "chain": "penny",
+      "event": "store",
+      "store": {
+       "id": "430153",
+       "km": 0.5,
+       "lat": 48.13148,
+       "lon": 11.57541,
+       "name": "Penny G\u00e4rtnerplatz",
+       "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+       "edition": "15A-04-80",
+       "located": true
+      }
+     },
+     {
+      "seq": 10,
+      "chain": "penny",
+      "event": "step",
+      "step": "leaflets"
+     },
+     {
+      "seq": 11,
+      "chain": "penny",
+      "event": "leaflet",
+      "key": "2026-W42",
+      "title": "Angebote KW 42",
+      "kind": "offers",
+      "valid_from": "2026-10-12",
+      "valid_to": "2026-10-17",
+      "dates_source": "text",
+      "tier": 1,
+      "status": "cached",
+      "offers": 323
+     },
+     {
+      "seq": 12,
+      "chain": "penny",
+      "event": "chain_done",
+      "status": "ok",
+      "reason": null,
+      "store": {
+       "id": "430153",
+       "km": 0.5,
+       "lat": 48.13148,
+       "lon": 11.57541,
+       "name": "Penny G\u00e4rtnerplatz",
+       "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+       "edition": "15A-04-80",
+       "located": true
+      },
+      "leaflets": [
+       {
+        "key": "2026-W42",
+        "title": "Angebote KW 42",
+        "kind": "offers",
+        "valid_from": "2026-10-12",
+        "valid_to": "2026-10-17",
+        "dates_source": "text",
+        "tier": 1,
+        "status": "complete",
+        "offers": 323
+       }
+      ]
+     },
+     {
+      "event": "done",
+      "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11"
+     }
+    ]
+   }
+  ]
+ },
+ "expect": [
+  "Reconnecting",
+  "Scan finished."
+ ],
+ "count": {
+  ".agent": 2,
+  ".agent .leaflets li": 4
+ },
+ "requested": [
+  "GET /api/scan/*/events?after=6"
+ ]
+}

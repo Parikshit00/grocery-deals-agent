@@ -1,0 +1,133 @@
+{
+  "chain": "rewe",
+  "pdf": "Experiments/Prospekts/REWE.pdf",
+  "drafted_by": "claude-text-layer",
+  "reviewed": false,
+  "pages": {
+    "1": [
+      {"n": "Ritter Sport Schokolade", "b": "Ritter Sport", "p": 111, "o": null, "lp": null, "q": "je 100-g-Tafel", "bp": "(1 kg = 11.10)", "c": "0,10 € Bonus", "cat": "food"},
+      {"n": "Pril Geschirrspülmittel Sensitive Aloe Vera oder Original", "b": "Pril", "p": 139, "o": null, "lp": null, "q": "je 450-ml-Fl. oder je 675-ml-Fl.", "bp": "(1 l = 3.09) / (1 l = 2.06)", "c": "0,10 € Bonus", "cat": "household"},
+      {"n": "Iglo Filegro Ofen-Backfisch oder Schlemmerfilet Bordelaise Classic", "b": "Iglo", "p": 299, "o": null, "lp": null, "q": "je 240-g-Pckg. oder je 380-g-Pckg.", "bp": "(1 kg = 12.46) / (1 kg = 7.87)", "c": "0,20 € Bonus", "cat": "food"},
+      {"n": "Barilla Pesto Rosso oder Pasta Sauce Basilico", "b": "Barilla", "p": 199, "o": null, "lp": null, "q": "je 200-g-Glas oder je 400-g-Glas", "bp": "(1 kg = 9.95) / (1 kg = 4.98)", "c": "0,10 € Bonus", "cat": "food"},
+      {"n": "Granini Trinkgenuss", "b": "Granini", "p": 169, "o": null, "lp": null, "q": "je 1-l-Fl. zzgl. 0.25 Pfand", "bp": null, "c": "0,10 € Bonus", "cat": "drinks"}
+    ],
+    "7": [
+      {"n": "Futuromelone", "b": null, "p": 179, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Wassermelone kernarm", "b": null, "p": 79, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Cantaloupemelone", "b": null, "p": 179, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Bio Mini Wassermelone", "b": null, "p": 179, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Grüne Kiwi", "b": null, "p": 44, "o": null, "lp": null, "q": "je St.", "bp": null, "c": null, "cat": "food"},
+      {"n": "Gelb- oder weißfleischige Nektarinen", "b": null, "p": 349, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Plattpfirsiche", "b": null, "p": 333, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Zum Dorfkrug Frische Salatsauce", "b": "Zum Dorfkrug", "p": 159, "o": null, "lp": null, "q": "je 250-ml-Fl.", "bp": "(1 l = 6.36)", "c": "0,10 € Bonus", "cat": "food"},
+      {"n": "Drink & Eat Kokosnuss", "b": null, "p": 229, "o": null, "lp": null, "q": "je 1-St.-Pckg.", "bp": null, "c": null, "cat": "food"},
+      {"n": "Bunte Tafelbirnen", "b": null, "p": 299, "o": null, "lp": null, "q": "je 1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Salatbowl LOVE IS LOVE", "b": null, "p": 279, "o": null, "lp": null, "q": "je 325-g-Schale", "bp": "(1 kg = 8.58)", "c": null, "cat": "food"},
+      {"n": "Smoothie LOVE IS LOVE", "b": null, "p": 99, "o": null, "lp": null, "q": "je 250-ml-Fl. zzgl. 0.25 Pfand", "bp": "(1 l = 3.96)", "c": null, "cat": "drinks"},
+      {"n": "Clementinen", "b": null, "p": 222, "o": null, "lp": null, "q": "je 750-g-Netz", "bp": "(1 kg = 2.96)", "c": null, "cat": "food"}
+    ],
+    "9": [
+      {"n": "Entrecôte vom Rind, natur oder mariniert", "b": null, "p": 299, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Rinder-Suppenfleisch mit Knochen", "b": null, "p": 119, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Rinder-Hackfleisch", "b": null, "p": 177, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Rinder-Steak aus der Keule, natur oder mariniert", "b": null, "p": 199, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Kalbs-Leber", "b": null, "p": 199, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Duroc Schweine-Nacken ohne Knochen", "b": null, "p": 199, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Strohschwein-Bauch am Stück oder in Scheiben, ohne Knochen", "b": null, "p": 99, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Lamm-Lachs natur oder mariniert", "b": null, "p": 349, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Frisches Maishähnchenbrustfilet", "b": null, "p": 159, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"}
+    ],
+    "11": [
+      {"n": "Bonbel Butterkäse", "b": "Bonbel", "p": 179, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Ostermeier GQB Strohschwein Domschinken", "b": "Ostermeier", "p": 179, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Bille Geflügelsalami", "b": "Bille", "p": 149, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Timmendorfer Rügenwalder Teewurst", "b": "Timmendorfer", "p": 149, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Schiller GQB Strohschwein Backleberkäse", "b": "Schiller", "p": 111, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Rügenwalder Mühle Pommersche Gutsleberwurst", "b": "Rügenwalder Mühle", "p": 149, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Alta Badia ital. Hartkäse", "b": "Alta Badia", "p": 199, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Schulte Trapez Salami Chili", "b": "Schulte", "p": 199, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Meisterschinken gegart", "b": null, "p": 159, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"},
+      {"n": "Bettine Ziegenkäse holl. Frisch- oder Weichkäse", "b": "Bettine", "p": 189, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "An der Bedientheke", "cat": "food"}
+    ],
+    "13": [
+      {"n": "Herta Finesse Aufschnitt", "b": "Herta", "p": 139, "o": null, "lp": null, "q": "je 100-g-Pckg.", "bp": "(1 kg = 13.90)", "c": null, "cat": "food"},
+      {"n": "Wiltmann Salami", "b": "Wiltmann", "p": 149, "o": null, "lp": null, "q": "je 80-g-Pckg.", "bp": "(1 kg = 18.63)", "c": null, "cat": "food"},
+      {"n": "Wolf Berner Würstchen", "b": "Wolf", "p": 249, "o": null, "lp": null, "q": "je 250-g-Pckg.", "bp": "(1 kg = 9.96)", "c": null, "cat": "food"},
+      {"n": "Gazi Grill- und Pfannenkäse Kräuter", "b": "Gazi", "p": 199, "o": null, "lp": null, "q": "je 200-g-Pckg.", "bp": "(1 kg = 9.95)", "c": null, "cat": "food"},
+      {"n": "Altenburger Ziegenrolle", "b": "Altenburger", "p": 239, "o": null, "lp": null, "q": "je 150-g-Rolle", "bp": "(1 kg = 15.93)", "c": null, "cat": "food"},
+      {"n": "Milkana Frischeschale Sahne Schmelzkäse", "b": "Milkana", "p": 199, "o": null, "lp": null, "q": "je 190-g-Schale", "bp": "(1 kg = 10.47)", "c": null, "cat": "food"},
+      {"n": "Grünländer Scheiben mild & nussig oder Naturfreunde Tilsiterscheiben", "b": "Grünländer", "p": 179, "o": null, "lp": null, "q": "je 140-g-Pckg.", "bp": "(1 kg = 12.79)", "c": null, "cat": "food"},
+      {"n": "Zott Zottarella", "b": "Zott", "p": 199, "o": null, "lp": null, "q": "200-g-Abtropfgew., je 330-g-Btl.", "bp": "(1 kg = 9.95)", "c": null, "cat": "food"},
+      {"n": "Brandt Finn Crisp Original", "b": "Brandt", "p": 149, "o": null, "lp": null, "q": "je 200-g-Pckg.", "bp": "(1 kg = 7.45)", "c": null, "cat": "food"},
+      {"n": "REWE Beste Wahl Ciabatta", "b": "REWE Beste Wahl", "p": 119, "o": null, "lp": null, "q": "je 300-g-Pckg.", "bp": "(1 kg = 3.97)", "c": null, "cat": "food"}
+    ],
+    "15": [
+      {"n": "Dr. Oetker Pizza Tradizionale Salame Romano oder Die Ofenfrische Vier Käse", "b": "Dr. Oetker", "p": 199, "o": null, "lp": null, "q": "je 385-g-Pckg. oder je 410-g-Pckg.", "bp": "(1 kg = 5.17) / (1 kg = 4.85)", "c": null, "cat": "food"},
+      {"n": "McCain Golden Longs oder Steakhouse Frites", "b": "McCain", "p": 159, "o": null, "lp": null, "q": "je 600-g-Btl. oder je 650-g-Btl.", "bp": "(1 kg = 2.65) / (1 kg = 2.45)", "c": null, "cat": "food"},
+      {"n": "Original Wagner Pizzeria Style Salame Piccante", "b": "Original Wagner", "p": 299, "o": null, "lp": null, "q": "je 380-g-Pckg.", "bp": "(1 kg = 7.87)", "c": null, "cat": "food"},
+      {"n": "Dovgan Pelmeni Teigtaschen mit Putenfleisch", "b": "Dovgan", "p": 229, "o": null, "lp": null, "q": "je 500-g-Btl.", "bp": "(1 kg = 4.58)", "c": null, "cat": "food"},
+      {"n": "Iglo Chicken Stripes", "b": "Iglo", "p": 299, "o": null, "lp": null, "q": "je 220-g-Pckg.", "bp": "(1 kg = 13.59)", "c": null, "cat": "food"},
+      {"n": "Iglo Würz-Spinat oder Rahm-Spinat", "b": "Iglo", "p": 179, "o": null, "lp": null, "q": "je 500-g-Pckg. oder je 750-g-Pckg.", "bp": "(1 kg = 3.58) / (1 kg = 2.39)", "c": null, "cat": "food"},
+      {"n": "Trüfrü Früchte in Schokolade Blaubeere", "b": "Trüfrü", "p": 459, "o": null, "lp": null, "q": "je 200-g-Btl.", "bp": "(1 kg = 22.95)", "c": null, "cat": "food"},
+      {"n": "Bürger Kartoffel-Schupfnudeln oder Schwäbische Eierspätzle", "b": "Bürger", "p": 199, "o": null, "lp": null, "q": "je 400-g-Btl.", "bp": "(1 kg = 4.98)", "c": null, "cat": "food"},
+      {"n": "Matthews Hähnchen Filetstreifen Klassik oder Hähnchenbrust Filetstücke", "b": "Matthews", "p": 229, "o": null, "lp": null, "q": "je 125-g-Pckg. oder je 150-g-Pckg.", "bp": "(1 kg = 18.32) / (1 kg = 15.27)", "c": null, "cat": "food"},
+      {"n": "Block House Brot Knoblauch", "b": "Block House", "p": 199, "o": null, "lp": null, "q": "je 250-g-Pckg.", "bp": "(1 kg = 7.96)", "c": null, "cat": "food"}
+    ],
+    "17": [
+      {"n": "Knabe Kola", "b": "Knabe", "p": 89, "o": null, "lp": null, "q": "je 0,33-l-Dose zzgl. 0.25 Pfand", "bp": "(1 l = 2.70)", "c": null, "cat": "drinks"},
+      {"n": "Powerade Mountain Blast", "b": "Powerade", "p": 99, "o": null, "lp": null, "q": "je 0,5-l-Fl. zzgl. 0.25 Pfand", "bp": "(1 l = 1.98)", "c": null, "cat": "drinks"},
+      {"n": "Granini Trinkgenuss", "b": "Granini", "p": 169, "o": null, "lp": null, "q": "je 1-l-Fl. zzgl. 0.25 Pfand", "bp": null, "c": null, "cat": "drinks"},
+      {"n": "Dryll Elektrolytegetränk", "b": "Dryll", "p": 149, "o": null, "lp": null, "q": "je 0,33-l-Dose zzgl. 0.25 Pfand", "bp": "(1 l = 4.52)", "c": null, "cat": "drinks"},
+      {"n": "Granini Fresh oder Die Limo", "b": "Granini", "p": 129, "o": null, "lp": null, "q": "je 0,75-l-Fl. oder je 1-l-Fl. zzgl. 0.25 Pfand", "bp": "(1 l = 1.72)", "c": null, "cat": "drinks"},
+      {"n": "Hella Feelgood oder Near Water", "b": "Hella", "p": 89, "o": null, "lp": null, "q": "je 0,75-l-Fl. oder je 1,5-l-Fl. zzgl. 0.25 Pfand", "bp": "(1 l = 1.19) / (1 l = 0.59)", "c": null, "cat": "drinks"},
+      {"n": "Gerolsteiner Flow", "b": "Gerolsteiner", "p": 149, "o": null, "lp": null, "q": "je 0,5-l-Fl. zzgl. 0.25 Pfand", "bp": "(1 l = 2.98)", "c": null, "cat": "drinks"},
+      {"n": "Sinalco Limonade", "b": "Sinalco", "p": 79, "o": null, "lp": null, "q": "je 1,25-l-Fl. zzgl. 0.25 Pfand", "bp": "(1 l = 0.63)", "c": null, "cat": "drinks"},
+      {"n": "Krumbach Mineralwasser", "b": "Krumbach", "p": 439, "o": null, "lp": null, "q": "je 12 x 0,7-l-Fl.-Kasten zzgl. 3.30 Pfand", "bp": "(1 l = 0.52)", "c": null, "cat": "drinks"},
+      {"n": "Franken Brunnen Mineralwasser", "b": "Franken Brunnen", "p": 549, "o": null, "lp": null, "q": "je 12 x 1-l-Fl.-Kasten zzgl. 3.30 Pfand", "bp": "(1 l = 0.46)", "c": null, "cat": "drinks"}
+    ],
+    "19": [
+      {"n": "Kahlua Coffee Liqueur oder Absolut Vodka", "b": null, "p": 1099, "o": null, "lp": null, "q": "je 0,7-l-Fl.", "bp": "(1 l = 15.70)", "c": null, "cat": "drinks"},
+      {"n": "Jack Daniel’s Tennessee Whiskey", "b": "Jack Daniel’s", "p": 1499, "o": null, "lp": null, "q": "je 0,7-l-Fl.", "bp": "(1 l = 21.41)", "c": null, "cat": "drinks"},
+      {"n": "Baileys Chocolate Irish Cream Liqueur oder Original Irish Cream", "b": "Baileys", "p": 999, "o": null, "lp": null, "q": "je 0,5-l-Fl. oder je 0,7-l-Fl.", "bp": "(1 l = 14.27)", "c": null, "cat": "drinks"},
+      {"n": "Bombay Sapphire London Dry Gin", "b": "Bombay Sapphire", "p": 1699, "o": null, "lp": null, "q": "je 0,7-l-Fl.", "bp": "(1 l = 24.27)", "c": null, "cat": "drinks"},
+      {"n": "Valdo Valdobbiadene Prosecco", "b": "Valdo", "p": 799, "o": null, "lp": null, "q": "je 0,75-l-Fl.", "bp": "(1 l = 10.65)", "c": null, "cat": "drinks"},
+      {"n": "Havana Club Cola oder Spezi", "b": "Havana Club", "p": 199, "o": null, "lp": null, "q": "je 0,33-l-Dose zzgl. 0.25 Pfand", "bp": "(1 l = 6.03)", "c": null, "cat": "drinks"},
+      {"n": "Lillet Rosé White Peach oder Berry", "b": "Lillet", "p": 699, "o": null, "lp": null, "q": "je 3 x 0,2-l-Fl.-Pckg.", "bp": "(1 l = 11.65)", "c": null, "cat": "drinks"},
+      {"n": "Maybach Qualitätswein", "b": "Maybach", "p": 299, "o": null, "lp": null, "q": "je 0,75-l-Fl.", "bp": "(1 l = 3.99)", "c": null, "cat": "drinks"},
+      {"n": "Mederano de Freixenet oder Freixenet Mia Wein", "b": "Freixenet", "p": 299, "o": null, "lp": null, "q": "je 0,75-l-Fl.", "bp": "(1 l = 3.99)", "c": null, "cat": "drinks"},
+      {"n": "Francois Dulac Vin de France Blanc trocken", "b": "Francois Dulac", "p": 349, "o": null, "lp": null, "q": "je 1-l-Fl.", "bp": null, "c": null, "cat": "drinks"}
+    ],
+    "21": [
+      {"n": "Barilla Classic Pasta", "b": "Barilla", "p": 88, "o": null, "lp": null, "q": "je 500-g-Pckg.", "bp": "(1 kg = 1.76)", "c": null, "cat": "food"},
+      {"n": "Barilla Pesto Rosso oder Pasta Sauce Basilico", "b": "Barilla", "p": 199, "o": null, "lp": null, "q": "je 200-g-Glas oder je 400-g-Glas", "bp": "(1 kg = 9.95) / (1 kg = 4.98)", "c": "0,10 € Bonus", "cat": "food"},
+      {"n": "Maggi 5 Minuten Terrine Nudeln in Rahmsauce oder Magic Asia Saucy Noodles Teriyaki", "b": "Maggi", "p": 99, "o": null, "lp": null, "q": "je 61-g-Becher oder je 75-g-Becher", "bp": "(1 kg = 16.23) / (1 kg = 13.20)", "c": null, "cat": "food"},
+      {"n": "Maggi Ravioli", "b": "Maggi", "p": 199, "o": null, "lp": null, "q": "je 800-g-Dose", "bp": "(1 kg = 2.49)", "c": null, "cat": "food"},
+      {"n": "Bull’s Eye BBQ Sauce", "b": "Bull’s Eye", "p": 199, "o": null, "lp": null, "q": "je 300-ml-Fl.", "bp": "(1 l = 6.63)", "c": "0,10 € Bonus", "cat": "food"},
+      {"n": "P&W Hamburger Sauce", "b": "P&W", "p": 129, "o": null, "lp": null, "q": "je 425-g-Fl.", "bp": "(1 kg = 3.04)", "c": null, "cat": "food"},
+      {"n": "Kühne Schlemmertöpfchen mit Kräutern verfeinert", "b": "Kühne", "p": 249, "o": null, "lp": null, "q": "300-g-Abtropfgew., je 530-g-Glas", "bp": "(1 kg = 8.30)", "c": null, "cat": "food"},
+      {"n": "Knorr Suppenliebe", "b": "Knorr", "p": 79, "o": null, "lp": null, "q": "ausreichend für 750 ml, je Btl.", "bp": null, "c": "0,10 € Bonus", "cat": "food"},
+      {"n": "Seeberger Kokoschips oder Nuts ’n Berries", "b": "Seeberger", "p": 249, "o": null, "lp": null, "q": "je 110-g-Btl. oder je 150-g-Btl.", "bp": "(1 kg = 22.64) / (1 kg = 16.60)", "c": null, "cat": "food"},
+      {"n": "Zentis Smile Konfitüre Erdbeere oder Nusspli", "b": "Zentis", "p": 249, "o": null, "lp": null, "q": "je 230-g-Glas oder je 400-g-Glas", "bp": "(1 kg = 10.83) / (1 kg = 6.23)", "c": null, "cat": "food"}
+    ],
+    "24": [
+      {"n": "REWE Regional Frische Hähnchen-Ministeaks", "b": "REWE Regional", "p": 519, "o": null, "lp": null, "q": "je 400-g-Pckg.", "bp": "(1 kg = 12.98)", "c": null, "cat": "food"},
+      {"n": "REWE Regional Hähnchen-Leber, -Mägen oder -Herzen", "b": "REWE Regional", "p": 179, "o": null, "lp": null, "q": "je 350-g-Pckg.", "bp": "(1 kg = 5.11)", "c": null, "cat": "food"},
+      {"n": "REWE Regional Frisches Puten-Geschnetzeltes", "b": "REWE Regional", "p": 549, "o": null, "lp": null, "q": "je 400-g-Pckg.", "bp": "(1 kg = 13.73)", "c": null, "cat": "food"},
+      {"n": "REWE Regional Frische Hähnchen-Unterschenkel natur oder gewürzt", "b": "REWE Regional", "p": 349, "o": null, "lp": null, "q": "je 600-g-Pckg.", "bp": "(1 kg = 5.82)", "c": null, "cat": "food"},
+      {"n": "REWE Regional Schweine Minutensteaks", "b": "REWE Regional", "p": 369, "o": null, "lp": null, "q": "je 400-g-Pckg.", "bp": "(1 kg = 9.23)", "c": null, "cat": "food"},
+      {"n": "REWE Regional Rinder-Hackfleisch fettreduziert, zum Braten", "b": "REWE Regional", "p": 699, "o": null, "lp": null, "q": "je 400-g-Pckg.", "bp": "(1 kg = 17.48)", "c": null, "cat": "food"}
+    ]
+  },
+  "notes": {
+    "_leaflet": "REWE, \"27. Woche 2026. Gültig ab 29.06.2026\" (cover). REWE prints no struck prices in this leaflet (Knaller/Aktion prices only), so o is null throughout. REWE Bonus badges (\"0,10 € Bonus\") credit the Bonus account and do not lower the shelf price: put in c, never in lp. Bonus badges are free-floating near product images; their assignment to products is by proximity (badge above/left of the product text block) and must be checked on the image. Every price with a printed base price was linked by recomputing it. Brands are inline in REWE names; b is the leading brand word(s). Pages 3 to 6 were avoided: they contain image placeholder areas whose offers are not in the text layer.",
+    "1": "Bonus page (\"Wöchentlich neue Bonus-Aktionen!\"). Five Bonus badges, assigned: Ritter Sport 0,10, Pril 0,10, Iglo 0,20, Granini 0,10, Barilla 0,10 (Granini vs Barilla could be swapped). Promotion \"Jetzt 10% Bonus auf Butcher’s\" has no price: not listed.",
+    "7": "Origins (Spanien:, Italien:, etc.) are printed before the names and left out of n. Kiwi priced je St.",
+    "9": "\"An der Bedientheke!\" page; all prices je 100 g at the service counter. Entrecôte is the KNALLER AKTION hero (2.99).",
+    "11": "\"An der Bedientheke!\" page. \"Timmendorfer\" printed above \"Rügenwalder Teewurst\" (read as brand + product). Meisterschinken has no brand line in the text layer.",
+    "13": "A \"0,10 € Bonus\" badge at the left margin (y 269) is not clearly tied to any product; not assigned. Rating badge \"4,6 von 5\" (rewe.de/test) and a \"Vegan\" badge also float near products.",
+    "17": "A \"0,10 € Bonus\" badge at the top-left (y 16) is not clearly tied to any product; not assigned. \"Neu bei uns\" badges are not conditions.",
+    "19": "KNALLER AKTION hero: Kahlua oder Absolut Vodka 10.99 (no single brand). Text layer spells \"Blance\" (sic) for the Francois Dulac wine.",
+    "21": "Three \"0,10 € Bonus\" badges in the left column assigned to Barilla Pesto/Sauce, Bull’s Eye and Knorr by proximity.",
+    "24": "Only six offers on this page (REWE Regional meat); the upper half is an image header."
+  }
+}

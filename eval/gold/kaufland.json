@@ -1,0 +1,129 @@
+{
+  "chain": "kaufland",
+  "pdf": "Experiments/Prospekts/KAUFLAND.pdf",
+  "drafted_by": "claude-text-layer",
+  "reviewed": false,
+  "pages": {
+    "2": [
+      {"n": "Span./ital. Wassermelone", "b": null, "p": 99, "o": 169, "lp": null, "q": "lose, je kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Ägypt. Tafeltrauben, hell", "b": null, "p": 179, "o": 279, "lp": null, "q": "je 500-g-Packg.", "bp": "(1 kg = 3.58)", "c": null, "cat": "food"},
+      {"n": "Dtsch. Johannisbeeren", "b": null, "p": 299, "o": null, "lp": null, "q": "je 500-g-Packg.", "bp": "(1 kg = 5.98)", "c": null, "cat": "food"},
+      {"n": "Dtsch. Stachelbeeren", "b": null, "p": 299, "o": 499, "lp": null, "q": "je 500-g-Packg.", "bp": "(1 kg = 5.98)", "c": null, "cat": "food"},
+      {"n": "Ital. Tafeläpfel Sorte »Cosmic Crisp«", "b": null, "p": 199, "o": 299, "lp": null, "q": "je 900-g-Packg.", "bp": "(1 kg = 2.22)", "c": null, "cat": "food"},
+      {"n": "Südafrik. Tafelbirnen rot", "b": null, "p": 199, "o": 249, "lp": null, "q": "je 600-g-Packg.", "bp": "(1 kg = 3.32)", "c": null, "cat": "food"},
+      {"n": "Neuseel. Kiwi gold", "b": null, "p": 199, "o": 279, "lp": null, "q": "je 3-St.-Packg.", "bp": null, "c": null, "cat": "food"},
+      {"n": "Span. Orangen", "b": null, "p": 299, "o": 399, "lp": null, "q": "je 1,5-kg-Netz", "bp": "(1 kg = 2.00)", "c": null, "cat": "food"}
+    ],
+    "7": [
+      {"n": "KITKAT, LION, SMARTIES oder NUTS Minis kleine Schokoriegel", "b": null, "p": 249, "o": null, "lp": null, "q": "je 10 St. = 144 - 180-g-Packg.", "bp": "(1 kg = 13.84 - 17.30)", "c": "2 KAUFEN FÜR 4 € (entspricht per Packg. 2 €; 2 x je 10 St. = 144 - 180-g-Packg., 1 kg = 11.12 - 13.89)", "cat": "food"},
+      {"n": "Weichspüler", "b": "LENOR", "p": 399, "o": null, "lp": null, "q": "= 71 Anwendungen je 1,491-l-Fl.", "bp": "(pro Anwendung = 0.06)", "c": "2 KAUFEN FÜR 7 € (entspricht per Flasche 3.50 €; 2 x je 1,491-l-Fl., pro Anwendung = 0.05)", "cat": "household"},
+      {"n": "Chips", "b": "PRINGLES", "p": 169, "o": null, "lp": null, "q": "je 160 - 185-g-Dose", "bp": "(1 kg = 9.14 - 10.57)", "c": null, "cat": "food"},
+      {"n": "Damenbinden", "b": "ALWAYS", "p": 649, "o": null, "lp": 599, "q": "je 32 - 64-St.-Packg. (Quattro-Pack)", "bp": null, "c": null, "cat": "drugstore"},
+      {"n": "Duschgel", "b": "DUSCHDAS", "p": 99, "o": 179, "lp": null, "q": "je 225-ml-Fl.", "bp": "(1 l = 4.40)", "c": null, "cat": "drugstore"},
+      {"n": "Toilettenpapier Soft", "b": "K-CLASSIC", "p": 275, "o": null, "lp": null, "q": "je Packg. 8 x 180 Blatt", "bp": null, "c": null, "cat": "household"},
+      {"n": "Gold Katzennassfutter", "b": "PURINA GOURMET", "p": 49, "o": null, "lp": 39, "q": "je 85-g-Dose", "bp": "(1 kg = 5.77)", "c": null, "cat": "nonfood"}
+    ],
+    "11": [
+      {"n": "Echt ungar. Salami", "b": "PICK", "p": 174, "o": 349, "lp": null, "q": "je 100 g", "bp": null, "c": "nur an entsprechender Frischetheke erhältlich", "cat": "food"},
+      {"n": "Vorarlberger Bergkäse", "b": "ALMA", "p": 149, "o": 299, "lp": null, "q": "je 100 g", "bp": null, "c": "nur an entsprechender Frischetheke erhältlich", "cat": "food"},
+      {"n": "Kräuter-Butter Original", "b": "MEGGLE", "p": 134, "o": 269, "lp": null, "q": "je 125-g-Rolle", "bp": "(1 kg = 10.72)", "c": null, "cat": "food"},
+      {"n": "Pasta-Sauce", "b": "BARILLA", "p": 149, "o": 299, "lp": null, "q": "je 400-g-Glas", "bp": "(1 kg = 3.73)", "c": null, "cat": "food"},
+      {"n": "Rahmjoghurt", "b": "WEIHENSTEPHAN", "p": 49, "o": 99, "lp": null, "q": "je 150-g-Becher", "bp": "(1 kg = 3.27)", "c": null, "cat": "food"},
+      {"n": "Piccolinis oder Pizzies", "b": "ORIGINAL WAGNER", "p": 184, "o": 369, "lp": null, "q": "je 2 - 9 St. = 270 - 300-g-Packg.", "bp": "(1 kg = 6.14 - 6.82)", "c": null, "cat": "food"},
+      {"n": "Golden Longs Pommes Frites", "b": "MCCAIN", "p": 244, "o": 489, "lp": null, "q": "je 1-kg-Packg.", "bp": null, "c": null, "cat": "food"}
+    ],
+    "14": [
+      {"n": "Backfisch-Stäbchen oder Filegro", "b": "IGLO", "p": 499, "o": null, "lp": null, "q": "je 480 - 728-g-Packg.", "bp": "(1 kg = 6.86 - 10.40)", "c": null, "cat": "food"},
+      {"n": "Activia", "b": "DANONE", "p": 299, "o": null, "lp": null, "q": "je Packg. = 8 x 115-g-Becher", "bp": "(1 kg = 3.25)", "c": null, "cat": "food"},
+      {"n": "Schoko-Bons", "b": "KINDER", "p": 399, "o": null, "lp": null, "q": "je 300-g-Beutel", "bp": "(1 kg = 13.30)", "c": null, "cat": "food"},
+      {"n": "Schokoriegel", "b": "KINDER oder YOGURETTE", "p": 349, "o": null, "lp": null, "q": "je 24 St. = 300-g-Packg.", "bp": "(1 kg = 11.64)", "c": null, "cat": "food"},
+      {"n": "Whiskey oder Whiskey-Likör", "b": "JIM BEAM", "p": 1999, "o": null, "lp": null, "q": "je 1,5-l-Fl.", "bp": "(1 l = 13.33)", "c": null, "cat": "drinks"},
+      {"n": "Kaubonbons", "b": "MAMBA", "p": 79, "o": 99, "lp": null, "q": "je 5 x 26,5-g-Packg.", "bp": "(1 kg = 5.97)", "c": "4 + 1 GRATIS", "cat": "food"},
+      {"n": "Mr. Tom Erdnuss-Karamell-Riegel", "b": "HOSTA", "p": 111, "o": null, "lp": null, "q": "je 4 St. = 160-g-Packg.", "bp": "(1 kg = 6.94)", "c": "3 + 1 GRATIS", "cat": "food"},
+      {"n": "Rum oder Rum-Spirituose", "b": "BACARDI", "p": 1899, "o": null, "lp": null, "q": "je 1,5-l-Fl.", "bp": "(1 l = 12.66)", "c": null, "cat": "drinks"},
+      {"n": "Duschgel", "b": "OLD SPICE", "p": 699, "o": null, "lp": null, "q": "je 1-l-Fl.", "bp": null, "c": null, "cat": "drugstore"},
+      {"n": "Taschentücher Design-Pack", "b": "TEMPO", "p": 399, "o": null, "lp": null, "q": "je 42 x 10-St.-Packg.", "bp": null, "c": null, "cat": "drugstore"}
+    ],
+    "17": [
+      {"n": "Mascarpone", "b": "K-CLASSIC", "p": 299, "o": null, "lp": 279, "q": "je 500-g-Becher", "bp": "(1 kg = 5.98)", "c": null, "cat": "food"},
+      {"n": "Limoncello Zitronenlikör", "b": null, "p": 599, "o": 759, "lp": null, "q": "je 0,7-l-Fl.", "bp": "(1 l = 8.56)", "c": null, "cat": "drinks"},
+      {"n": "Frischer Schmand", "b": "K-CLASSIC", "p": 69, "o": null, "lp": null, "q": "je 200-g-Becher", "bp": "(1 kg = 3.45)", "c": null, "cat": "food"},
+      {"n": "Ital. Löffelbiskuits", "b": "K-CLASSIC", "p": 149, "o": 199, "lp": null, "q": "je 4 x 100-g-Packg.", "bp": "(1 kg = 3.73)", "c": null, "cat": "food"},
+      {"n": "Amarenakirschen", "b": "FABBRI", "p": 399, "o": 599, "lp": null, "q": "je 230-g-Glas", "bp": "(1 kg = 17.35)", "c": null, "cat": "food"},
+      {"n": "Pistazien-Creme", "b": "AGRISICILIA", "p": 449, "o": 549, "lp": null, "q": "je 200-g-Glas", "bp": "(1 kg = 22.45)", "c": null, "cat": "food"},
+      {"n": "Mini-Gebäckkugeln", "b": "GIOTTO", "p": 279, "o": 365, "lp": null, "q": "4 Stangen à 9 Stück je 36 St. = 154-g-Packg.", "bp": "(1 kg = 18.12)", "c": null, "cat": "food"},
+      {"n": "Grissini Saltelli", "b": "VALLEDORO", "p": 129, "o": null, "lp": null, "q": "je 100-g-Packg.", "bp": "(1 kg = 12.90)", "c": null, "cat": "food"},
+      {"n": "Amaretti Morbidi alla Mandorla", "b": "SAPORI", "p": 199, "o": 379, "lp": null, "q": "je 175-g-Packg.", "bp": "(1 kg = 11.38)", "c": null, "cat": "food"},
+      {"n": "Mineralwasser", "b": "ACQUA PANNA oder S.PELLEGRINO", "p": 89, "o": null, "lp": null, "q": "je 1-l-PET-Fl. (+ 0.25 Pfand)", "bp": null, "c": null, "cat": "drinks"}
+    ],
+    "20": [
+      {"n": "Demeter Joghurt mild", "b": "ANDECHSER NATUR", "p": 199, "o": 279, "lp": 179, "q": "je 500-g-Glas (+ 0.15 Pfand)", "bp": "(1 kg = 3.98)", "c": null, "cat": "food"},
+      {"n": "Bio-Fleischkäse oder Bio-Geflügel-Lyoner", "b": "WILTMANN", "p": 169, "o": null, "lp": null, "q": "je 80-g-Packg.", "bp": "(1 kg = 21.13)", "c": null, "cat": "food"},
+      {"n": "Bio-Lachsfilet", "b": "K-BIO", "p": 444, "o": 559, "lp": null, "q": "je 200-g-Packg.", "bp": "(1 kg = 22.20)", "c": null, "cat": "food"},
+      {"n": "Veganes Bio-Hack", "b": "GREENFORCE", "p": 249, "o": 299, "lp": null, "q": "je 180-g-Packg.", "bp": "(1 kg = 13.84)", "c": null, "cat": "food"},
+      {"n": "Veganes Bio-Eis", "b": "NOMOO", "p": 444, "o": 599, "lp": null, "q": "je 420-ml-Becher", "bp": "(1 l = 10.58)", "c": null, "cat": "food"},
+      {"n": "Bio-Kokosöl", "b": "BORCHERS", "p": 299, "o": 449, "lp": null, "q": "je 200-ml-Glas", "bp": "(1 l = 14.95)", "c": null, "cat": "food"},
+      {"n": "Bio-Suppe oder -Eintopf", "b": "LITTLE LUNCH", "p": 249, "o": 379, "lp": null, "q": "je 350-ml-/g-Glas", "bp": "(1 l = 7.12)", "c": null, "cat": "food"},
+      {"n": "Bio-Tee Kräuter- oder Früchtetee", "b": "CUPPER", "p": 199, "o": 295, "lp": null, "q": "je 20 Btl. = 30 - 50-g-Packg.", "bp": "(1 kg = 39.80 - 66.34)", "c": null, "cat": "drinks"},
+      {"n": "Bio-Haferflocken", "b": "KÖLLN", "p": 199, "o": null, "lp": null, "q": "je 500-g-Packg.", "bp": "(1 kg = 3.98)", "c": null, "cat": "food"},
+      {"n": "Bio-Schokolade", "b": "GEPA", "p": 249, "o": 399, "lp": null, "q": "je 80 - 100-g-Tafel", "bp": "(1 kg = 24.90 - 31.13)", "c": null, "cat": "food"},
+      {"n": "Bio-Dinkelvollkornbrot", "b": null, "p": 149, "o": 199, "lp": null, "q": "je 500-g-Stück", "bp": "(1 kg = 2.98)", "c": "erhältlich bei unserer Bäckerei", "cat": "food"},
+      {"n": "Bio-Fertiggericht", "b": "HIPP", "p": 179, "o": 215, "lp": null, "q": "je 250-g-Schale", "bp": "(1 kg = 7.16)", "c": null, "cat": "food"}
+    ],
+    "24": [
+      {"n": "Protein Satisbites", "b": "MORE", "p": 199, "o": null, "lp": null, "q": "je 50-g-Packg.", "bp": "(1 kg = 39.80)", "c": null, "cat": "food"},
+      {"n": "Sticks oder Brezli", "b": "FUNNY-FRISCH", "p": 111, "o": null, "lp": null, "q": "je 160 - 200-g-Packg.", "bp": "(1 kg = 5.55 - 6.94)", "c": null, "cat": "food"},
+      {"n": "Kaugummi", "b": "K-CLASSIC", "p": 79, "o": 119, "lp": null, "q": "je 2 x 36-g-Packg.", "bp": "(1 kg = 10.98)", "c": null, "cat": "food"},
+      {"n": "Nuts Royal Edelnuss-Mischung", "b": "K-CLASSIC", "p": 239, "o": 339, "lp": null, "q": "je 200-g-Packg.", "bp": "(1 kg = 11.95)", "c": null, "cat": "food"},
+      {"n": "Cola", "b": "PEPSI", "p": 69, "o": 89, "lp": null, "q": "je 0,33-l-Dose (+ 0.25 Pfand)", "bp": "(1 l = 2.10)", "c": null, "cat": "drinks"},
+      {"n": "Schaumweingetränk Secco oder weinhaltiges Getränk", "b": "SPRIZZERÒ", "p": 99, "o": 129, "lp": null, "q": "je 0,25-l-Dose (+ 0.25 Pfand)", "bp": "(1 l = 3.96)", "c": null, "cat": "drinks"},
+      {"n": "Aperitif-Drink", "b": "LILLET", "p": 699, "o": 899, "lp": null, "q": "je 3 x 0,2-l-Fl.", "bp": "(1 l = 11.65)", "c": null, "cat": "drinks"},
+      {"n": "Liköre", "b": "KOBER'S", "p": 899, "o": null, "lp": null, "q": "je Packg. 25 x 0,02-l-Fl.", "bp": "(1 l = 17.98)", "c": null, "cat": "drinks"},
+      {"n": "Reinigungstücher", "b": "BEBE", "p": 199, "o": null, "lp": null, "q": "je 25-St.-Packg.", "bp": "(pro Stück = 0.08)", "c": null, "cat": "drugstore"},
+      {"n": "Trockenshampoo mit Farbe", "b": "BATISTE", "p": 299, "o": 395, "lp": null, "q": "je 200-ml-Dose", "bp": "(1 l = 14.95)", "c": null, "cat": "drugstore"}
+    ],
+    "32": [
+      {"n": "Holl. Hartkäse", "b": "OLD AMSTERDAM", "p": 179, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "Frischetheke", "cat": "food"},
+      {"n": "Mai-Gouda", "b": "LANDANA", "p": 88, "o": 149, "lp": null, "q": "je 100 g", "bp": null, "c": "Frischetheke", "cat": "food"},
+      {"n": "Jura-Morbier AOP", "b": "ARNAUD", "p": 179, "o": 299, "lp": null, "q": "je 100 g", "bp": null, "c": "Frischetheke", "cat": "food"},
+      {"n": "Roquefort AOP", "b": "GABRIEL COULET", "p": 199, "o": 349, "lp": null, "q": "je 100 g", "bp": null, "c": "Frischetheke", "cat": "food"},
+      {"n": "COMTÉ AOP Franz. Hartkäse", "b": null, "p": 199, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "Frischetheke", "cat": "food"},
+      {"n": "Franz. Butterkäse", "b": "BONBEL", "p": 179, "o": null, "lp": null, "q": "je 100 g", "bp": null, "c": "Frischetheke", "cat": "food"}
+    ],
+    "40": [
+      {"n": "Pfannen- oder Backofen-Fisch", "b": "FROSTA", "p": 279, "o": 399, "lp": null, "q": "je 240 - 250-g-Packg.", "bp": "(1 kg = 11.16 - 11.63)", "c": null, "cat": "food"},
+      {"n": "Sahne-Rolle Erdbeere", "b": "COPPENRATH & WIESE", "p": 299, "o": 399, "lp": null, "q": "je 400-g-Packg.", "bp": "(1 kg = 7.48)", "c": null, "cat": "food"},
+      {"n": "Fertiggericht", "b": "LAZY", "p": 299, "o": 499, "lp": null, "q": "je 375 - 450-g-Packg.", "bp": "(1 kg = 6.65 - 7.98)", "c": null, "cat": "food"},
+      {"n": "Gemüsestäbchen", "b": "IGLO", "p": 222, "o": 299, "lp": null, "q": "je 15 St. = 426-g-Packg.", "bp": "(1 kg = 5.22)", "c": null, "cat": "food"},
+      {"n": "Tilapiafilets", "b": "SEA BEAR", "p": 429, "o": 549, "lp": null, "q": "je 5 -7 St. = 600-g-Packg.", "bp": "(1 kg = 7.15)", "c": null, "cat": "food"},
+      {"n": "Quetschbeutel »Minecraft« Milchdessert", "b": "KIDS WORLD", "p": 59, "o": null, "lp": null, "q": "je 80-g-Packg.", "bp": "(1 kg = 7.38)", "c": null, "cat": "food"},
+      {"n": "Sahnepudding", "b": "MÖVENPICK", "p": 69, "o": 119, "lp": null, "q": "je 150-g-Becher", "bp": "(1 kg = 4.60)", "c": null, "cat": "food"},
+      {"n": "Kefir", "b": "QUARKI", "p": 159, "o": 199, "lp": null, "q": "je 1-kg-Packg.", "bp": null, "c": null, "cat": "food"},
+      {"n": "Heringsfilet-röllchen", "b": "LYSELL", "p": 169, "o": 329, "lp": null, "q": "je 125-g-Dose Abtropfgewicht 75 g - 90 g", "bp": "(1 kg = 18.78 - 22.54)", "c": null, "cat": "food"},
+      {"n": "Gewürzquark", "b": "MILRAM", "p": 99, "o": null, "lp": null, "q": "je 185-g-Becher", "bp": "(1 kg = 5.36)", "c": null, "cat": "food"}
+    ],
+    "46": [
+      {"n": "Discreet Pants Plus M oder Einlagen Long oder Ultimate Nacht", "b": "ALWAYS", "p": 695, "o": null, "lp": null, "q": "je 10 - 26-St.-Packg.", "bp": null, "c": null, "cat": "drugstore"},
+      {"n": "Küchentücher Saugstark", "b": "K-CLASSIC", "p": 299, "o": 345, "lp": 249, "q": "je Packg. = 3 x 100 Blatt", "bp": null, "c": null, "cat": "household"},
+      {"n": "No Touch Nachfüller", "b": "SAGROTAN", "p": 259, "o": 345, "lp": null, "q": "je 250-ml-Fl.", "bp": "(1 l = 10.36)", "c": null, "cat": "household"},
+      {"n": "WC-Reiniger", "b": "FROSCH", "p": 188, "o": null, "lp": null, "q": "je 750-ml-Fl.", "bp": "(1 l = 2.51)", "c": null, "cat": "household"},
+      {"n": "Rohrfrei Power- oder Bio-Power-Gel", "b": "RORAX", "p": 299, "o": null, "lp": null, "q": "je 1-l-Fl.", "bp": null, "c": null, "cat": "household"},
+      {"n": "Waschmittel", "b": "SUNIL", "p": 899, "o": 1199, "lp": null, "q": "Pulver 5 kg oder Colorwaschmittel flüssig 3 x 1,925 l, = 100 - 105 Anwendungen", "bp": "(pro Anwendung = 0.09)", "c": null, "cat": "household"},
+      {"n": "Hundevollnahrung", "b": "PURINA BENEFUL", "p": 379, "o": 475, "lp": null, "q": "je 1,4-kg-Beutel", "bp": "(1 kg = 2.71)", "c": null, "cat": "nonfood"},
+      {"n": "Beef- oder Fish-Stick Hundesnack", "b": "VITAKRAFT", "p": 35, "o": 45, "lp": null, "q": "je 12 - 15-g-Packg.", "bp": "(1 kg = 23.34 - 29.17)", "c": null, "cat": "nonfood"},
+      {"n": "Doppelt lecker Katzentrockenfutter", "b": "FELIX", "p": 239, "o": 285, "lp": null, "q": "je 800-g-Packg.", "bp": "(1 kg = 2.99)", "c": null, "cat": "nonfood"},
+      {"n": "Wäscheparfüm", "b": "LENOR", "p": 599, "o": null, "lp": null, "q": "je 280-g-Fl.", "bp": "(1 kg = 21.40)", "c": null, "cat": "household"},
+      {"n": "Voll- oder Colorwaschmittel", "b": "LENOR", "p": 449, "o": null, "lp": null, "q": "Pulver 900 g, flüssig 900 ml oder Pods 310,5 g, = 15 - 20 Anwendungen", "bp": "(pro Anwendung = 0.23 - 0.30)", "c": null, "cat": "household"}
+    ]
+  },
+  "notes": {
+    "_leaflet": "Kaufland Muenchen-Berg am Laim (store 8700), valid Do. 02.07.2026 to Mi. 08.07.2026 (cover); all picked pages are headed AB DONNERSTAG, 02.07. Old price o = the smaller price printed above the big price next to the -X% badge (no strike line exists in the vector layer; verified against the percentage). KNÜLLER/AKTION/nur prices have no old price. lp = Kaufland Card XTRA price: price printed under a light-blue band (vector fill rgb 0.226/0.636/0.852; legal text: blau gekennzeichnete Card XTRA Vorteile). Pet food tagged nonfood. \"*\" is the Aktionsware footnote, not a condition.",
+    "7": "LEIBNIZ promotion \"Bis zu 25 % RABATT auf alle Artikel von LEIBNIZ\" has no price: not listed. ALWAYS and PURINA GOURMET: red KNÜLLER box price taken as p, blue-band NUR price as lp; GOURMET's lp has its own base price (1 kg = 4.59). The \"Quattro-Pack\" badge floats between the PRINGLES and ALWAYS blocks; assigned to ALWAYS (32 - 64 St.), verify on image. Brand line of the KITKAT offer lists four brands; b left null.",
+    "11": "All -50% (1/2 PREIS) offers; o is the printed regular price.",
+    "14": "MAMBA \"4 + 1 GRATIS\" and HOSTA \"3 + 1 GRATIS\" are pack contents (the pack already includes the free unit), kept in c.",
+    "20": "ANDECHSER: three prices; 2.79 (-28%) old, 1.99 regular offer (matches 1 kg = 3.98), 1.79 under blue band (-35%, 1 kg = 3.58) is Card XTRA.",
+    "32": "Cheese counter page (AUS DER FRISCHE-THEKE); c set to Frischetheke for all. COMTÉ AOP is an appellation, not a brand.",
+    "40": "Promotion \"Bis zu 20 % RABATT auf alle Protein-Artikel von SCHWARZWALDMILCH\" has no price: not listed.",
+    "46": "K-CLASSIC Küchentücher: 3.45 old (-13%), 2.99 regular offer, 2.49 Card XTRA under blue band (-27%)."
+  }
+}
