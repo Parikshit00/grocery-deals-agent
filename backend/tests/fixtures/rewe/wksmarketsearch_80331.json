@@ -1,0 +1,269 @@
+{
+ "markets": [
+  {
+   "wwIdent": "562368",
+   "name": "REWE Röckenschuß, der SUPER Markt am Sendlinger Tor",
+   "companyName": "REWE Korbinian Röckenschuß oHG",
+   "street": "Sendlinger Straße 46",
+   "zipCode": "80331",
+   "city": "München",
+   "location": {
+    "latitude": 48.13479,
+    "longitude": 11.56891
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  },
+  {
+   "wwIdent": "440696",
+   "name": "REWE",
+   "companyName": "REWE Markt GmbH",
+   "street": "Tal 13",
+   "zipCode": "80331",
+   "city": "München / Altstadt-Lehel",
+   "location": {
+    "latitude": 48.13627,
+    "longitude": 11.57907
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  },
+  {
+   "wwIdent": "431101",
+   "name": "RREWE Kadir Sarisoy oHG",
+   "companyName": "REWE Kadir Sarisoy oHG",
+   "street": "Augustenstr. 78",
+   "zipCode": "80333",
+   "city": "München",
+   "location": {
+    "latitude": 48.15036,
+    "longitude": 11.56389
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  },
+  {
+   "wwIdent": "9200002",
+   "name": "REWE Markt",
+   "companyName": "REWE Markt GmbH",
+   "street": "Karlstr. 36",
+   "zipCode": "80333",
+   "city": "München",
+   "location": {
+    "latitude": 48.14442,
+    "longitude": 11.56241
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  },
+  {
+   "wwIdent": "440416",
+   "name": "REWE",
+   "companyName": "REWE Markt GmbH",
+   "street": "Theatinerstr. 14 (Fünf Höfe)",
+   "zipCode": "80333",
+   "city": "München / Altstadt-Lehel",
+   "location": {
+    "latitude": 48.14072,
+    "longitude": 11.5759
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  },
+  {
+   "wwIdent": "441069",
+   "name": "REWE Cakmakci",
+   "companyName": "REWE Volkan Cakmakci oHG",
+   "street": "Goethestr. 30 - 34",
+   "zipCode": "80336",
+   "city": "München",
+   "location": {
+    "latitude": 48.13594,
+    "longitude": 11.55845
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  },
+  {
+   "wwIdent": "8536954",
+   "name": "REWE",
+   "companyName": "REWE Eren Gül oHG",
+   "street": "Ridlerstr. 37 - 39",
+   "zipCode": "80339",
+   "city": "München",
+   "location": {
+    "latitude": 48.13289,
+    "longitude": 11.53383
+   },
+   "openingStatus": {
+    "infoText": "bis 20:00 Uhr",
+    "openState": "OPEN",
+    "statusText": "Geöffnet"
+   },
+   "openingInfo": [
+    {
+     "days": "Mo-Sa",
+     "hours": "07:00 - 20:00 Uhr",
+     "openingType": "REGULAR"
+    },
+    {
+     "days": "01.11.",
+     "hours": "geschlossen",
+     "openingType": "HOLIDAY"
+    }
+   ],
+   "category": {
+    "isWarehouse": false,
+    "marketTypeDisplayName": "REWE",
+    "template": "RN",
+    "type": "MARKET"
+   },
+   "distance": null,
+   "distanceRaw": null
+  }
+ ],
+ "paging": {
+  "objectsPerPage": 20,
+  "currentPage": 1,
+  "pageCount": 1,
+  "objectCount": 7
+ }
+}

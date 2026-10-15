@@ -1,0 +1,149 @@
+{
+ "model": "qwen3.5-9b",
+ "timestamp": "2026-10-15T07:48:56+00:00",
+ "served": {
+  "llm": "/models/qwen3.5-9b",
+  "vlm": "/models/qwen3.5-9b"
+ },
+ "passed": false,
+ "suites": {
+  "matcher": {
+   "items": 198,
+   "scores": {
+    "accuracy": 0.8838,
+    "precision": 0.9123,
+    "recall": 0.7429,
+    "unavailable_share": 0.0
+   },
+   "gates": {
+    "accuracy": 0.9
+   },
+   "passed": false
+  },
+  "baskets": {
+   "items": 20,
+   "scores": {
+    "pass_rate": 0.75,
+    "must_rate": 0.9,
+    "must_not_rate": 0.75
+   },
+   "gates": {
+    "pass_rate": 0.8
+   },
+   "passed": false
+  },
+  "extraction": {
+   "items": 50,
+   "scores": {
+    "served_price_acc": 0.9133,
+    "price_acc": 0.8652,
+    "name_recall": 0.808,
+    "name_precision": 0.7735,
+    "json_validity": 1.0,
+    "flagged_share": 0.0726,
+    "catch_rate": 0.3182
+   },
+   "gates": {
+    "served_price_acc": 0.98,
+    "name_recall": 0.95,
+    "json_validity": 0.99,
+    "flagged_share_per_chain_max": 0.03
+   },
+   "passed": false,
+   "chains": {
+    "aldi": {
+     "served_price_acc": 0.9492,
+     "price_acc": 0.9492,
+     "name_recall": 0.918,
+     "name_precision": 0.8358,
+     "json_validity": 1.0,
+     "flagged_share": 0.0,
+     "catch_rate": 0.0
+    },
+    "kaufland": {
+     "served_price_acc": 0.9464,
+     "price_acc": 0.896,
+     "name_recall": 0.8132,
+     "name_precision": 0.8222,
+     "json_validity": 1.0,
+     "flagged_share": 0.0778,
+     "catch_rate": 0.5
+    },
+    "netto": {
+     "served_price_acc": 0.8714,
+     "price_acc": 0.8523,
+     "name_recall": 0.7129,
+     "name_precision": 0.7912,
+     "json_validity": 1.0,
+     "flagged_share": 0.0549,
+     "catch_rate": 0.125
+    },
+    "penny": {
+     "served_price_acc": 0.8559,
+     "price_acc": 0.7518,
+     "name_recall": 0.8137,
+     "name_precision": 0.7094,
+     "json_validity": 1.0,
+     "flagged_share": 0.1368,
+     "catch_rate": 0.4118
+    },
+    "rewe": {
+     "served_price_acc": 1.0,
+     "price_acc": 0.9747,
+     "name_recall": 0.828,
+     "name_precision": 0.7476,
+     "json_validity": 1.0,
+     "flagged_share": 0.0583,
+     "catch_rate": 1.0
+    }
+   },
+   "bench": {
+    "model": "qwen3.5-9b",
+    "served": "/models/qwen3.5-9b",
+    "pages": 50,
+    "resumed": 0,
+    "all": false,
+    "wall_s": 203.4,
+    "pages_per_min": 14.7,
+    "p50_s": 86.51,
+    "p95_s": 133.53,
+    "first_done_spread_s": 47.7,
+    "failure_rate": 0.0,
+    "unrecovered_length_rate": 0.0,
+    "loop_rate": 0.0,
+    "chains": {
+     "aldi": {
+      "pages": 10,
+      "first_done_s": 54.8,
+      "last_done_s": 155.4
+     },
+     "kaufland": {
+      "pages": 10,
+      "first_done_s": 86.6,
+      "last_done_s": 168.3
+     },
+     "netto": {
+      "pages": 10,
+      "first_done_s": 52.6,
+      "last_done_s": 178.7
+     },
+     "penny": {
+      "pages": 10,
+      "first_done_s": 100.3,
+      "last_done_s": 203.4
+     },
+     "rewe": {
+      "pages": 10,
+      "first_done_s": 74.4,
+      "last_done_s": 180.2
+     }
+    }
+   }
+  }
+ },
+ "langfuse": {
+  "matcher": "http://127.0.0.1:28736/project/grocery-deals-agent/experiments/results?baseline=47d0e9edc3cfe2cb",
+  "baskets": "http://127.0.0.1:28736/project/grocery-deals-agent/experiments/results?baseline=5bf95edbdabf3c4b",
+  "extraction": "http://127.0.0.1:28736/project/grocery-deals-agent/experiments/results?baseline=deac676c45a3f1cd"
+ }
+}

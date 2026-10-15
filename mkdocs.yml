@@ -1,0 +1,104 @@
+site_name: grocery-deals-agent
+site_description: >-
+  Multi-agent system on local models that finds the cheapest current grocery deals across German
+  supermarkets: chain agents in three acquisition tiers, a self-healing browser navigator, a
+  tool-calling basket agent, traces, evals and GPU metrics.
+site_url: https://parikshit00.github.io/grocery-deals-agent/
+repo_url: https://github.com/Parikshit00/grocery-deals-agent
+repo_name: Parikshit00/grocery-deals-agent
+edit_uri: edit/main/docs/
+copyright: Apache License 2.0
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - content.action.edit
+    - toc.follow
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+# Old internal notes stay out of the site (the folder is gitignored anyway).
+exclude_docs: |
+  _archive/
+
+# Missing nav targets and broken links stay warnings, so `mkdocs build --strict` fails on them.
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: info
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: info
+    unrecognized_links: info
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Architecture:
+      - Agents: agents.md
+      - Observability: observability.md
+      - Evals: evals.md
+      - Benchmarks: benchmarks.md
+      - MCP server: mcp.md
+      - Security: security.md
+      - Supply chain: supply-chain.md
+      - Decisions:
+          - ADR 0001 Foundational choices: adr/0001-record-architecture-decisions.md
+          - ADR 0002 Self-healing navigation: adr/0002-hybrid-self-healing-navigation.md
+          - ADR 0003 Tiered acquisition: adr/0003-tiered-acquisition-honest-automation.md
+          - ADR 0004 Model choice: adr/0004-model-choice.md
+          - ADR 0005 Read-only MCP server: adr/0005-read-only-mcp-server.md
+  - Operations:
+      - Operations: operations.md
+      - Demo recording: DEMO.md
+  - API: api.md

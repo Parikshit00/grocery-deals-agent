@@ -1,0 +1,76 @@
+{
+ "location": "80331",
+ "routes": {
+  "GET /api/stores": {
+   "json": {
+    "location": {
+     "lat": 48.1371079,
+     "lon": 11.5753822,
+     "plz": "80331",
+     "label": "M\u00fcnchen, Bayern"
+    },
+    "chains": {
+     "kaufland": {
+      "status": "ok",
+      "reason": null,
+      "store": {
+       "id": "DE8700",
+       "km": 4.0,
+       "lat": 48.1295951,
+       "lon": 11.6260178,
+       "name": "Kaufland M\u00fcnchen-Berg am Laim",
+       "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+       "edition": "DE8700",
+       "located": true
+      },
+      "stores": [
+       {
+        "id": "DE8700",
+        "km": 4.0,
+        "lat": 48.1295951,
+        "lon": 11.6260178,
+        "name": "Kaufland M\u00fcnchen-Berg am Laim",
+        "address": "Berg-am-Laim-Stra\u00dfe 117, 81673 M\u00fcnchen",
+        "edition": "DE8700",
+        "located": true
+       },
+       {
+        "id": "DE4370",
+        "km": 6.6,
+        "lat": 48.1000044,
+        "lon": 11.6436324,
+        "name": "Kaufland M\u00fcnchen-Neuperlach",
+        "address": "Thomas-Dehler-Stra\u00dfe 10, 81737 M\u00fcnchen",
+        "edition": "DE4370",
+        "located": true
+       },
+       {
+        "id": "DE4613",
+        "km": 6.8,
+        "lat": 48.1947906,
+        "lon": 11.5972031,
+        "name": "Kaufland M\u00fcnchen-Schwabing-Freimann",
+        "address": "Margot-Kalinke-Stra\u00dfe 4, 80939 M\u00fcnchen",
+        "edition": "DE4613",
+        "located": true
+       }
+      ],
+      "finished_at": "2026-10-14T15:39:22.788646+00:00"
+     },
+     "penny": {
+      "status": "no_store",
+      "reason": "No Penny within 5 km.",
+      "store": null,
+      "stores": [],
+      "finished_at": "2026-10-14T15:25:19.406922+00:00"
+     }
+    }
+   }
+  }
+ },
+ "expect": [
+  "No store in radius",
+  "No Penny within 5 km.",
+  "OpenStreetMap contributors"
+ ]
+}

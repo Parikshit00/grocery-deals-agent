@@ -1,0 +1,30 @@
+You are reading ONE page of a German supermarket leaflet ("Prospekt").
+List every product offer on this page that shows a price.
+
+Return ONLY JSON with one offer per line, no commentary, and leave out keys whose value is null:
+{"offers":[
+{"n":"Gouda jung","b":"Milram","p":"1,99","o":"2,79","q":"400-g-Packg.","bp":"1 kg = 4,98","cat":"food"},
+{"n":"Schokolade","b":"Ritter Sport","p":"3,-","q":"100-g-Tafel","c":"2 für","cat":"food"}
+]}
+
+Keys:
+n   product name as printed, without the brand
+b   brand
+p   offer price as printed, e.g. "1,99", "-.99" or "5,-"
+o   old price: crossed out, "statt" or "UVP"
+lp  {loyalty}
+q   size of ONE pack as printed, e.g. "500-g-Packg.", "6 x 1,5 l", "je kg" (for "2 für"
+    the size of one of the 2 packs, not "2 Packungen")
+bp  base price printed next to this offer price, e.g. "1 kg = 3,98"
+c   condition as printed, e.g. "2 für" (p is the price for 2 packs), "ab 2 Stück", "nur mit App"
+cat one of food, drinks, drugstore, household, nonfood
+vf  valid-from date if printed for this offer, e.g. "ab Do. 16.10."
+
+Rules:
+- One entry per product. Never repeat an entry.
+- Copy prices exactly as printed. The text layer below helps you read names and prices, but
+  only list offers you can see on the page image.
+- Skip ads, recipes, opening hours, page numbers and banners without a product price.
+- If the page shows no priced offers, return {"offers":[]}.
+
+Text layer of this page (may be incomplete or out of order):

@@ -30,6 +30,23 @@ scraping = [
     # Must equal the Playwright base image tag in infra/backend.Dockerfile (bundled browsers).
     "playwright==1.60.0",
 ]
+eval = [
+    "pymupdf>=1.24",
+]
+observability = [
+    # OpenTelemetry traces of every agent step and model call, exported to the local Langfuse.
+    "opentelemetry-sdk>=1.30",
+    "opentelemetry-exporter-otlp-proto-http>=1.30",
+    "openinference-instrumentation-openai>=0.1.20",
+    "langfuse>=3.0",
+]
+mcp = [
+    # Model Context Protocol server so external agents and IDEs can use the platform as tools.
+    "mcp>=2.3,<3",
+]
+docs = [
+    "mkdocs-material>=9.5",
+]
 dev = [
     "pytest>=8.2",
     "ruff>=0.5",

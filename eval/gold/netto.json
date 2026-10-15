@@ -1,0 +1,142 @@
+{
+  "chain": "netto",
+  "pdf": "Experiments/Prospekts/NETTO.pdf",
+  "drafted_by": "claude-text-layer",
+  "reviewed": false,
+  "pages": {
+    "1": [
+      {"n": "Speisefrühkartoffeln „Pfälzer Grumbeere“", "b": null, "p": 229, "o": 299, "lp": null, "q": "2 kg Netz", "bp": "(1.15 / kg)", "c": null, "cat": "food"},
+      {"n": "Lieken Urkorn Brot", "b": "Lieken", "p": 149, "o": 199, "lp": null, "q": "400 g \u2013 500 g", "bp": "(2.98 \u2013 3.73 / kg)", "c": null, "cat": "food"},
+      {"n": "Landliebe Käsescheiben", "b": "Landliebe", "p": 169, "o": 239, "lp": 149, "q": "150 g", "bp": "(11.27 / kg)", "c": null, "cat": "food"},
+      {"n": "Thunfischfilets", "b": null, "p": 111, "o": null, "lp": null, "q": "150 g \u2013 195 g", "bp": "(5.69 \u2013 7.40 / kg)", "c": null, "cat": "food"},
+      {"n": "Sarti Rosa Aperitif", "b": "Sarti", "p": 1499, "o": 1799, "lp": null, "q": "0,7 Liter", "bp": "(21.41 / l)", "c": null, "cat": "drinks"},
+      {"n": "Hugo oder Spritz aromatisierter, weinhaltiger Cocktail", "b": null, "p": 149, "o": 179, "lp": null, "q": "0,75 Liter", "bp": "(1.99 / l)", "c": null, "cat": "drinks"},
+      {"n": "Sheba oder Whiskas Katzen Nassfutter", "b": "Sheba oder Whiskas", "p": 1399, "o": 2299, "lp": null, "q": "32 x 85 g \u2013 48 x 85 g", "bp": "(3.43 \u2013 5.14 / kg)", "c": null, "cat": "nonfood"}
+    ],
+    "9": [
+      {"n": "Zucker-Aprikosen", "b": null, "p": 199, "o": 299, "lp": null, "q": "350 g Schale", "bp": "(5.69 / kg)", "c": null, "cat": "food"},
+      {"n": "Cantaloupemelone", "b": null, "p": 179, "o": 229, "lp": null, "q": "1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Bio Mini Wassermelone", "b": null, "p": 169, "o": 199, "lp": null, "q": "1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Äpfel rot", "b": null, "p": 179, "o": 249, "lp": null, "q": "2 kg Beutel", "bp": "(0.90 / kg)", "c": null, "cat": "food"},
+      {"n": "Suppengemüse", "b": null, "p": 111, "o": 129, "lp": null, "q": "500 g Schale", "bp": "(2.22 / kg)", "c": null, "cat": "food"},
+      {"n": "Rucola", "b": null, "p": 88, "o": 99, "lp": null, "q": "125 g", "bp": "(7.04 / kg)", "c": null, "cat": "food"},
+      {"n": "Bio Zwiebeln", "b": null, "p": 129, "o": 159, "lp": null, "q": "750 g Netz", "bp": "(1.72 / kg)", "c": null, "cat": "food"},
+      {"n": "Bio Feldsalat", "b": null, "p": 129, "o": 149, "lp": null, "q": "100 g Schale", "bp": "(12.90 / kg)", "c": null, "cat": "food"},
+      {"n": "Minigurken", "b": null, "p": 199, "o": 249, "lp": null, "q": "500 g Netz", "bp": "(3.98 / kg)", "c": null, "cat": "food"},
+      {"n": "Rotkohl", "b": null, "p": 111, "o": 149, "lp": null, "q": "1 kg", "bp": null, "c": null, "cat": "food"},
+      {"n": "Speisemöhren", "b": null, "p": 199, "o": 249, "lp": null, "q": "2 kg Beutel", "bp": "(1.- / kg)", "c": null, "cat": "food"},
+      {"n": "Petersilie glatt", "b": null, "p": 129, "o": 179, "lp": null, "q": "200 g", "bp": "(6.45 / kg)", "c": null, "cat": "food"},
+      {"n": "Lauchzwiebeln", "b": null, "p": 55, "o": 69, "lp": null, "q": "1 bd Bund", "bp": null, "c": null, "cat": "food"},
+      {"n": "Radieschen", "b": null, "p": 49, "o": 59, "lp": null, "q": "1 bd Bund", "bp": null, "c": null, "cat": "food"},
+      {"n": "Auberginen", "b": null, "p": 69, "o": 89, "lp": null, "q": "Stück", "bp": null, "c": null, "cat": "food"}
+    ],
+    "13": [
+      {"n": "McCain 1-2-3 Frites", "b": "McCain", "p": 279, "o": null, "lp": null, "q": "750 g", "bp": "(3.72 / kg)", "c": null, "cat": "food"},
+      {"n": "Pommes Frites Feinschnitt", "b": null, "p": 149, "o": null, "lp": null, "q": "1 kg", "bp": "1.49 / kg", "c": null, "cat": "food"},
+      {"n": "Magnum Stieleis", "b": "Magnum", "p": 549, "o": null, "lp": null, "q": "6 Stück, 600 ml", "bp": "(9.15 / kg)", "c": null, "cat": "food"},
+      {"n": "Big Choc", "b": null, "p": 299, "o": null, "lp": null, "q": "600 ml", "bp": "(4.98 / kg)", "c": null, "cat": "food"}
+    ],
+    "15": [
+      {"n": "Wiener Würstchen über Buchenholz geräuchert", "b": null, "p": 579, "o": 679, "lp": null, "q": "1000 g", "bp": null, "c": null, "cat": "food"},
+      {"n": "Snack It Kabanossi to go", "b": "Snack It", "p": 88, "o": 99, "lp": null, "q": "50 g", "bp": "(17.60 / kg)", "c": null, "cat": "food"},
+      {"n": "Geschnetzeltes „Gyros Art“", "b": null, "p": 299, "o": 399, "lp": 279, "q": "500 g", "bp": "(5.98 / kg)", "c": null, "cat": "food"},
+      {"n": "Hackfleisch gemischt", "b": null, "p": 549, "o": 699, "lp": null, "q": "800 g", "bp": "(6.86 / kg)", "c": null, "cat": "food"},
+      {"n": "Rinder-Burger, Chicken-Burger oder Hot-Dog", "b": null, "p": 249, "o": 279, "lp": null, "q": "2 x 100 g \u2013 150 g", "bp": "(8.30 \u2013 12.45 / kg)", "c": null, "cat": "food"},
+      {"n": "Salami-Sortiment", "b": null, "p": 129, "o": 229, "lp": null, "q": "80 g", "bp": "(16.13 / kg)", "c": null, "cat": "food"},
+      {"n": "Bauchspeck geräuchert", "b": null, "p": 219, "o": 259, "lp": null, "q": "300 g", "bp": "(7.30 / kg)", "c": null, "cat": "food"},
+      {"n": "Schweine-Minutensteaks", "b": null, "p": 249, "o": 319, "lp": null, "q": "400 g", "bp": "(6.23 / kg)", "c": null, "cat": "food"},
+      {"n": "Lachsschinken", "b": null, "p": 199, "o": 239, "lp": null, "q": "150 g", "bp": "(13.27 / kg)", "c": null, "cat": "food"},
+      {"n": "Schweine-Schäufele", "b": null, "p": 599, "o": 799, "lp": null, "q": "ca. 1,3 kg; 1 kg", "bp": null, "c": "pro kg", "cat": "food"},
+      {"n": "Leberkäs-Brät zum Selbstbacken", "b": null, "p": 299, "o": 499, "lp": null, "q": "500 g", "bp": "(5.98 / kg)", "c": null, "cat": "food"},
+      {"n": "Frischwurst-Aufschnitt", "b": null, "p": 100, "o": 119, "lp": null, "q": "200 g", "bp": "(5.- / kg)", "c": null, "cat": "food"},
+      {"n": "Bratensülze mit herzhaftem Schweinebraten", "b": null, "p": 349, "o": 389, "lp": null, "q": "350 g", "bp": "(9.97 / kg)", "c": null, "cat": "food"},
+      {"n": "Bratwürste vom Schwein, grob", "b": null, "p": 199, "o": 259, "lp": null, "q": "400 g", "bp": "(4.98 / kg)", "c": null, "cat": "food"},
+      {"n": "Puten-Hälse", "b": null, "p": 299, "o": 349, "lp": null, "q": "ca. 1 kg; 1 kg", "bp": null, "c": "pro kg", "cat": "food"},
+      {"n": "Bärchenwurst", "b": null, "p": 129, "o": 179, "lp": 119, "q": "90 g", "bp": "(14.33 / kg)", "c": null, "cat": "food"}
+    ],
+    "19": [
+      {"n": "Chicken Grill Box", "b": null, "p": 499, "o": 699, "lp": null, "q": "ca. 1,8 kg; 1 kg", "bp": null, "c": "pro kg", "cat": "food"},
+      {"n": "Hähnchen-Bruststeaks Paprika-Marinade", "b": null, "p": 529, "o": 629, "lp": null, "q": "550 g", "bp": "(9.62 / kg)", "c": null, "cat": "food"},
+      {"n": "Chorizo Original spanische Bratwurst", "b": null, "p": 199, "o": 279, "lp": null, "q": "200 g", "bp": "(9.95 / kg)", "c": null, "cat": "food"},
+      {"n": "Knusper-Ribs", "b": null, "p": 599, "o": 799, "lp": null, "q": "ca. 1,2 kg; 1 kg", "bp": null, "c": "pro kg", "cat": "food"},
+      {"n": "Thüringer Rostbratwurst", "b": null, "p": 299, "o": 379, "lp": null, "q": "500 g", "bp": "(5.98 / kg)", "c": null, "cat": "food"},
+      {"n": "Grillfackeln", "b": null, "p": 299, "o": 399, "lp": null, "q": "360 g", "bp": "(8.31 / kg)", "c": null, "cat": "food"},
+      {"n": "Feinschmecker Frikadellen", "b": null, "p": 249, "o": 279, "lp": null, "q": "300 g", "bp": "(8.30 / kg)", "c": null, "cat": "food"},
+      {"n": "Mini Rostbratwürstchen", "b": null, "p": 249, "o": 279, "lp": null, "q": "300 g", "bp": "(8.30 / kg)", "c": null, "cat": "food"},
+      {"n": "Irish Angus Burger", "b": null, "p": 379, "o": 499, "lp": null, "q": "260 g", "bp": "(14.58 / kg)", "c": null, "cat": "food"},
+      {"n": "Fränkische Rostbratwurst", "b": null, "p": 279, "o": 329, "lp": null, "q": "350 g", "bp": "(7.97 / kg)", "c": null, "cat": "food"}
+    ],
+    "22": [
+      {"n": "Crunchips Stackers", "b": "Crunchips", "p": 199, "o": 249, "lp": null, "q": "175 g", "bp": "(11.37 / kg)", "c": null, "cat": "food"},
+      {"n": "funny-frisch Linsenchips", "b": "funny-frisch", "p": 149, "o": 199, "lp": null, "q": "90 g", "bp": "(16.56 / kg)", "c": null, "cat": "food"},
+      {"n": "Takis", "b": "Takis", "p": 222, "o": 299, "lp": null, "q": "100 g", "bp": "(22.20 / kg)", "c": null, "cat": "food"},
+      {"n": "Maretti Brotchips", "b": "Maretti", "p": 199, "o": null, "lp": 99, "q": "150 g", "bp": "(13.27 / kg)", "c": null, "cat": "food"},
+      {"n": "Baiocchi Kekse", "b": "Baiocchi", "p": 199, "o": 249, "lp": null, "q": "168 g", "bp": "(11.85 / kg)", "c": null, "cat": "food"},
+      {"n": "Toffifee", "b": "Toffifee", "p": 399, "o": 469, "lp": null, "q": "400 g", "bp": "(9.98 / kg)", "c": null, "cat": "food"},
+      {"n": "Mamba Kaubonbons", "b": "Mamba", "p": 179, "o": 219, "lp": null, "q": "290 g", "bp": "(6.17 / kg)", "c": null, "cat": "food"},
+      {"n": "Frozen Eis Dessert", "b": null, "p": 199, "o": 299, "lp": null, "q": "90 ml", "bp": "(22.11 / l)", "c": null, "cat": "food"},
+      {"n": "Leibniz Kekse", "b": "Leibniz", "p": 149, "o": 249, "lp": null, "q": "125 g \u2013 150 g", "bp": "(9.93 \u2013 11.92 / kg)", "c": null, "cat": "food"},
+      {"n": "Kikis Frosty Pops", "b": "Kikis", "p": 499, "o": 599, "lp": 449, "q": "150 g", "bp": "(33.27 / kg)", "c": null, "cat": "food"}
+    ],
+    "25": [
+      {"n": "Erdinger Brauhaus Helles oder Helles Alkoholfrei", "b": "Erdinger", "p": 1499, "o": 2099, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 3.10", "bp": "(1.50 / l)", "c": null, "cat": "drinks"},
+      {"n": "Karamalz alkoholfreies Malzgetränk", "b": "Karamalz", "p": 1199, "o": 1399, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 3.10", "bp": "(1.20 / l)", "c": null, "cat": "drinks"},
+      {"n": "Bitburger Premium Pils oder Herb 0,0%", "b": "Bitburger", "p": 999, "o": 1779, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 3.10", "bp": "(1.- / l)", "c": null, "cat": "drinks"},
+      {"n": "Mönchshof Natur Radler Zitrone oder Blutorange", "b": "Mönchshof", "p": 1399, "o": 1799, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 4.50", "bp": "(1.40 / l)", "c": null, "cat": "drinks"},
+      {"n": "Landbier", "b": null, "p": 999, "o": 1399, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 4.50", "bp": "(1.- / l)", "c": null, "cat": "drinks"},
+      {"n": "Schneider Weisse Original", "b": "Schneider Weisse", "p": 1599, "o": 2099, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 3.10", "bp": "(1.60 / l)", "c": null, "cat": "drinks"},
+      {"n": "Orangensaft oder Sonnländer Orangensaft", "b": null, "p": 1299, "o": 1499, "lp": null, "q": "6 x 1 Liter zzgl. Pfand 2.40", "bp": "(2.17 / l)", "c": null, "cat": "drinks"},
+      {"n": "Carlsberg Lager Beer", "b": "Carlsberg", "p": 1499, "o": 1999, "lp": 1399, "q": "20 x 0,5 Liter zzgl. Pfand 3.10", "bp": "(1.50 / l)", "c": null, "cat": "drinks"},
+      {"n": "Mineralwasser", "b": null, "p": 399, "o": 499, "lp": null, "q": "12 x 0,75 Liter zzgl. Pfand 3.30", "bp": "(0.44 / l)", "c": null, "cat": "drinks"}
+    ],
+    "38": [
+      {"n": "Febreze Luft- oder Textilerfrischer", "b": "Febreze", "p": 329, "o": 399, "lp": null, "q": "185 - 500 ml", "bp": "(6.58 - 17.78 / l)", "c": "30 Extra°Punkte", "cat": "household"},
+      {"n": "Perwoll Waschmittel", "b": "Perwoll", "p": 1299, "o": 1799, "lp": null, "q": "80 Waschladungen", "bp": "(0.16 / WL)", "c": null, "cat": "household"},
+      {"n": "Weißer Riese Waschmittel", "b": "Weißer Riese", "p": 1199, "o": 1699, "lp": null, "q": "90 Waschladungen \u2013 100 Waschladungen", "bp": "(0.12 \u2013 0.13 / WL)", "c": null, "cat": "household"},
+      {"n": "Nivea Q10 Power Anti-Falten Tages- oder Nachtcreme", "b": "Nivea", "p": 1111, "o": 1365, "lp": null, "q": "50 ml", "bp": "(222.20 / l)", "c": null, "cat": "drugstore"},
+      {"n": "Nivea Dusche", "b": "Nivea", "p": 169, "o": 235, "lp": null, "q": "250 ml", "bp": "(6.76 / l)", "c": null, "cat": "drugstore"},
+      {"n": "Nivea Deospray", "b": "Nivea", "p": 222, "o": 285, "lp": null, "q": "150 ml", "bp": "(14.80 / l)", "c": null, "cat": "drugstore"},
+      {"n": "Taft Haarspray oder -lack", "b": "Taft", "p": 299, "o": 345, "lp": null, "q": "250 ml", "bp": "(11.96 / l)", "c": null, "cat": "drugstore"},
+      {"n": "tena discreet Duo-Pack", "b": "tena", "p": 549, "o": 799, "lp": null, "q": "2 x 10 Stück; 40 Stück", "bp": null, "c": null, "cat": "drugstore"},
+      {"n": "Schauma Shampoo oder Spülung", "b": "Schauma", "p": 169, "o": null, "lp": null, "q": "250 ml \u2013 400 ml", "bp": "(4.23 \u2013 6.76 / l)", "c": null, "cat": "drugstore"},
+      {"n": "Vitakraft Liquid Snacks", "b": "Vitakraft", "p": 169, "o": null, "lp": null, "q": "96 g", "bp": "(17.60 / kg)", "c": null, "cat": "nonfood"},
+      {"n": "Fine Klumpstreu", "b": null, "p": 395, "o": null, "lp": null, "q": "8 Liter", "bp": "(0.49 / l)", "c": null, "cat": "nonfood"},
+      {"n": "Vitakraft Hundesnack", "b": "Vitakraft", "p": 449, "o": 619, "lp": 399, "q": "200 g \u2013 250 g", "bp": "(17.96 \u2013 22.45 / kg)", "c": null, "cat": "nonfood"}
+    ],
+    "42": [
+      {"n": "Nektarinen", "b": null, "p": 179, "o": 239, "lp": null, "q": "1 kg Schale", "bp": null, "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "food"},
+      {"n": "Jacobs Gold löslicher Bohnenkaffee", "b": "Jacobs", "p": 699, "o": 1099, "lp": null, "q": "200 g", "bp": "(34.95 / kg)", "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "drinks"},
+      {"n": "Wassermelone", "b": null, "p": 88, "o": 129, "lp": null, "q": "1 kg", "bp": null, "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "food"},
+      {"n": "Ehrmann Grand Dessert XXL", "b": "Ehrmann", "p": 100, "o": 169, "lp": null, "q": "275 g", "bp": "(3.64 / kg)", "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "food"},
+      {"n": "Nutella oder Bueno Eisbecher", "b": null, "p": 399, "o": 549, "lp": 249, "q": "455 ml \u2013 470 ml", "bp": "(8.49 \u2013 8.77 / l)", "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "food"},
+      {"n": "Chantré Weinbrand oder Chantré Cuvée Rouge", "b": "Chantré", "p": 599, "o": 899, "lp": null, "q": "0,7 Liter", "bp": "(8.56 / l)", "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "drinks"},
+      {"n": "Hirtenkäse", "b": null, "p": 119, "o": 149, "lp": null, "q": "250 g", "bp": "(4.76 / kg)", "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "food"},
+      {"n": "Prosciutto Cotto", "b": null, "p": 179, "o": 239, "lp": null, "q": "200 g", "bp": "(8.95 / kg)", "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "food"},
+      {"n": "Bettwäsche, 2-teilig", "b": null, "p": 1799, "o": 2999, "lp": null, "q": null, "bp": null, "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "nonfood"},
+      {"n": "Sneaker-, Quarter- oder Sportsocken, 5er Pack", "b": null, "p": 888, "o": 999, "lp": null, "q": "5er Pack", "bp": null, "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "nonfood"},
+      {"n": "Kuschelweich Weichspüler", "b": "Kuschelweich", "p": 139, "o": 199, "lp": null, "q": "1 Liter", "bp": null, "c": "Donnerstag \u2013 Samstag (09.07.\u201311.07.26)", "cat": "household"}
+    ],
+    "47": [
+      {"n": "Mais-Hähnchen", "b": null, "p": 399, "o": 549, "lp": null, "q": "ganz, ca. 1,4 kg; 1 kg", "bp": null, "c": "pro kg; gültig am Samstag, 11.07.26", "cat": "food"},
+      {"n": "Eisbergsalat", "b": null, "p": 59, "o": 89, "lp": null, "q": "Stück", "bp": null, "c": "gültig am Samstag, 11.07.26", "cat": "food"},
+      {"n": "Biere", "b": null, "p": 200, "o": null, "lp": null, "q": "5 x 0,5 Liter zzgl. Pfand 0.25 pro Dose", "bp": "(0.80 / l)", "c": "5 für 2.\u2013 (Einzelpreis: 0.55, 1.10 / l); gültig am Samstag, 11.07.26", "cat": "drinks"},
+      {"n": "Segafredo Intermezzo ganze Kaffeebohnen", "b": "Segafredo", "p": 1299, "o": 2199, "lp": 1199, "q": "1 kg", "bp": null, "c": "gültig am Samstag, 11.07.26", "cat": "drinks"},
+      {"n": "Himbeeren XXL tiefgekühlt", "b": null, "p": 799, "o": 999, "lp": null, "q": "1 kg", "bp": null, "c": "gültig am Samstag, 11.07.26", "cat": "food"},
+      {"n": "fettarme H-Milch 1,5% Fett", "b": null, "p": 800, "o": 1020, "lp": null, "q": "12 x 1 Liter", "bp": null, "c": "12 für 8.\u2013 (Einzelpreis: 0.85); gültig am Samstag, 11.07.26", "cat": "food"},
+      {"n": "Limonaden Zitrone oder Orange", "b": null, "p": 599, "o": 849, "lp": null, "q": "20 x 0,5 Liter zzgl. Pfand 3.10", "bp": "(0.60 / l)", "c": "gültig am Samstag, 11.07.26", "cat": "drinks"}
+    ]
+  },
+  "notes": {
+    "_leaflet": "Netto Marken-Discount, KW 28, valid Mo. 06.07.26 to Sa. 11.07.26 (cover). Pages are double-width spreads (842 x 1134 pt). o = the small comparison price under the big price: either labelled \"UVP x.xx\" or unlabelled (both taken as o; UVP is a manufacturer list price, not necessarily a previous Netto price). lp = Netto plus App price: price printed in purple #823b86 or white on a purple #823b86 tag (the text layer says \"Preis ohne App: x.xx\" next to some of them); the App price often has its own -X% and base price. Grid pages place the price block away from the text block, so every price-product link was confirmed by recomputing the printed base price (/kg, /l, /WL) where one exists. \"*\" marks items also orderable online, not a condition. Coupons and brand-wide rebates without a price (x % Rabatt, xFACH °Punkte) are not listed. Brands are inline in Netto names; b filled only when the name starts with a recognisable brand.",
+    "1": "Lieken: comparison printed as range \"UVP 1.89 \u2013 1.99\" with \"bis zu \u201325%\"; o set to 199 (the bis-zu reference). Landliebe: 1.69 regular (\u201329%, UVP 2.39, 11.27/kg) and 1.49 on purple tag (\u201337%, 9.93/kg) = App price. Sheba/Whiskas also shows \"100 Extra°Punkte\" nearby (assignment unclear, not put in c). KNÜLLER DER WOCHE banner not tied to a product in the text layer.",
+    "9": "Last row: three prices (0.55, 0.49, 0.69) for Lauchzwiebeln, Radieschen, Auberginen assigned left to right; no base prices to confirm (Bund/Stück). Unlabelled comparison prices (2.49, 1.49, 1.79) for Äpfel rot, Feldsalat, Petersilie taken as o.",
+    "13": "Brand vs. Netto-brand comparison page; all four prices are Dauertiefpreis (no discount, no o). Magnum and Big Choc base prices are printed per kg although packs are in ml.",
+    "15": "Geschnetzeltes 2.79 (\u201330%, 5.58/kg) and Bärchenwurst 1.19 (\u201333%, 13.22/kg) are on purple App tags. Schäufele, Puten-Hälse: price per kg (\"SPAREN pro kg\").",
+    "19": "Price blocks sit in two columns away from texts; all ten links verified by base price or \"SPAREN pro kg\" arithmetic. Frikadellen and Mini Rostbratwürstchen both 2.49 / 300 g, so their prices cannot be confused, but o labels (\"2.79\" vs \"UVP 2.79\") could be swapped.",
+    "22": "Maretti Brotchips: App price 0.99 (\u201350%, 6.60/kg); \"Preis ohne App: 1.99\" (13.27/kg) is p. Kikis Frosty Pops: 4.99 regular, 4.49 App (\u201325%, 29.93/kg); marked Trendartikel.",
+    "25": "Text layer spells \"Orangenaft\" (sic) for the first juice; its brand is only in the image. Landbier and Mineralwasser brands only in the image. Carlsberg: 13.99 App price (\u201330%, 1.40/l).",
+    "38": "Coupon \"2€ SOFORTRABATT beim Kauf von einem Nivea SUN Artikel\" and \"25% Rabatt / 50FACH °P auf Pure&Basic\" not listed. \"30 Extra°Punkte\" placed next to Febreze. Vitakraft Hundesnack: 3.99 App price (\u201335%).",
+    "42": "Page footer: Donnerstag \u2013 Samstag, 09. Juli 2026 \u2013 11. Juli 2026. Nektarinen 1.79 vs Wassermelone 0.88 assigned by column, no base price to confirm. Nutella/Bueno Eisbecher App price 2.49 (\u201354%). Bettwäsche 17.99 vs Socken 8.88 assigned by column.",
+    "47": "SAMSTAGS-KRACHER, gültig am Samstag 11.07.26. Biere: comparison printed as range \"2.45 - 2.75\" (bis zu \u201327%), o left null. Segafredo: 12.99 regular (\u201340%, UVP 21.99), 11.99 App (\u201345%). Promotion \"20 % auf Artikel der Marke ...\" (brand only in image) not listed."
+  }
+}

@@ -32,6 +32,24 @@ class Settings(BaseSettings):
     # Geocoding
     nominatim_base_url: str = "https://nominatim.openstreetmap.org"
 
+    # Scanning: who we are (sent in every User-Agent) and how hard we may work.
+    contact: str = "https://github.com/Parikshit00/grocery-deals-agent"
+    chain_budget_s: int = 300  # network/browser phases of one chain scan
+    max_browsers: int = 3  # concurrent Chromium instances across all chain scans
+    vlm_max_inflight: int = 32  # concurrent page requests to the VLM (its --max-num-seqs)
+    vlm_max_model_len: int = 8192  # the vlm server's --max-model-len (prompt + output budget)
+    chromium_sandbox: bool = True  # keep Chromium's sandbox on (needs the seccomp profile)
+    # Demo only: "<chain>:<step>" skips that scripted step so the navigator heals it on camera.
+    force_heal: str = ""
+    # MCP server: when set, /mcp requires "Authorization: Bearer <token>".
+    mcp_token: str = ""
+
+    # Tracing (OpenTelemetry -> the local Langfuse); off unless enabled and configured.
+    tracing_enabled: bool = False
+    langfuse_base_url: str = ""
+    langfuse_public_key: str = ""
+    langfuse_secret_key: str = ""
+
     @property
     def database_url(self) -> str:
         return (

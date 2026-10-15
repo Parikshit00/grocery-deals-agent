@@ -1,0 +1,16 @@
+{
+ "actions": [
+  "items",
+  "select:Item 1 unit=",
+  "select:Item 2 unit=ml"
+ ],
+ "list": "500 g Hackfleisch, 250 g Butter",
+ "routes": {},
+ "expect": [
+  "Find the cheapest plan"
+ ],
+ "values": {
+  "Item 1 quantity": "",
+  "Item 2 quantity": "250"
+ }
+}

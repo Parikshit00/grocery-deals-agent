@@ -1,0 +1,125 @@
+{
+ "view": "offers",
+ "actions": [
+  "scan"
+ ],
+ "routes": {
+  "POST /api/scan": {
+   "sse": [
+    {
+     "event": "run",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "location": {
+      "lat": 48.1371079,
+      "lon": 11.5753822,
+      "plz": "80331",
+      "label": "M\u00fcnchen, Bayern"
+     },
+     "radius_km": 5.0,
+     "chains": [
+      "kaufland",
+      "penny"
+     ]
+    },
+    {
+     "seq": 1,
+     "chain": "kaufland",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 2,
+     "chain": "kaufland",
+     "event": "chain_done",
+     "status": "blocked",
+     "reason": "Kaufland refused the request (HTTP 403).",
+     "store": null,
+     "leaflets": []
+    },
+    {
+     "seq": 3,
+     "chain": "penny",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 4,
+     "chain": "penny",
+     "event": "store",
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     }
+    },
+    {
+     "seq": 5,
+     "chain": "penny",
+     "event": "step",
+     "step": "leaflets"
+    },
+    {
+     "seq": 6,
+     "chain": "penny",
+     "event": "leaflet",
+     "key": "2026-W42",
+     "title": "Angebote KW 42",
+     "kind": "offers",
+     "valid_from": "2026-10-12",
+     "valid_to": "2026-10-17",
+     "dates_source": "text",
+     "tier": 1,
+     "status": "cached",
+     "offers": 323
+    },
+    {
+     "seq": 7,
+     "chain": "penny",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42",
+       "title": "Angebote KW 42",
+       "kind": "offers",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "text",
+       "tier": 1,
+       "status": "complete",
+       "offers": 323
+      }
+     ]
+    },
+    {
+     "event": "done",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11"
+    }
+   ]
+  }
+ },
+ "expect": [
+  "Blocked",
+  "Kaufland refused the request (HTTP 403).",
+  "Scan finished."
+ ],
+ "count": {
+  ".agent": 2
+ }
+}

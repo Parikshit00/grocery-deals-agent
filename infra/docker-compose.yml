@@ -36,7 +36,7 @@ services:
       - --model=/models/${LLM_MODEL_DIR:-qwen3.5-9b}
       - --served-model-name=llm
       - --port=28800
-      - --gpu-memory-utilization=0.90
+      - --gpu-memory-utilization=${LLM_GPU_MEMORY_UTILIZATION:-0.80}
       - --max-model-len=32768
       - --max-num-seqs=24
       - --enable-auto-tool-choice
@@ -70,8 +70,8 @@ services:
       - --model=/models/${VLM_MODEL_DIR:-qwen3.5-9b}
       - --served-model-name=vlm
       - --port=28801
-      - --gpu-memory-utilization=0.90
-      - --max-model-len=8192
+      - --gpu-memory-utilization=${VLM_GPU_MEMORY_UTILIZATION:-0.80}
+      - --max-model-len=${VLM_MAX_MODEL_LEN:-8192}
       - --max-num-seqs=32
       - --max-num-batched-tokens=8192
       # Shared by both servers (YAML cannot splice lists, so keep these two blocks identical).
@@ -120,6 +120,9 @@ services:
       target: runtime
     init: true
     shm_size: 1gb
+    # Playwright's seccomp profile (pinned to v1.60.0) lets Chromium keep its sandbox as pwuser.
+    security_opt:
+      - seccomp=./chromium-seccomp.json
     environment:
       APP_ENV: docker
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
@@ -133,6 +136,20 @@ services:
       VLLM_API_KEY: ${VLLM_API_KEY:?run make init}
       EMBEDDING_MODEL: /models/bge-m3
       HF_HUB_OFFLINE: "1"
+      CONTACT: ${CONTACT:?run make init}
+      NOMINATIM_BASE_URL: ${NOMINATIM_BASE_URL:-https://nominatim.openstreetmap.org}
+      CHAIN_BUDGET_S: ${CHAIN_BUDGET_S:-300}
+      MAX_BROWSERS: ${MAX_BROWSERS:-3}
+      VLM_MAX_INFLIGHT: ${VLM_MAX_INFLIGHT:-32}
+      VLM_MAX_MODEL_LEN: ${VLM_MAX_MODEL_LEN:-8192}
+      CHROMIUM_SANDBOX: ${CHROMIUM_SANDBOX:-true}
+      FORCE_HEAL: ${FORCE_HEAL:-}
+      MCP_TOKEN: ${MCP_TOKEN:-}
+      # OpenTelemetry traces to Langfuse (the observability profile); unreachable means dropped.
+      TRACING_ENABLED: ${TRACING_ENABLED:-false}
+      LANGFUSE_BASE_URL: http://langfuse-web:3000
+      LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
     volumes:
       - type: bind
         source: ${MODELS_DIR:?run make init}
@@ -140,6 +157,11 @@ services:
         read_only: true
         bind:
           create_host_path: false
+      # Scored eval results for GET /api/evals (written by `python -m app.eval`).
+      - type: bind
+        source: ../eval/results
+        target: /srv/eval/results
+        read_only: true
     ports:
       - "${BIND_ADDR:-127.0.0.1}:28734:28734"
     depends_on:
@@ -157,6 +179,204 @@ services:
       - backend
     restart: unless-stopped
 
+  # Observability profile (`make obs-up`): Langfuse traces on :28736, Grafana on :28737,
+  # Prometheus on 127.0.0.1:28738. Secrets come from .env (make init); telemetry is off.
+  langfuse-worker:
+    image: langfuse/langfuse-worker:4.59.0@sha256:246a3a0fab57810734080d302492aa99d7ed0b6acc909c84b58832074b564175
+    profiles: ["observability"]
+    environment: &langfuse-env
+      DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD:?run make init}@langfuse-db:5432/langfuse
+      SALT: ${LANGFUSE_SALT:?run make init}
+      ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:?run make init}
+      TELEMETRY_ENABLED: "false"
+      NEXT_TELEMETRY_DISABLED: "1"
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?run make init}
+      CLICKHOUSE_CLUSTER_ENABLED: "false"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?run make init}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_EVENT_UPLOAD_PREFIX: events/
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_MEDIA_UPLOAD_REGION: auto
+      LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?run make init}
+      LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_MEDIA_UPLOAD_PREFIX: media/
+      REDIS_HOST: valkey
+      REDIS_PORT: "6379"
+      REDIS_AUTH: ${LANGFUSE_REDIS_PASSWORD:?run make init}
+      REDIS_TLS_ENABLED: "false"
+    depends_on: &langfuse-deps
+      langfuse-db:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    restart: unless-stopped
+
+  langfuse-web:
+    image: langfuse/langfuse:4.59.0@sha256:48ecae32cd74d3a567588602c144de0ec626daf32dc5f2e831a03cebd0bb2d34
+    profiles: ["observability"]
+    environment:
+      <<: *langfuse-env
+      NEXTAUTH_URL: ${LANGFUSE_URL:-http://localhost:28736}
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:?run make init}
+      AUTH_DISABLE_SIGNUP: "true"
+      # Headless init: org, project "grocery-deals-agent", its API keys and the admin user.
+      LANGFUSE_INIT_ORG_ID: gda
+      LANGFUSE_INIT_ORG_NAME: grocery-deals-agent
+      LANGFUSE_INIT_PROJECT_ID: grocery-deals-agent
+      LANGFUSE_INIT_PROJECT_NAME: grocery-deals-agent
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:?run make init}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_SECRET_KEY:?run make init}
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_ADMIN_EMAIL:-admin@gda.local}
+      LANGFUSE_INIT_USER_NAME: admin
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_ADMIN_PASSWORD:?run make init}
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:28736:3000"
+    depends_on: *langfuse-deps
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://$$HOSTNAME:3000/api/public/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      start_period: 120s
+      retries: 30
+    restart: unless-stopped
+
+  langfuse-db:
+    image: postgres:16@sha256:1a6ab3f5345eb6dbe04a1349529caabdb0ab09293a09590fad07b2246bfa4b54
+    profiles: ["observability"]
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${LANGFUSE_DB_PASSWORD:?run make init}
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U langfuse -d langfuse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.12@sha256:8a790dd3468db22b1d4e7b18a176f378ff5ff6053b9c48dd4ea1fa71a24c5ba6
+    profiles: ["observability"]
+    user: "101:101"
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?run make init}
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./clickhouse-ttl.xml:/etc/clickhouse-server/config.d/ttl.xml:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8123/ping || exit 1"]
+      interval: 5s
+      timeout: 5s
+      start_period: 10s
+      retries: 20
+    restart: unless-stopped
+
+  valkey:
+    image: valkey/valkey:8.1-alpine@sha256:081c2f5cb575efc901aa80ff9cdbd1ec6a301682fd35e1ebb4b0990a4a4a8507
+    profiles: ["observability"]
+    command: ["valkey-server", "--requirepass", "${LANGFUSE_REDIS_PASSWORD:?run make init}",
+              "--maxmemory-policy", "noeviction"]
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli -a \"$$REDISCLI_AUTH\" ping | grep -q PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      REDISCLI_AUTH: ${LANGFUSE_REDIS_PASSWORD:?run make init}
+    restart: unless-stopped
+
+  minio:
+    image: cgr.dev/chainguard/minio@sha256:2136d593beacf4461187035eca949fe49abd589d5079735025c711ca58fee0c8
+    profiles: ["observability"]
+    # A top-level directory is a bucket: creating /data/langfuse first replaces a bucket-init job.
+    entrypoint: sh
+    command: ["-c", "mkdir -p /data/langfuse && exec minio server --address :9000 /data"]
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?run make init}
+      MINIO_BROWSER: "off"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.15.0@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
+    profiles: ["observability"]
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+      - --storage.tsdb.retention.size=2GB
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "127.0.0.1:28738:9090"
+    restart: unless-stopped
+
+  dcgm-exporter:
+    image: nvcr.io/nvidia/k8s/dcgm-exporter:4.5.2-4.8.1-ubuntu22.04@sha256:17e9d49093f2d86d90260eec3c07b18b3f78fc5eadef3c8ab26a24fa5a9c1b2c
+    profiles: ["observability"]
+    # DCGM's host engine refuses to watch GPU fields without it (upstream run instructions).
+    cap_add: [SYS_ADMIN]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:12.4.13@sha256:41bbc1b5e04416f81891806076db2a2ff60a5d4da5f78d36a88b033a8c199185
+    profiles: ["observability"]
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?run make init}
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/dashboards/gda-vllm.json
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/etc/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "${BIND_ADDR:-127.0.0.1}:28737:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
 volumes:
   pgdata:
   vllm-cache:
+  langfuse-pgdata:
+  clickhouse-data:
+  minio-data:
+  prometheus-data:
+  grafana-data:

@@ -1,0 +1,33 @@
+{
+ "view": "offers",
+ "routes": {
+  "GET /api/status": {
+   "json": {
+    "llm": "down",
+    "vlm": "down",
+    "db": "up",
+    "embeddings": "up",
+    "chains": [
+     {
+      "id": "kaufland",
+      "label": "Kaufland",
+      "loyalty": "Kaufland Card"
+     },
+     {
+      "id": "penny",
+      "label": "Penny",
+      "loyalty": "PENNY App"
+     }
+    ]
+   }
+  }
+ },
+ "expect": [
+  "Models offline",
+  "The local models are offline"
+ ],
+ "disabled": [
+  "Scan",
+  "Force rescan"
+ ]
+}

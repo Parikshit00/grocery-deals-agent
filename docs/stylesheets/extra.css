@@ -1,0 +1,75 @@
+/* Project palette: navy #0B1220 with sky, violet, green, amber and orchid accents. */
+:root {
+  --gda-navy: #0b1220;
+  --gda-sky: #38bdf8;
+  --gda-violet: #a78bfa;
+  --gda-green: #22c55e;
+  --gda-amber: #f59e0b;
+  --gda-orchid: #c084fc;
+}
+
+[data-md-color-primary="custom"] {
+  --md-primary-fg-color: var(--gda-navy);
+  --md-primary-fg-color--light: #1e293b;
+  --md-primary-fg-color--dark: #050911;
+  --md-primary-bg-color: #e2e8f0;
+  --md-primary-bg-color--light: #e2e8f0b3;
+}
+
+[data-md-color-accent="custom"] {
+  --md-accent-fg-color: #0284c7;
+  --md-accent-fg-color--transparent: #38bdf81a;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 222;
+  --md-default-bg-color: var(--gda-navy);
+  --md-code-bg-color: #111a2e;
+  --md-typeset-a-color: var(--gda-sky);
+  --md-accent-fg-color: var(--gda-violet);
+}
+
+[data-md-color-scheme="default"] {
+  --md-typeset-a-color: #0369a1;
+}
+
+.md-tabs {
+  border-bottom: 1px solid #38bdf833;
+}
+
+.md-typeset h1 {
+  font-weight: 600;
+}
+
+/* Tier badges used on the Agents page: <span class="tier t1">Tier 1</span>. */
+.md-typeset .tier {
+  display: inline-block;
+  padding: 0 0.5em;
+  border-radius: 0.6em;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--gda-navy);
+  vertical-align: middle;
+}
+.md-typeset .tier.t1 { background: var(--gda-green); }
+.md-typeset .tier.t2 { background: var(--gda-sky); }
+.md-typeset .tier.t3 { background: var(--gda-amber); }
+.md-typeset .tier.t-llm { background: var(--gda-orchid); }
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--gda-violet);
+}
+
+/* Diagrams keep their own background in dark mode. */
+.md-typeset img[src$=".png"] {
+  border-radius: 0.4rem;
+}
+
+/* Redoc on the API page gets the full content width. */
+.md-typeset redoc {
+  display: block;
+  margin: 0 -0.8rem;
+  background: #ffffff;
+  border-radius: 0.4rem;
+}

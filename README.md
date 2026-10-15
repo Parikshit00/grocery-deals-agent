@@ -1,112 +1,246 @@
-# grocery-deals-agent
+<h1 align="center">grocery-deals-agent</h1>
 
-> **Status: production rebuild in progress on this branch.** Chain agents, scanning and baskets
-> are being rebuilt phase by phase around tiered acquisition and self-healing navigation; see
-> [ADR 0002](docs/adr/0002-hybrid-self-healing-navigation.md) and
-> [ADR 0003](docs/adr/0003-tiered-acquisition-honest-automation.md). The sections below describe
-> the previous version on `main` and will be rewritten at the end of the rebuild.
+<p align="center">
+  <b>Six AI agents read this week's German supermarket leaflets and plan your cheapest shop.</b><br>
+  A demo project for learning and showing how multi-agent systems are built for production:
+  local open-weight models, honest automation, and every model call traced, scored and measured.
+</p>
 
-<!-- <p align="center">
-  <img src="animation/architecture.gif" alt="How the system works: agents scan weekly prospekts into a vision model, offers land in a validity cache, and basket search runs over the cache" width="920">
-</p> -->
+<p align="center">
+  <a href="https://github.com/Parikshit00/grocery-deals-agent/actions/workflows/ci.yml"><img alt="ci" src="https://github.com/Parikshit00/grocery-deals-agent/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/Parikshit00/grocery-deals-agent/actions/workflows/supply-chain.yml"><img alt="supply chain" src="https://github.com/Parikshit00/grocery-deals-agent/actions/workflows/supply-chain.yml/badge.svg"></a>
+  <a href="https://parikshit00.github.io/grocery-deals-agent/"><img alt="docs" src="https://img.shields.io/badge/docs-MkDocs%20Material-526cfe"></a>
+  <img alt="models" src="https://img.shields.io/badge/models-local%20only-2ea44f">
+  <img alt="MCP" src="https://img.shields.io/badge/MCP-server-6e40c9">
+  <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
+</p>
 
-Finds the cheapest current grocery deals across German supermarkets for a shopping list or a
-recipe. Each chain's official weekly prospekt is browsed by its own agent and read page by page
-with a locally served vision model; everything runs on local hardware, no external LLM APIs.
+<!--
+  Demo video goes here. In GitHub's web editor, drag the MP4 into this file right below this
+  comment: GitHub uploads it and inserts a https://github.com/user-attachments/assets/... link,
+  which renders as a video player when it stands alone on its own line.
+-->
 
-Supported chains: Lidl, Kaufland, Aldi Sued, Penny, Rewe, Netto.
+<p align="center">
+  <img src="docs/architecture/agent-flow.svg" width="100%"
+       alt="Animated agent flow: a postcode fans out to six chain agents in three tiers (feeds, leaflet pages read by a vision model, a live browser with self-healing), offers are verified and cached, and the basket agent plans the cheapest shop">
+</p>
 
-<!-- demo: add the application walkthrough video (YouTube link or mp4) here -->
+No GPU at hand? The [replay demo](https://parikshit00.github.io/grocery-deals-agent/replay/) plays
+a recorded session of the whole system in the browser.
 
-## How it works
+## What you are looking at
 
-**Scan.** Pick chains and a postcode, hit Launch. One agent per chain opens the retailer's
-official prospekt in headless Chromium, dismisses cookie and promo popups, and pages through the
-leaflet. Captured pages stream into Qwen3-VL while browsing continues; each agent's browser is
-visible live in the UI. Extracted offers are cached in Postgres per (retailer, region) with the
-prospekt's own validity window, so a chain is scanned once per week and served from cache after
-that. Partial or degraded scans never overwrite a good cache row.
+Type a postcode and a shopping list, or just *Lasagne fuer 4*. Six agents fan out, one per
+chain: Penny, Kaufland, Aldi Sued, Netto, Lidl and REWE. Each one finds its nearest store and
+reads that store's current offers the cheapest reliable way:
 
-**Basket.** Type a shopping list, or a dish in Recipe mode - the reasoning model breaks it into
-ingredients (its thinking streams live into the UI), items are matched against the cached offers
-by embedding similarity, and the optimizer builds the cheapest basket, either split across stores
-or from the single best store. Basket search reads only the cache; it never triggers a scan.
+- **Tier 1, a feed.** If the chain's website loads its offers as JSON, the agent reads that JSON.
+  No model, a few seconds.
+- **Tier 2, the leaflet.** If the offers only exist as a leaflet, a local vision model reads it
+  page by page, and every price it reads is checked against the page's own text layer.
+- **Tier 3, a real browser.** If the site leaves no other way in, a scripted Chromium session
+  clicks through it. When a step breaks, a small vision-driven navigator repairs that one step
+  under a hard budget. When a site blocks automation, the agent says so and stops.
 
-## Stack
+A basket agent then decides which offers actually *are* your products, using tool calls over the
+cached offers, and plain code works out the cheapest single-store shop and the cheapest split
+across stores, with unit prices and distances. The language model never does arithmetic.
 
-- Backend: FastAPI, LangGraph pipeline (resolve -> plan -> retrieve -> optimize), SSE streaming,
-  Playwright, PostgreSQL.
-- Models, all local via vLLM's OpenAI-compatible API: Qwen3-30B-A3B-Thinking (reasoning, GPU 0,
-  `:28800`), Qwen3-VL-32B-Instruct (vision, GPU 1, `:28801`), bge-m3 embeddings
-  (sentence-transformers).
-- Frontend: React + Vite + TypeScript, framer-motion, plain CSS.
+## Why this project exists
 
-## Quick start (Docker)
+This is a demo project. Its job is to be a realistic place to learn and show multi-agent
+engineering, not to replace a shopping app. Groceries make a good testbed: the sources are
+messy and different per chain, the results involve real money, and anyone can check an answer
+against the leaflet on the kitchen table.
 
-Needs an NVIDIA GPU pair, the NVIDIA container toolkit, and the two model checkpoints on disk.
+What you can study here, with the code that does it:
+
+| Pattern | Where |
+|---|---|
+| Many small agents with their own budgets, failure isolation and single-flight runs | [`services/scan.py`](backend/app/services/scan.py) |
+| Deterministic first, models only where they pay off (tiered acquisition) | [`agents/`](backend/app/agents), [ADR 0003](docs/adr/0003-tiered-acquisition-honest-automation.md) |
+| A bounded self-healing browser agent: set-of-marks screenshots, five actions, domain lock | [`agents/navigator.py`](backend/app/agents/navigator.py), [ADR 0002](docs/adr/0002-hybrid-self-healing-navigation.md) |
+| A tool-calling agent whose decisions are checked and whose numbers come from code | [`services/basket.py`](backend/app/services/basket.py), [`services/optimizer.py`](backend/app/services/optimizer.py) |
+| Verifying model output against ground truth (prices in the page's text layer) | [`services/offers.py`](backend/app/services/offers.py) |
+| Evals as experiments per model and as a CI gate | [`app/eval.py`](backend/app/eval.py), [`eval/`](eval) |
+| Tracing every agent step and model call with OpenTelemetry into Langfuse | [`core/tracing.py`](backend/app/core/tracing.py) |
+| Serving open-weight models with vLLM: priorities, KV budgets, one model per GPU | [`infra/`](infra) |
+| Exposing an agent system to other agents over MCP | [`mcp_server.py`](backend/app/mcp_server.py), [ADR 0005](docs/adr/0005-read-only-mcp-server.md) |
+| Threat-modelling an agent system against the OWASP LLM and agentic top 10s | [`docs/security.md`](docs/security.md) |
+
+## Architecture
+
+![Detailed architecture: browser UI behind nginx, FastAPI with the scan runtime, chain agents, navigator, basket agent and MCP server, vLLM servers on two GPUs, bge-m3 on CPU, Postgres, retailer sites and OpenStreetMap, OpenTelemetry to Langfuse, Prometheus and DCGM to Grafana, and the eval harness](docs/architecture/architecture.png)
+
+The editable source is [`architecture.drawio`](docs/architecture/architecture.drawio) (opens in
+draw.io); the animated flow above is rendered by
+[`render_flow.py`](docs/architecture/render_flow.py).
+
+| Layer | Stack |
+|---|---|
+| **Infrastructure** | Docker Compose with three profiles (app, models, observability), images pinned by digest, Chromium sandbox kept on through a vendored seccomp profile, nginx in front of the UI, `uv` lockfiles, GitHub Actions for CI, docs and the supply chain |
+| **Models** | vLLM 0.30.0 with OpenAI-compatible APIs: Qwen3.5-9B as `llm` on GPU 0 (recipes, the basket agent) and as `vlm` on GPU 1 (leaflet pages, product images, the navigator); bge-m3 embeddings on CPU. Qwen3-VL-32B and Qwen3.6-35B-A3B are on the [benchmarks page](docs/benchmarks.md) |
+| **Agents and backend** | Python 3.12, FastAPI, plain asyncio (no agent framework), Playwright 1.60, httpx, Pydantic 2, SQLAlchemy 2 with asyncpg, Alembic, PostgreSQL 16, structlog; Server-Sent Events to the UI; MCP 2.3 at `/mcp` |
+| **Observability** | OpenTelemetry SDK with OpenInference instrumentation, self-hosted Langfuse 4 (traces, sessions, datasets, experiments), Prometheus 3, NVIDIA DCGM exporter, Grafana 12 |
+| **Evals** | Gold-labelled leaflet pages, 198 matcher pairs and 20 baskets; Langfuse experiments per model; a CI test that gates extraction quality |
+| **Frontend** | React 18, TypeScript, Vite; a mission-control view with one live window per agent |
+| **Docs** | MkDocs Material site, ADRs, draw.io diagrams, a threat model |
+
+## The six chain agents
+
+One forced rescan at postcode 80331 (Munich), all chains at once, Qwen3.5-9B on GPUs shared
+with another user's job:
+
+| Chain | Tier | How it reads offers | Result |
+|---|---|---|---|
+| Penny | 1 | Market and offer feeds per selling region | Gaertnerplatz store, 0.5 km: 323 offers in 24 s |
+| Kaufland | 1 | Store finder, then the store's offers JSON | 653 offers in 28 s |
+| Aldi Sued | 1 + 2 | The leaflet's product feed; next week's 33 pages through the vision model | today's offers in 20 s; 409 with next week's |
+| Netto | 2 | Leaflet pages through the vision model, prices checked against the text layer | 71 pages in 205 s; 795 offers with next week's 75 pages |
+| Lidl | 3 + 2 | Lidl's own store finder in Chromium, then the region's leaflet pages (food pages only) | store 1.1 km away; 42 pages in 334 s; 391 offers with next week's |
+| REWE | 3 | Market search, then the offers page in Chromium | Blocked by bot protection after 27 s, reported as such |
+
+The whole scan read 262 leaflet pages and found 2,571 offers in 8 minutes, next week's leaflets
+included; the price check flagged 103 of them.
+
+Aldi Sued and Netto publish one edition per region and their store finders offer no honest way in
+for automated clients, so their offers fill the offer wall but never a distance-based plan. Every
+agent identifies itself with a contact address, follows `robots.txt` and never evades bot
+protection ([ADR 0003](docs/adr/0003-tiered-acquisition-honest-automation.md)).
+
+## Where a model decides, and how well
+
+Models do four jobs here. A recipe's ingredient list is shown as editable chips before anything
+runs, so the user checks it; the other three decide on their own and are measured:
+
+| Decision | Model | Measured (Qwen3.5-9B) |
+|---|---|---|
+| Reading a leaflet page into offers | `vlm` | served price accuracy 0.913 on 50 gold pages, name recall 0.808, JSON validity 1.0 |
+| Repairing a broken browser step | `vlm` | a forced Lidl store-selection failure recovered in 3 of 3 runs, in 1 action and 2 to 3 s each |
+| Deciding which offers are the product | `llm` | precision 0.912 and accuracy 0.884 on 198 pairs; 15 of 20 baskets pass |
+
+These scores are below the project's own gates (served price accuracy 0.98, name recall 0.95,
+matcher accuracy 0.90, basket pass rate 0.80), so the CI gate stays off rather than being
+lowered. Wrong prices are the main risk, and the price check is the safety net: an offer whose
+price does not appear in the page's text layer is flagged and never enters a plan.
+
+## Models and benchmarks
+
+| When | Model | Role | Served price accuracy | Matcher accuracy | Vision throughput |
+|---|---|---|---|---|---|
+| 2026-07 | Qwen3-VL-32B-FP8 | vision (first prototype) | no gold set yet | n/a | 18.2 pages/min after tuning, from 4.3 |
+| 2026-10 | Qwen3.5-9B | `llm` + `vlm` | 0.913 | 0.884 | 14.7 pages/min with text layers |
+| 2026-10 | Qwen3.6-35B-A3B-FP8 | `llm` + `vlm` | 0.870 | 0.889 (precision 0.944) | 22.4 pages/min with text layers |
+
+Qwen3.5-9B stays in production ([ADR 0004](docs/adr/0004-model-choice.md)): the 35B mixture of
+experts reads pages 52% faster and matches products more precisely, but it reads prices less
+accurately, and prices are what users see. Speculative decoding with its MTP heads accepted 96% of
+drafted tokens, yet the draft layers shrank the KV cache from 57k to 13k tokens and throughput fell
+to 12.6 pages/min, so it is off.
+
+The [benchmarks page](docs/benchmarks.md) has every run, per chain, with the July tuning story:
+how head-of-line blocking and KV-cache starvation made a 32B vision model feel serial, and the
+six steps that took it from 4.3 to 18.2 pages per minute.
+
+## Observability
+
+Every scan is one trace in Langfuse: the request, one span per chain agent, each leaflet, each
+page read and the vision model generation inside it, with tokens and latency. A full six-chain
+scan is one trace with 252 model generations and about 480k tokens. A basket is one trace too:
+the basket, one agent per item, their `search_offers` and `inspect_offer` tool calls and every
+LLM generation. The **Runs** view in the app links each run straight to its trace.
+
+Grafana shows the model servers and GPUs live: running and waiting requests, prompt and
+generation tokens per second, KV-cache usage, time to first token, inter-token latency, GPU
+utilisation, memory and power, and energy per 1k generated tokens.
+
+## Evals
+
+| Suite | Data | Gate |
+|---|---|---|
+| Extraction | 50 leaflet pages across five chains with hand-checked gold offers | served price accuracy >= 0.98, name recall >= 0.95, JSON validity >= 0.99 |
+| Matcher | 198 item and offer pairs over a frozen offer pool | accuracy >= 0.90 |
+| Baskets | 20 lists and recipes with products that must and must not match | pass rate >= 0.80 |
+
+`python -m app.eval experiment --model NAME` runs all three against the live model servers,
+writes `eval/results/<model>.json` (the app's **Evals** tab) and records each suite as a Langfuse
+experiment, so models line up side by side. See [Evals](docs/evals.md).
+
+## Use it from other agents (MCP)
+
+The backend is also an MCP server with five read-only tools: `list_chains`, `nearest_stores`,
+`scan_status`, `search_offers` and `plan_basket`. Any MCP client can ask what is on offer near a
+postcode or plan a list against the cached offers; no tool ever starts a scan.
+
+```bash
+claude mcp add --transport http grocery-deals http://<host>:28734/mcp
+```
+
+Set `MCP_TOKEN` in `.env` to require a bearer token. See [MCP server](docs/mcp.md).
+
+## Security and supply chain
+
+- **Threat model:** 13 threats from leaflet prompt injection to MCP clients, mapped to the OWASP
+  Top 10 for LLM applications and the OWASP Top 10 for agentic applications, each with its
+  controls and residual risk ([security.md](docs/security.md), [SECURITY.md](SECURITY.md)).
+- **Supply chain:** every pull request builds both images and a CycloneDX SBOM; on `main` and
+  release tags the images go to GHCR with SBOM and SLSA build provenance attestations and a
+  keyless cosign signature ([supply chain](docs/supply-chain.md)).
+- **Containment:** model servers listen on localhost behind an API key, Chromium keeps its
+  sandbox, the navigator cannot leave the chain's domains, and no cloud LLM SDK is installed.
+
+## Quick start
+
+Needs a Linux host with two NVIDIA GPUs (built on 2x A40, 48 GB each), the NVIDIA Container
+Toolkit, Docker Compose v2, `python3` and `uv`.
 
 ```bash
 git clone https://github.com/Parikshit00/grocery-deals-agent.git
 cd grocery-deals-agent
-
-scripts/download_model.sh Qwen/Qwen3-30B-A3B-Thinking-2507-FP8 /path/to/models/Qwen3-30B-A3B-Thinking-2507-FP8
-scripts/download_model.sh Qwen/Qwen3-VL-32B-Instruct-FP8 /path/to/models/Qwen3-VL-32B-Instruct-FP8
-scripts/pull_models.sh                                        # verify checkpoints
-
-MODELS_DIR=/path/to/models docker compose -f infra/docker-compose.yml up -d --build
+make init            # .env with generated secrets and API keys
+make models-pull     # pinned weights from infra/models.txt (make models-verify checks them)
+make demo-up         # models, observability and app; warms the caches and prints the URLs
 ```
 
-UI on http://localhost:28735/, API on :28734. The compose stack runs Postgres, both vLLM model
-servers (GPU 0 reasoning, GPU 1 vision), the backend, and the nginx-served UI; model weights are
-mounted from `MODELS_DIR`, never baked into images.
+| Service | Port |
+|---|---|
+| App | 28735 |
+| API (Swagger at `/docs`, MCP at `/mcp`) | 28734 |
+| Langfuse | 28736 |
+| Grafana | 28737 |
 
-### Development (host-run)
+Ports bind to `127.0.0.1` unless `BIND_ADDR` in `.env` says otherwise. `make demo-down` stops
+the model servers and frees both GPUs. `make check` runs ruff, mypy and the test suite in the
+same image CI uses. The [docs site](https://parikshit00.github.io/grocery-deals-agent/) covers
+operations, the API and the demo shot list.
 
-```bash
-./scripts/setup_env.sh && conda activate angebot_agent
-docker compose -f infra/docker-compose.yml up -d postgres
-scripts/serve_llm.sh        # reasoning model, GPU 0
-scripts/serve_vlm.sh        # vision model, GPU 1
-scripts/run_dev.sh          # API on :28734
-cd frontend && npm install && npm run dev   # UI with HMR
-```
+## Limitations
 
-Config lives in `.env`, created from `.env.example`.
+- REWE's offers sit behind a bot challenge, so REWE always ends as blocked. That is the honest
+  result, not a bug to work around.
+- Aldi Nord is not covered; postcodes in its area say so. Aldi Sued and Netto contribute offers
+  but no store distances.
+- The current model misses the quality gates above; the safety net is the price check, which
+  catches about a third of wrong prices.
+- The demo's self-heal is forced on purpose (`FORCE_HEAL=lidl:select_store`) and labelled as
+  forced in the UI; in normal runs the scripted steps succeed.
+- Timings above come from GPUs shared with another user's job; on idle GPUs everything is faster.
 
-## API
+## Project history
 
-| Method | Path                            | Description                                      |
-| ------ | ------------------------------- | ------------------------------------------------ |
-| POST   | `/api/prospekt`                 | Scan chains `{retailers, location}` (SSE)        |
-| GET    | `/api/prospekt/cache`           | Per-chain cache state for a location             |
-| DELETE | `/api/prospekt/cache/{retailer}`| Clear one chain's cached prospekt                |
-| POST   | `/api/search`                   | Cheapest basket for a list or recipe (SSE)       |
-| GET    | `/api/profile/{id}`             | Last location and recent searches                |
-| GET    | `/health`, `/readyz`            | Liveness and readiness probes                    |
+The first prototype read offers through a third-party aggregator; this version uses only the
+retailers' own sources. A later experiment put an LLM browser agent in charge of every scan and
+was measured against the scripted version on the same week: it regressed on every chain (for
+example 41 Kaufland offers instead of 491), which is why navigation is now scripted with bounded
+self-healing ([ADR 0002](docs/adr/0002-hybrid-self-healing-navigation.md)).
 
-## Layout
+## Disclaimer
 
-```
-backend/app/
-  api/          HTTP routes (SSE streaming endpoints)
-  graphs/       LangGraph orchestration (search pipeline)
-  agents/       one Playwright agent per chain + shared helpers + extraction prompts
-  services/     domain logic: scan orchestration, matching, basket optimizer, geo
-  clients/      model clients: reasoning LLM, vision VLM, embeddings
-  persistence/  SQLAlchemy models, repository, session
-  schemas/      Pydantic API/domain schemas
-  core/         config, logging
-backend/tests/  unit tests + API tests
-frontend/src/
-  features/     scan and basket panels
-  components/   shared UI (offer card, timeline, chain logos, icons)
-  lib/          API client and types
-```
-
-Adding a chain: copy `backend/app/agents/lidl.py` to `agents/<retailer>.py`, adapt the
-navigation, add `agents/prompts/<retailer>_extract.txt`, and register it in
-`agents/__init__.py`.
+A personal, non-commercial portfolio project, not affiliated with or endorsed by any retailer.
+Offers are read from the retailers' public websites on demand and cached until the leaflet
+expires. Prices can be wrong; check the leaflet before you shop.
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE).
+[Apache 2.0](LICENSE)

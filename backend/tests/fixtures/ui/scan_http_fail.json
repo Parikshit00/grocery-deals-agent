@@ -1,0 +1,22 @@
+{
+ "view": "offers",
+ "actions": [
+  "scan"
+ ],
+ "routes": {
+  "POST /api/scan": {
+   "status": 503,
+   "json": {
+    "detail": "Embedding model missing: run make models-pull NAME=bge-m3."
+   }
+  }
+ },
+ "expect": [
+  "Embedding model missing: run make models-pull NAME=bge-m3.",
+  "Scan failed"
+ ],
+ "absent": [
+  "Queued",
+  "Scan finished."
+ ]
+}

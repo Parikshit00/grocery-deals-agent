@@ -1,0 +1,17 @@
+{
+ "view": "offers",
+ "actions": [
+  "scan"
+ ],
+ "routes": {
+  "POST /api/scan": {
+   "abort": true
+  }
+ },
+ "expect": [
+  "The scan could not be started: the backend did not answer."
+ ],
+ "absent": [
+  "Queued"
+ ]
+}

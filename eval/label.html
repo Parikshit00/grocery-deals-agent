@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold label review</title>
+<!--
+  Spot-check (or label from scratch) the extraction gold set.
+  Serve with: python -m http.server -b 127.0.0.1 -d eval   then open
+  http://127.0.0.1:8000/label.html (bound to localhost: eval/ also holds private files).
+  Reads gold/<chain>.json, review/<chain>.json (to continue) and pages/<CHAIN>/pNNN.{jpg,txt}.
+  Export downloads <chain>.json in the gold format plus per-offer "v" (ok|wrong) and "gi"
+  (index of the gold offer on its page, null if added) and the gold pages it was made against
+  ("gold_pages"); save it as eval/review/<chain>.json. A draft made against older gold is
+  discarded on load (after a confirm), since its "gi" indices no longer fit.
+  Prices are typed in euros (1,99) and stored as integer cents. Drafts autosave in this browser.
+-->
+<style>
+  :root { --bg: #fff; --fg: #1d1d1f; --muted: #6e6e73; --line: #d2d2d7; --ok: #1a7f37;
+          --bad: #c62828; --pick: #e8f0fe; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161618; --fg: #ececf1; --muted: #9a9aa2; --line: #3a3a40; --ok: #4cc26a;
+            --bad: #ff6b6b; --pick: #23324d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+  header { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 8px 16px;
+           border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg);
+           z-index: 1; }
+  header .stat { color: var(--muted); }
+  main { display: grid; grid-template-columns: 110px minmax(280px, 1fr) minmax(420px, 1.4fr);
+         gap: 12px; padding: 12px 16px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  #pages button { display: block; width: 100%; text-align: left; margin-bottom: 2px;
+                  background: none; border: 1px solid transparent; color: var(--fg);
+                  padding: 3px 6px; cursor: pointer; border-radius: 4px; }
+  #pages button.cur { background: var(--pick); border-color: var(--line); }
+  #pages button.done { color: var(--ok); }
+  #img img { width: 100%; border: 1px solid var(--line); }
+  #img pre { white-space: pre-wrap; font-size: 12px; max-height: 40vh; overflow: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  td, th { border-bottom: 1px solid var(--line); padding: 2px 3px; vertical-align: top; }
+  th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12px; }
+  input, select { width: 100%; font: inherit; background: var(--bg); color: var(--fg);
+                  border: 1px solid var(--line); border-radius: 3px; padding: 1px 3px; }
+  input.bad { border-color: var(--bad); }
+  td.num input { width: 5.5em; }
+  tr.ok { box-shadow: inset 4px 0 var(--ok); }
+  tr.wrong { box-shadow: inset 4px 0 var(--bad); }
+  tr.added td:first-child::before { content: "+ "; color: var(--ok); }
+  .v button { padding: 1px 6px; cursor: pointer; }
+  .actions { margin: 8px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <label>Chain <select id="chain"></select></label>
+  <label>or new <input id="newchain" size="8" placeholder="lidl"></label>
+  <button id="load">Load</button>
+  <label>Add page # <input id="addpage" type="number" min="0" style="width:5em"></label>
+  <button id="export">Export review JSON</button>
+  <span class="stat" id="stat"></span>
+</header>
+<main>
+  <nav id="pages"></nav>
+  <section id="img"></section>
+  <section id="offers"></section>
+</main>
+<script>
+"use strict";
+const KEYS = ["n", "b", "p", "o", "lp", "q", "bp", "c", "cat"];
+const PRICES = new Set(["p", "o", "lp"]);
+const CATS = ["", "food", "drinks", "drugstore", "household", "nonfood"];
+let chain = "", gold = null, review = null, page = null;
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, props = {}, ...kids) => {
+  const e = Object.assign(document.createElement(tag), props);
+  e.append(...kids);
+  return e;
+};
+const pad = (n) => String(n).padStart(3, "0");
+const euros = (c) => (c == null ? "" : (c / 100).toFixed(2).replace(".", ","));
+function cents(s) {
+  s = s.trim().replace(/\s|\u20ac/g, "").replace(",", ".");
+  if (!s) return null;
+  const v = Math.round(parseFloat(s) * 100);
+  return /^\d*\.?\d*$/.test(s) && v > 0 ? v : undefined;
+}
+
+async function getJson(url) {
+  const r = await fetch(url, { cache: "no-store" });
+  return r.ok ? r.json() : null;
+}
+async function listing(dir, re) {  // names from python -m http.server's directory listing
+  const r = await fetch(dir, { cache: "no-store" });
+  if (!r.ok) return [];
+  const html = await r.text();
+  return [...html.matchAll(/href="([^"]+)"/g)].map((m) => decodeURIComponent(m[1]))
+    .map((h) => (h.match(re) || [])[1]).filter(Boolean);
+}
+
+function save() {
+  try { localStorage.setItem("gda.label." + chain, JSON.stringify(review)); } catch (e) { }
+  stat();
+}
+function draft() {
+  try { return JSON.parse(localStorage.getItem("gda.label." + chain) || "null"); }
+  catch (e) { return null; }
+}
+
+async function init() {
+  const golds = await listing("gold/", /^([\w-]+)\.json$/);
+  const rendered = (await listing("pages/", /^([\w-]+)\/$/)).map((s) => s.toLowerCase());
+  const names = [...new Set([...golds, ...rendered])].sort();
+  $("chain").replaceChildren(...names.map((n) =>
+    el("option", { value: n, textContent: n + (golds.includes(n) ? "" : " (no gold)") })));
+  $("load").onclick = () => load(($("newchain").value.trim() || $("chain").value).toLowerCase());
+  $("addpage").onchange = () => {
+    const n = $("addpage").value;
+    $("addpage").value = "";  // so the blur of the next click does not re-render under it
+    if (review && n !== "") { review.pages[String(+n)] ||= []; save(); show(String(+n)); }
+  };
+  $("export").onclick = exportJson;
+  if (names.length) load(names[0]);
+}
+
+async function load(name) {
+  chain = name;
+  gold = (await getJson("gold/" + chain + ".json"))
+    || { chain, pdf: null, drafted_by: null, reviewed: false, pages: {}, notes: {} };
+  const fresh = {
+    ...gold, reviewed: true, gold_pages: gold.pages,
+    pages: Object.fromEntries(Object.entries(gold.pages).map(([p, offers]) =>
+      [p, offers.map((o, gi) => ({ ...o, gi, v: null }))])),
+  };
+  const current = (r) => r && (JSON.stringify(r.gold_pages) === JSON.stringify(gold.pages)
+    || !confirm(`The saved ${chain} review was made against older gold. Discard it?`));
+  let d = draft();
+  review = (current(d) && d) || (current(d = await getJson("review/" + chain + ".json")) && d)
+    || fresh;
+  for (const p of Object.keys(gold.pages)) review.pages[p] ||= fresh.pages[p];
+  const first = Object.keys(review.pages).sort((a, b) => a - b)[0];
+  page = null;
+  save();
+  first === undefined ? render() : show(first);
+}
+
+function stat() {
+  const all = Object.values(review.pages).flat();
+  const judged = all.filter((o) => o.v).length;
+  const wrong = all.filter((o) => o.gi != null && o.v === "wrong").length;
+  const added = all.filter((o) => o.gi == null).length;
+  const pages = Object.values(review.pages).filter((l) => l.some((o) => o.v)).length;
+  $("stat").textContent = `${chain}: ${pages}/${Object.keys(review.pages).length} pages, ` +
+    `${judged}/${all.length} offers judged, ${wrong} wrong, ${added} added`;
+}
+
+function show(p) { page = p; render(); }
+
+function render() {
+  const nums = Object.keys(review.pages).sort((a, b) => a - b);
+  $("pages").replaceChildren(...nums.map((p) => {
+    const l = review.pages[p];
+    const b = el("button", { textContent: `p${pad(p)} (${l.length})`, onclick: () => show(p) });
+    if (p === page) b.classList.add("cur");
+    if (l.length && l.every((o) => o.v)) b.classList.add("done");
+    return b;
+  }));
+  if (page === null) {
+    $("img").replaceChildren(el("p", { className: "muted",
+      textContent: "No pages yet: add a page number above to label from scratch." }));
+    $("offers").replaceChildren();
+    return;
+  }
+  const src = `pages/${chain.toUpperCase()}/p${pad(page)}`;
+  const txt = el("pre", { textContent: "loading..." });
+  const det = el("details", {}, el("summary", { textContent: "PDF text layer" }), txt);
+  det.ontoggle = async () => {
+    const r = await fetch(src + ".txt");
+    txt.textContent = r.ok ? await r.text() : "(no text file)";
+  };
+  $("img").replaceChildren(
+    el("a", { href: src + ".jpg", target: "_blank" }, el("img", { src: src + ".jpg", alt: `page ${pad(page)}` })),
+    det);
+  renderOffers();
+}
+
+function renderOffers() {
+  const list = review.pages[page];
+  const note = (review.notes || {})[page];
+  const head = el("tr", {}, ...KEYS.map((k) => el("th", { textContent: k })), el("th"));
+  const rows = list.map((o, i) => {
+    const tr = el("tr");
+    const state = el("span");
+    const buttons = [];
+    const mark = () => {  // in place: re-rendering on change would eat the click that blurred it
+      tr.className = (o.v || "") + (o.gi == null ? " added" : "");
+      state.textContent = " " + (o.v || "unjudged");
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(o.v === b.textContent)));
+    };
+    for (const k of KEYS) {
+      let input;
+      if (k === "cat") {
+        input = el("select", {}, ...CATS.map((c) => el("option", { value: c, textContent: c })));
+        input.value = o.cat || "";
+      } else {
+        input = el("input", { value: PRICES.has(k) ? euros(o[k]) : (o[k] ?? "") });
+      }
+      input.setAttribute("aria-label", `${k} offer ${i + 1}`);
+      input.onchange = () => {
+        let v = input.value;
+        if (PRICES.has(k)) {
+          v = cents(v);
+          input.classList.toggle("bad", v === undefined);
+          if (v === undefined) return;
+        } else {
+          v = v.trim() || null;
+        }
+        o[k] = v;
+        if (o.gi != null) o.v = "wrong";  // an edited gold offer disagrees with the draft
+        save();
+        mark();
+      };
+      tr.append(el("td", { className: PRICES.has(k) ? "num" : "" }, input));
+    }
+    const verdict = (v) => {
+      const b = el("button", { textContent: v, onclick: () => { o.v = v; save(); render(); } });
+      buttons.push(b);
+      return b;
+    };
+    const del = el("button", { textContent: "del", onclick: () => {
+      list.splice(i, 1); save(); render(); } });
+    tr.append(el("td", { className: "v" }, verdict("ok"), verdict("wrong"),
+      ...(o.gi == null ? [del] : []), state));
+    mark();
+    return tr;
+  });
+  const add = el("button", { textContent: "Add missing offer", onclick: () => {
+    list.push({ ...Object.fromEntries(KEYS.map((k) => [k, null])), gi: null, v: "ok" });
+    save(); render(); } });
+  const allOk = el("button", { textContent: "Mark unjudged ok", onclick: () => {
+    list.forEach((o) => { o.v ||= "ok"; }); save(); render(); } });
+  $("offers").replaceChildren(
+    ...(note ? [el("p", { className: "muted", textContent: "Note: " + note })] : []),
+    el("table", {}, head, ...rows),
+    el("div", { className: "actions" }, add, allOk));
+}
+
+function exportJson() {
+  const blob = new Blob([JSON.stringify(review, null, 1) + "\n"], { type: "application/json" });
+  el("a", { href: URL.createObjectURL(blob), download: chain + ".json" }).click();
+}
+
+init();
+</script>
+</body>
+</html>

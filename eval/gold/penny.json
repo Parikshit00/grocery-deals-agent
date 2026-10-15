@@ -1,0 +1,141 @@
+{
+  "chain": "penny",
+  "pdf": "Experiments/Prospekts/PENNY.pdf",
+  "drafted_by": "claude-text-layer",
+  "reviewed": false,
+  "pages": {
+    "10": [
+      {"n": "XXL Delikatess bayerischer Leberkäse Fein", "b": "MÜHLENHOF", "p": 299, "o": null, "lp": null, "q": "je 500 g", "bp": "(1 kg = 5.98)", "c": null, "cat": "food"},
+      {"n": "XXL Delikatess Hähnchen-Wiener", "b": "MÜHLENHOF", "p": 399, "o": null, "lp": null, "q": "je 600 g", "bp": "(1 kg = 6.65)", "c": null, "cat": "food"},
+      {"n": "Mini Würstchen", "b": "FERDI FUCHS", "p": 219, "o": null, "lp": 199, "q": "je 10 x 25 g", "bp": "(1 kg = 8.76)", "c": null, "cat": "food"},
+      {"n": "Delikatess Pommersche Leberwurst", "b": "MÜHLENHOF", "p": 129, "o": null, "lp": 99, "q": "je 175 g", "bp": "(1 kg = 7.37)", "c": null, "cat": "food"},
+      {"n": "Fuet-Salami", "b": "AOSTE", "p": 299, "o": null, "lp": null, "q": "je 170 g", "bp": "(1 kg = 17.59)", "c": null, "cat": "food"},
+      {"n": "Hähnchen- oder Schweinefleisch", "b": "DREISTERN", "p": 349, "o": null, "lp": null, "q": "je 400 g", "bp": "(1 kg = 8.73)", "c": null, "cat": "food"},
+      {"n": "Wienis", "b": "RÜGENWALDER", "p": 199, "o": null, "lp": null, "q": "je 165 g", "bp": "(1 kg = 12.06)", "c": null, "cat": "food"},
+      {"n": "Sülze", "b": "OSTERMEIER", "p": 299, "o": 399, "lp": null, "q": "je 350 g", "bp": "(1 kg = 8.54)", "c": null, "cat": "food"},
+      {"n": "Gewürzbraten oder Leberkäse", "b": "OSTERMEIER", "p": 349, "o": null, "lp": null, "q": "je 500 g", "bp": "(1 kg = 6.98)", "c": null, "cat": "food"},
+      {"n": "Weißwurst oder Wiener Würstchen", "b": "OSTERMEIER", "p": 555, "o": null, "lp": null, "q": "je 700 g", "bp": "(1 kg = 7.93)", "c": null, "cat": "food"}
+    ],
+    "12": [
+      {"n": "Bio-Alpenmilch 3,5% Fett", "b": "BERCHTESGADENER LAND", "p": 139, "o": null, "lp": null, "q": "je 1 l", "bp": null, "c": null, "cat": "food"},
+      {"n": "Haltbare Milch 3,5% oder 1,5% Fett", "b": "BÄREN-MARKE", "p": 99, "o": null, "lp": null, "q": "je 1 l", "bp": null, "c": null, "cat": "food"},
+      {"n": "Bubble Coffee", "b": "PENNY READY", "p": 299, "o": null, "lp": null, "q": "je 450 ml, zzgl. 0.25 Pfand", "bp": "(1 l = 6.64)", "c": null, "cat": "drinks"},
+      {"n": "Coffee", "b": "LAVAZZA", "p": 169, "o": null, "lp": null, "q": "je 220 ml", "bp": "(1 l = 7.68)", "c": null, "cat": "drinks"},
+      {"n": "Halbfettmargarine", "b": "LÄTTA", "p": 129, "o": 229, "lp": null, "q": "je 450 g", "bp": "(1 kg = 2.87)", "c": null, "cat": "food"},
+      {"n": "Streichzart", "b": "MEGGLE", "p": 229, "o": 399, "lp": 199, "q": "je 400 g", "bp": "(1 kg = 5.73)", "c": null, "cat": "food"},
+      {"n": "Pudding", "b": "MÜLLER", "p": 99, "o": null, "lp": null, "q": "je 450 g", "bp": "(1 kg = 2.20)", "c": null, "cat": "food"},
+      {"n": "Grieß Dessert", "b": "MILRAM", "p": 59, "o": null, "lp": null, "q": "je 175 g", "bp": "(1 kg = 3.37)", "c": null, "cat": "food"},
+      {"n": "Sahnepudding", "b": "ROMA", "p": 49, "o": null, "lp": 33, "q": "je 200 g", "bp": "(1 kg = 2.45)", "c": null, "cat": "food"},
+      {"n": "Plombir Eiscreme Tutti Frutti oder Original", "b": "DOVGAN", "p": 399, "o": null, "lp": 279, "q": "je 660 ml oder je 6 x 120 ml", "bp": "(1 l = 6.05) / (1 l = 5.54)", "c": null, "cat": "food"},
+      {"n": "Freezies oder AHOJ-BRAUSE Saure Stangen", "b": "CAPRI-SUN", "p": 222, "o": 329, "lp": null, "q": "je 420 ml oder je 564 ml", "bp": "(1 l = 5.29) / (1 l = 3.94)", "c": null, "cat": "food"},
+      {"n": "Actimel", "b": "DANONE", "p": 299, "o": 598, "lp": null, "q": "je 12 x 100 g", "bp": "(1 kg = 2.49)", "c": null, "cat": "food"}
+    ],
+    "14": [
+      {"n": "Das knusprig-frische Weizenbrötchen", "b": "BÄCKERKRÖNUNG", "p": 76, "o": 114, "lp": null, "q": "je 6 Stück", "bp": null, "c": "6 KAUFEN, 4 ZAHLEN (2 GRATIS); Einzelpreis je Stück 0.19; ENTSPRICHT 0.14 JE STÜCK", "cat": "food"},
+      {"n": "Mehrkorn Brötchen", "b": "BÄCKERKRÖNUNG", "p": 129, "o": null, "lp": 99, "q": "je 560 g", "bp": "(1 kg = 2.30)", "c": null, "cat": "food"},
+      {"n": "Bayerische Laugenbreze", "b": "BÄCKERKRÖNUNG", "p": 100, "o": 156, "lp": null, "q": "je 4 Stück", "bp": null, "c": "4 KAUFEN; ENTSPRICHT 0.25 JE STÜCK; Einzelpreis je Stück 0.39", "cat": "food"},
+      {"n": "Grillbrot", "b": "BÄCKERKRÖNUNG", "p": 129, "o": null, "lp": 88, "q": "je 300 g", "bp": "(1 kg = 4.30)", "c": null, "cat": "food"},
+      {"n": "Olivenbrot", "b": "BÄCKERKRÖNUNG", "p": 159, "o": null, "lp": null, "q": "je 350 g", "bp": "(1 kg = 4.54)", "c": null, "cat": "food"},
+      {"n": "Fladenbrot", "b": "BÄCKERKRÖNUNG", "p": 89, "o": null, "lp": null, "q": "je Stück", "bp": null, "c": null, "cat": "food"},
+      {"n": "Steinofen Baguette", "b": "BÄCKERKRÖNUNG", "p": 119, "o": null, "lp": 88, "q": "je 250 g", "bp": "(1 kg = 4.76)", "c": null, "cat": "food"},
+      {"n": "Kebab oder Pita", "b": "BÄCKERKRÖNUNG", "p": 149, "o": null, "lp": null, "q": "je 400 g", "bp": "(1 kg = 3.73)", "c": null, "cat": "food"},
+      {"n": "Grillies", "b": "BÄCKERKRÖNUNG", "p": 169, "o": null, "lp": null, "q": "je 250 g", "bp": "(1 kg = 6.76)", "c": null, "cat": "food"}
+    ],
+    "16": [
+      {"n": "Gegrillte Paprika mit Knoblauch", "b": "ORTO MIO", "p": 199, "o": null, "lp": null, "q": "je 650 g, Abtropfgewicht = 400 g", "bp": "(1 kg = 4.98)", "c": null, "cat": "food"},
+      {"n": "Getrocknete Tomaten in Öl", "b": "ORTO MIO", "p": 179, "o": null, "lp": null, "q": "je 280 g", "bp": "(1 kg = 6.39)", "c": null, "cat": "food"},
+      {"n": "Hirtenkäse", "b": "ORTO MIO", "p": 269, "o": 299, "lp": null, "q": "je 285 g", "bp": "(1 kg = 9.44)", "c": null, "cat": "food"},
+      {"n": "Knoblauch Natur oder Toskana Art", "b": "ORTO MIO", "p": 189, "o": null, "lp": 149, "q": "je 205 g, Abtropfgewicht = 118 g oder je 185 g", "bp": "(1 kg = 16.02) / (1 kg = 10.22)", "c": null, "cat": "food"},
+      {"n": "Jalapeños in Scheiben", "b": "ORTO MIO", "p": 109, "o": null, "lp": null, "q": "je 270 g, Abtropfgewicht = 140 g", "bp": "(1 kg = 7.79)", "c": null, "cat": "food"},
+      {"n": "Artischocken Stücke", "b": "ORTO MIO", "p": 199, "o": null, "lp": 149, "q": "je 322 ml", "bp": "(1 l = 6.18)", "c": null, "cat": "food"},
+      {"n": "Ajvar", "b": "ORTO MIO", "p": 139, "o": 149, "lp": null, "q": "je 350 g", "bp": "(1 kg = 3.97)", "c": null, "cat": "food"},
+      {"n": "Snack-Tomaten mit Meersalz", "b": "ORTO MIO", "p": 149, "o": 179, "lp": null, "q": "je 150 g", "bp": "(1 kg = 9.93)", "c": null, "cat": "food"}
+    ],
+    "18": [
+      {"n": "Gourmetbrötchen", "b": "BÄCKERKRÖNUNG", "p": 199, "o": null, "lp": null, "q": "je 480 g", "bp": "(1 kg = 4.15)", "c": null, "cat": "food"},
+      {"n": "Klassik Baguette Kräuterbutter", "b": "MEGGLE", "p": 111, "o": 159, "lp": null, "q": "je 160 g", "bp": "(1 kg = 6.94)", "c": null, "cat": "food"},
+      {"n": "Crunchips", "b": "LORENZ", "p": 179, "o": 289, "lp": null, "q": "je 250 g", "bp": "(1 kg = 7.16)", "c": null, "cat": "food"},
+      {"n": "Salatkrönung", "b": "KNORR", "p": 79, "o": null, "lp": null, "q": "je 6 x 90 ml", "bp": "(1 l = 1.46)", "c": null, "cat": "food"},
+      {"n": "Crunchy Bites oder Tasty Rolls", "b": "SALTLETTS", "p": 149, "o": 219, "lp": null, "q": "je 100 g oder je 130 g", "bp": "(1 kg = 14.90) / (1 kg = 11.46)", "c": null, "cat": "food"},
+      {"n": "Erdnüsse oder Kessel Nüsse Paprika", "b": "ÜLTJE", "p": 169, "o": 249, "lp": null, "q": "je 180 g oder je 150 g", "bp": "(1 kg = 9.39) / (1 kg = 11.27)", "c": null, "cat": "food"},
+      {"n": "Fresh", "b": "GRANINI", "p": 129, "o": 159, "lp": null, "q": "je 0,75 l, zzgl. 0.25 Pfand", "bp": "(1 l = 1.72)", "c": null, "cat": "drinks"},
+      {"n": "Radler Naturtrüb, ohne oder mit Alkohol", "b": "BITBURGER", "p": 333, "o": 469, "lp": null, "q": "je 6 x 0,33 l, zzgl. 0.48 Pfand", "bp": "(1 l = 1.68)", "c": null, "cat": "drinks"},
+      {"n": "Lager hell", "b": "VELTINS", "p": 888, "o": 1099, "lp": null, "q": "je 18 x 0,33 l, zzgl. 4.50 Pfand", "bp": "(1 l = 1.49)", "c": null, "cat": "drinks"}
+    ],
+    "21": [
+      {"n": "Fitness Granola", "b": "NESTLÉ", "p": 279, "o": 349, "lp": null, "q": "je 300 g", "bp": "(1 kg = 9.30)", "c": null, "cat": "food"},
+      {"n": "Cold Tea", "b": "MEßMER", "p": 229, "o": 319, "lp": null, "q": "je 38,5 g", "bp": "(1 kg = 59.48)", "c": null, "cat": "drinks"},
+      {"n": "Mini-Butter-Croissants", "b": "ÖLZ", "p": 199, "o": null, "lp": null, "q": "je 250 g", "bp": "(1 kg = 7.96)", "c": null, "cat": "food"},
+      {"n": "Gelee Johannisbeere oder Fruchtcreme weniger Zucker Erdbeere", "b": "LANDLIEBE", "p": 169, "o": 249, "lp": null, "q": "je 200 g oder je 180 g", "bp": "(1 kg = 8.45) / (1 kg = 9.39)", "c": null, "cat": "food"},
+      {"n": "Erfrischungsgetränk", "b": "CAPRI-SUN", "p": 349, "o": 429, "lp": 329, "q": "je 10 x 0,2 l", "bp": "(1 l = 1.75)", "c": null, "cat": "drinks"},
+      {"n": "Schokoriegel", "b": "BALISTO", "p": 199, "o": 349, "lp": null, "q": "je 8 x 18,5 g", "bp": "(1 kg = 13.45)", "c": null, "cat": "food"},
+      {"n": "Knoppers Riegel", "b": "STORCK", "p": 169, "o": 219, "lp": null, "q": "je 5 x 40 g", "bp": "(1 kg = 8.45)", "c": null, "cat": "food"},
+      {"n": "Schokolade", "b": "MILKA", "p": 111, "o": 199, "lp": null, "q": "je 90 g", "bp": "(1 kg = 12.33)", "c": null, "cat": "food"},
+      {"n": "Lovelies Pralinen", "b": "MERCI", "p": 349, "o": null, "lp": 249, "q": "je 185 g", "bp": "(1 kg = 18.86)", "c": null, "cat": "food"},
+      {"n": "Fruchtgummi", "b": "TROLLI", "p": 179, "o": null, "lp": null, "q": "je 350 g", "bp": "(1 kg = 5.11)", "c": null, "cat": "food"}
+    ],
+    "23": [
+      {"n": "All in 1 Extra oder Excellence 4 in 1", "b": "SOMAT", "p": 1299, "o": 1399, "lp": null, "q": "92 Tabs, je 1.527 g oder 84 Caps, je 1.520 g", "bp": "(1 kg = 8.51) / (1 kg = 8.55)", "c": null, "cat": "household"},
+      {"n": "Duo Maschinenreiniger", "b": "SOMAT", "p": 199, "o": 249, "lp": null, "q": "3 Tabs, je 57 g", "bp": "(1 kg = 34.91)", "c": null, "cat": "household"},
+      {"n": "Weichspüler", "b": "LENOR", "p": 299, "o": null, "lp": 219, "q": "für 38 WL, je 798 ml", "bp": "(1 l = 3.75)", "c": null, "cat": "household"},
+      {"n": "Flüssigseife", "b": "SAGROTAN", "p": 199, "o": null, "lp": null, "q": "je 250 ml", "bp": "(1 l = 7.96)", "c": null, "cat": "drugstore"},
+      {"n": "No-Touch Nachfüller", "b": "SAGROTAN", "p": 299, "o": null, "lp": null, "q": "je 250 ml", "bp": "(1 l = 11.96)", "c": null, "cat": "household"},
+      {"n": "Zahncreme oder DR. BEST Zahnbürsten", "b": "ODOL-MED3", "p": 399, "o": null, "lp": null, "q": "je 3 x 75 ml oder je 6 Stück", "bp": "(1 l = 17.73)", "c": null, "cat": "drugstore"},
+      {"n": "Deo-Spray", "b": "REXONA", "p": 399, "o": null, "lp": null, "q": "je 250 ml", "bp": "(1 l = 15.96)", "c": null, "cat": "drugstore"},
+      {"n": "Mischgetränk 10% vol", "b": "BACARDÍ", "p": 199, "o": 279, "lp": null, "q": "je 0,25 l, zzgl. 0.25 Pfand", "bp": "(1 l = 7.96)", "c": null, "cat": "drinks"},
+      {"n": "Hefe-Weißbier oder HACKER PSCHORR Münchner Hell", "b": "PAULANER", "p": 89, "o": null, "lp": null, "q": "je 0,5 l, zzgl. 0.25 Pfand", "bp": "(1 l = 1.78)", "c": null, "cat": "drinks"},
+      {"n": "Münchner Hell", "b": "AUGUSTINER", "p": 1699, "o": null, "lp": null, "q": "je 20 x 0,5 l, zzgl. 3.10 Pfand", "bp": "(1 l = 1.70)", "c": null, "cat": "drinks"},
+      {"n": "Sekt", "b": "NYMPHENBURG", "p": 289, "o": null, "lp": null, "q": "je 0,75 l", "bp": "(1 l = 3.85)", "c": null, "cat": "drinks"},
+      {"n": "Sekt", "b": "JULES MUMM", "p": 399, "o": 549, "lp": null, "q": "je 0,75 l", "bp": "(1 l = 5.32)", "c": null, "cat": "drinks"}
+    ],
+    "36": [
+      {"n": "Haltbarer Eiskaffee Klassisch 1,8% Fett oder Frischer Eiskaffee", "b": "BÄRENMARKE", "p": 179, "o": 219, "lp": null, "q": "je 1 l", "bp": null, "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Margarine", "b": "BECEL", "p": 129, "o": 219, "lp": null, "q": "je 225 g", "bp": "(1 kg = 5.73)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Frischkäse", "b": "EXQUISA", "p": 159, "o": null, "lp": null, "q": "je 300 g", "bp": "(1 kg = 5.30)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Würz-Spinat mit Zwiebeln oder Rahm-Spinat mit BLUBB", "b": "IGLO", "p": 199, "o": 349, "lp": null, "q": "je 500 g oder je 750 g", "bp": "(1 kg = 3.98) / (1 kg = 2.65)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Bio-Frucht- oder -Vanillequark", "b": "BERCHTESGADENER LAND", "p": 79, "o": 109, "lp": null, "q": "je 150 g", "bp": "(1 kg = 5.27)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Götter Speise", "b": "DR. OETKER", "p": 39, "o": 59, "lp": null, "q": "je 150 g", "bp": "(1 kg = 2.60)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Bio-Fruchtquark", "b": "ANDECHSER", "p": 79, "o": 119, "lp": null, "q": "je 150 g", "bp": "(1 kg = 5.27)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Joghurt nach griech. Art", "b": "SERAPHOS", "p": 139, "o": null, "lp": null, "q": "je 4 x 100 g", "bp": "(1 kg = 3.48)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Burrata", "b": "SAN FABIO", "p": 169, "o": 189, "lp": null, "q": "je 250 g, Abtropfgewicht = 125 g", "bp": "(1 kg = 13.52)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Norwegische Lachsseite mit Haut", "b": "SEAFOOD 4YOU", "p": 1499, "o": null, "lp": null, "q": "je kg; Ca. 1.100 g", "bp": null, "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"}
+    ],
+    "38": [
+      {"n": "Prosciutto di Parma", "b": "SAN FABIO", "p": 199, "o": null, "lp": null, "q": "je 70 g", "bp": "(1 kg = 28.43)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Bruschetta", "b": "SAN FABIO", "p": 129, "o": null, "lp": null, "q": "je 150 g", "bp": "(1 kg = 8.60)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Trancetti Cremeschnitten", "b": "SAN FABIO", "p": 199, "o": null, "lp": null, "q": "je 280 g", "bp": "(1 kg = 7.11)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Blätterteiggebäck", "b": "SAN FABIO", "p": 129, "o": null, "lp": null, "q": "je 200 g", "bp": "(1 kg = 6.45)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Grissini", "b": "SAN FABIO", "p": 99, "o": null, "lp": null, "q": "je 120 g", "bp": "(1 kg = 8.25)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Crostatine", "b": "SAN FABIO", "p": 129, "o": null, "lp": null, "q": "je 240 g", "bp": "(1 kg = 5.38)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Cono al Pistacchio", "b": "SAN FABIO", "p": 229, "o": null, "lp": null, "q": "je 4 x 120 ml", "bp": "(1 l = 4.77)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Limoncello Likör, 20% vol", "b": "SAN FABIO", "p": 399, "o": null, "lp": null, "q": "je 0,5 l", "bp": "(1 l = 7.98)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Kirschen nach Amarena-Art", "b": "SAN FABIO", "p": 399, "o": null, "lp": null, "q": "je 460 g, Abtropfgewicht = 235 g", "bp": "(1 kg = 16.98)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"}
+    ],
+    "40": [
+      {"n": "Mineralwasser Naturelle", "b": "VOLVIC", "p": 429, "o": 750, "lp": null, "q": "je 6 x 1,5 l, zzgl. 1.50 Pfand", "bp": "(1 l = 0.48)", "c": "1 SIXPACK KAUFEN; Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Mineralwasser Naturelle", "b": "VOLVIC", "p": 379, "o": 750, "lp": null, "q": "je 2 x 6 x 1,5 l, zzgl. 3.00 Pfand", "bp": "(1 l = 0.42)", "c": "2 SIXPACKS KAUFEN, je Sixpack (2 SIXPACKS 7.58); Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Mineralwasser Naturelle", "b": "VOLVIC", "p": 329, "o": 750, "lp": null, "q": "je 3 x 6 x 1,5 l, zzgl. 4.50 Pfand", "bp": "(1 l = 0.36)", "c": "AB 3 SIXPACKS KAUFEN, je Sixpack (Z. B. 3 SIXPACKS 9.87); Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Erfrischungsgetränk", "b": "FRANKENBRUNNEN", "p": 69, "o": null, "lp": null, "q": "je 0,75 l, zzgl. 0.25 Pfand", "bp": "(1 l = 0.92)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Erfrischungsgetränk, koffeinhaltig", "b": "COCA-COLA", "p": 849, "o": null, "lp": null, "q": "je 18 x 0,33 l, zzgl. 4.50 Pfand", "bp": "(1 l = 1.43)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "drinks"},
+      {"n": "Extra XL", "b": "WRIGLEY’S", "p": 379, "o": null, "lp": null, "q": "je 75 Stück", "bp": null, "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Sour Blue oder Sprizz Edition", "b": "HITSCHIES", "p": 179, "o": 229, "lp": null, "q": "je 200 g oder je 210 g", "bp": "(1 kg = 8.95) / (1 kg = 8.52)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Nimm2 Original oder Lolly", "b": "STORCK", "p": 169, "o": 199, "lp": null, "q": "je 429 g oder je 200 g", "bp": "(1 kg = 3.94) / (1 kg = 8.45)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Toffifee", "b": "STORCK", "p": 399, "o": 469, "lp": null, "q": "je 400 g", "bp": "(1 kg = 9.98)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Waffelbruch", "b": "WETZEL", "p": 199, "o": 299, "lp": null, "q": "je 300 g", "bp": "(1 kg = 6.63)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Mini Schaumküsse Kokos-Edition", "b": "CHOCO’LA", "p": 259, "o": null, "lp": null, "q": "je 150 g", "bp": "(1 kg = 17.27)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Soft Cake", "b": "GRIESSON", "p": 199, "o": 259, "lp": null, "q": "je 300 g", "bp": "(1 kg = 6.63)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"},
+      {"n": "Wunderbar Riegel oder MILKA Nussini Riegel", "b": "CADBURY", "p": 199, "o": 319, "lp": null, "q": "je 5 x 37 g oder je 5 x 31,5 g", "bp": "(1 kg = 10.76) / (1 kg = 12.63)", "c": "Do, 9.7. \u2013 Sa, 11.7.", "cat": "food"}
+    ]
+  },
+  "notes": {
+    "_leaflet": "PENNY KW 28, Gültig von Mo, 6.7. bis Sa, 11.7. (cover); pages 36/38/40 headed Do, 9.7. \u2013 Sa, 11.7. (copied into c). Pages 27 to 32 (Ab Do, 9.7.) are non-food and were not picked. Big red price = p; small red price under it, labelled \"UVP x.xx\" or unlabelled, = o (taken with the -X% badge). lp = PENNY App price: text \"mit PENNY App x.xx\" or a big price next to \"ohne PENNY App x.xx\" (the ohne-App price is then p); App prices carry footnote 1/2 (registered App users only). Where both App and non-App base prices are printed, bp is the one matching p. Every price was linked to its product by recomputing the printed base price. \"Aktion\" and \"NEU\" badges are not conditions; \"*\" means temporary/not in all stores. Header shows template residue \"Mo, XX.XX. ... Sa, XX.XX.\" on some pages.",
+    "10": "FERDI FUCHS: 2.19 Aktion, \"mit PENNY App 1.99\" (1 kg = 7.96). Leberwurst: App 0.99 (-23%, 1 kg = 5.66), ohne App 1.29.",
+    "12": "Brand line \"BÄREN-\" / \"MARKE\" split over two lines. MEGGLE: 2.29 (-42%, UVP 3.99, 1 kg = 5.73) and mit PENNY App 1.99 (-50%, 1 kg = 4.98). ROMA: App 0.33 (1 kg = 1.65), ohne App 0.49. DOVGAN: App 2.79 (1 l = 4.23 / 3.88), ohne App 3.99.",
+    "14": "Weizenbrötchen arithmetic is inconsistent in print: 6 x 0.19 = 1.14 (o), pay 4 = 0.76 (p, -33%), which is 0.127 per piece, but the badge says ENTSPRICHT 0.14 JE STÜCK; owner should check the image. Laugenbreze 4 x 0.39 = 1.56 (o), 1.00 for 4 (0.25 each). Grillbrot App price 0.88 has its own base price (1 kg = 2.93). The 250 g BÄCKERKRÖNUNG item is Grillies (name on the line under the brand).",
+    "16": "ORTO MIO Knoblauch Natur / Toskana Art: App 1.49 (-21%, 1 kg = 12.63 on drained 118 g / 8.05), ohne App 1.89. Artischocken: App 1.49 (-25%), ohne App 1.99.",
+    "21": "Coupon \"25% Rabatt auf alle Ferrero-kinder-Artikel\" (App coupon, no price) not listed. CAPRI-SUN: 3.49 (-18%, UVP 4.29) and mit PENNY App 3.29 (-23%, 1 l = 1.65). MERCI: App 2.49 (-28%, 1 kg = 13.46), ohne App 3.49.",
+    "23": "LENOR: App 2.19 (-26%, 1 l = 2.74), ohne App 2.99. SOMAT 12.99 has UVP 13.99 but no readable -X% in the text layer. ODOL-MED3 offer also covers DR. BEST Zahnbürsten.",
+    "36": "\"Vorteilspack\" label sits near EXQUISA (not used). Lachsseite priced je kg, pack ca. 1.100 g.",
+    "40": "VOLVIC printed as three tiered price blocks (1, 2, ab 3 sixpacks, all -X% vs 7.50 per sixpack; single bottle reference \"Einzelflasche 1.25 €\"); listed as three offers with p per sixpack. COCA-COLA: \"Entspricht Einzeldosenpreis von 0.47, zzgl. 0.25 Pfand\"."
+  }
+}

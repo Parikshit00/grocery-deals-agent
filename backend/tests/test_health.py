@@ -1,6 +1,7 @@
 """The app boots and reports its dependencies honestly when nothing is running."""
 from fastapi.testclient import TestClient
 
+from app.agents import CHAINS
 from app.core.config import get_settings
 from app.main import create_app
 
@@ -33,4 +34,6 @@ def test_status_reports_models_down(monkeypatch):
     assert body["llm"] == "down"
     assert body["vlm"] == "down"
     assert body["embeddings"] == "missing"
-    assert body["chains"] == []
+    assert [c["id"] for c in body["chains"]] == list(CHAINS)
+    assert all(c["label"] for c in body["chains"])
+    assert all(c["tier"] in (1, 2, 3) for c in body["chains"])

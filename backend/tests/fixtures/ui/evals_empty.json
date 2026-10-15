@@ -1,0 +1,11 @@
+{
+ "view": "evals",
+ "routes": {
+  "GET /api/evals": {
+   "json": []
+  }
+ },
+ "expect": [
+  "No evaluation results yet"
+ ]
+}

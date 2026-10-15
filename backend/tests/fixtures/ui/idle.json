@@ -1,0 +1,53 @@
+{
+ "view": "offers",
+ "routes": {
+  "GET /api/status": {
+   "json": {
+    "llm": "up",
+    "vlm": "up",
+    "db": "up",
+    "embeddings": "up",
+    "chains": [
+     {
+      "id": "penny",
+      "label": "Penny",
+      "loyalty": "PENNY App"
+     },
+     {
+      "id": "kaufland",
+      "label": "Kaufland",
+      "loyalty": "Kaufland Card"
+     },
+     {
+      "id": "aldi",
+      "label": "Aldi S\u00fcd",
+      "loyalty": null
+     },
+     {
+      "id": "netto",
+      "label": "Netto",
+      "loyalty": "Netto plus App / PAYBACK"
+     },
+     {
+      "id": "lidl",
+      "label": "Lidl",
+      "loyalty": "Lidl Plus"
+     },
+     {
+      "id": "rewe",
+      "label": "REWE",
+      "loyalty": "REWE Bonus"
+     }
+    ]
+   }
+  }
+ },
+ "expect": [
+  "6 agents standing by",
+  "Scan 80331",
+  "Standby"
+ ],
+ "count": {
+  ".agent.standby": 6
+ }
+}

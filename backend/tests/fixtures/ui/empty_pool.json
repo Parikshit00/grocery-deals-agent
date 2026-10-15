@@ -1,0 +1,108 @@
+{
+ "actions": [
+  "plan"
+ ],
+ "list": "250 g Butter, 500 g Spargel",
+ "routes": {
+  "POST /api/basket": {
+   "json": {
+    "location": {
+     "lat": 48.1371079,
+     "lon": 11.5753822,
+     "plz": "80331",
+     "label": "M\u00fcnchen, Bayern"
+    },
+    "shop_day": "2026-10-14",
+    "chains": [
+     {
+      "chain": "kaufland",
+      "status": "ok",
+      "reason": null,
+      "store": {
+       "chain": "kaufland",
+       "store": "Kaufland M\u00fcnchen-Berg am Laim",
+       "km": 4.0
+      }
+     },
+     {
+      "chain": "penny",
+      "status": "ok",
+      "reason": null,
+      "store": {
+       "chain": "penny",
+       "store": "Penny G\u00e4rtnerplatz",
+       "km": 0.5
+      }
+     }
+    ],
+    "needs_scan": [],
+    "items": [
+     {
+      "item": {
+       "name": "Butter",
+       "qty": 250,
+       "unit": "g"
+      },
+      "status": "no_offer",
+      "best": [],
+      "accepted": [],
+      "rejected": [],
+      "trace": [
+       {
+        "tool": "search_offers",
+        "args": {
+         "query": "Butter",
+         "k_per_chain": 4
+        },
+        "n": 0,
+        "ms": 210
+       }
+      ],
+      "reason": null,
+      "turns": 1,
+      "tokens": 120
+     },
+     {
+      "item": {
+       "name": "Spargel",
+       "qty": 500,
+       "unit": "g"
+      },
+      "status": "no_offer",
+      "best": [],
+      "accepted": [],
+      "rejected": [],
+      "trace": [
+       {
+        "tool": "search_offers",
+        "args": {
+         "query": "Spargel",
+         "k_per_chain": 4
+        },
+        "n": 0,
+        "ms": 190
+       }
+      ],
+      "reason": null,
+      "turns": 1,
+      "tokens": 118
+     }
+    ],
+    "single": [],
+    "split": null,
+    "gaps": [
+     "Butter",
+     "Spargel"
+    ]
+   }
+  }
+ },
+ "expect": [
+  "No current offers within 5 km match these items",
+  "No current Angebot within 5 km for: Butter, Spargel"
+ ],
+ "absent": [
+  "0,00",
+  "Cheapest single store"
+ ]
+}

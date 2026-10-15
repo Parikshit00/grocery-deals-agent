@@ -12,7 +12,7 @@ import httpx
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from app.agents import available_chains
+from app.agents import CHAINS
 from app.core.config import get_settings
 from app.core.logging import get_logger
 from app.persistence import db
@@ -73,4 +73,6 @@ async def _dependencies() -> dict[str, str]:
 @router.get("/api/status")
 async def status() -> dict:
     """What the UI needs to enable or disable scans: dependency state plus the chain list."""
-    return {**await _dependencies(), "chains": available_chains()}
+    chains = [{"id": m.NAME, "label": m.LABEL, "loyalty": m.LOYALTY, "tier": m.TIER}
+              for m in CHAINS.values()]
+    return {**await _dependencies(), "chains": chains}

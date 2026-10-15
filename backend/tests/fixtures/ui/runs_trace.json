@@ -1,0 +1,78 @@
+{
+ "view": "runs",
+ "routes": {
+  "GET /api/runs": {
+   "json": [
+    {
+     "id": "r1",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "chain": "penny",
+     "plz": "80331",
+     "trigger": "user",
+     "status": "ok",
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     "tier": 1,
+     "pages": 0,
+     "offers": 323,
+     "flagged": 0,
+     "self_heal": null,
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "error": null,
+     "next_week": null,
+     "trace_id": "0af7651916cd43dd8448eb211c80319c",
+     "started_at": "2026-10-14T08:00:00Z",
+     "finished_at": "2026-10-14T08:00:04Z"
+    },
+    {
+     "id": "r2",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "chain": "penny",
+     "plz": "80331",
+     "trigger": "user",
+     "status": "ok",
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     "tier": 1,
+     "pages": 0,
+     "offers": 323,
+     "flagged": 0,
+     "self_heal": null,
+     "tokens_in": 0,
+     "tokens_out": 0,
+     "error": null,
+     "next_week": null,
+     "trace_id": null,
+     "started_at": "2026-10-14T08:00:00Z",
+     "finished_at": "2026-10-14T08:00:04Z"
+    }
+   ]
+  }
+ },
+ "expect": [
+  "Open trace",
+  "Live metrics"
+ ],
+ "count": {
+  "a.trace-link": 1,
+  "a[href$=':28736/project/grocery-deals-agent/traces/0af7651916cd43dd8448eb211c80319c']": 1,
+  "a[href$=':28737/d/gda-vllm']": 1
+ }
+}

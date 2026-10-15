@@ -1,0 +1,418 @@
+{
+ "view": "offers",
+ "actions": [
+  "scan"
+ ],
+ "routes": {
+  "GET /api/status": {
+   "json": {
+    "llm": "up",
+    "vlm": "up",
+    "db": "up",
+    "embeddings": "up",
+    "chains": [
+     {
+      "id": "penny",
+      "label": "Penny",
+      "loyalty": "PENNY App"
+     },
+     {
+      "id": "kaufland",
+      "label": "Kaufland",
+      "loyalty": "Kaufland Card"
+     },
+     {
+      "id": "aldi",
+      "label": "Aldi S\u00fcd",
+      "loyalty": null
+     },
+     {
+      "id": "netto",
+      "label": "Netto",
+      "loyalty": "Netto plus App / PAYBACK"
+     },
+     {
+      "id": "lidl",
+      "label": "Lidl",
+      "loyalty": "Lidl Plus"
+     },
+     {
+      "id": "rewe",
+      "label": "REWE",
+      "loyalty": "REWE Bonus"
+     }
+    ]
+   }
+  },
+  "POST /api/scan": {
+   "sse": [
+    {
+     "event": "run",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11",
+     "location": {
+      "lat": 48.1371079,
+      "lon": 11.5753822,
+      "plz": "80331",
+      "label": "M\u00fcnchen, Bayern"
+     },
+     "radius_km": 5.0,
+     "chains": [
+      "penny",
+      "kaufland",
+      "aldi",
+      "netto",
+      "lidl",
+      "rewe"
+     ]
+    },
+    {
+     "seq": 1,
+     "chain": "penny",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 2,
+     "chain": "aldi",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 3,
+     "chain": "netto",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 4,
+     "chain": "lidl",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 5,
+     "chain": "rewe",
+     "event": "step",
+     "step": "stores"
+    },
+    {
+     "seq": 6,
+     "chain": "penny",
+     "event": "store",
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     }
+    },
+    {
+     "seq": 7,
+     "chain": "aldi",
+     "event": "store",
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Aldi S\u00fcd",
+      "address": "",
+      "edition": "sued",
+      "located": false
+     }
+    },
+    {
+     "seq": 8,
+     "chain": "netto",
+     "event": "store",
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Netto",
+      "address": "",
+      "edition": "posb",
+      "located": false
+     }
+    },
+    {
+     "seq": 9,
+     "chain": "penny",
+     "event": "leaflet",
+     "key": "2026-W42",
+     "title": "Angebote KW 42",
+     "kind": "offers",
+     "valid_from": "2026-10-12",
+     "valid_to": "2026-10-17",
+     "dates_source": "text",
+     "tier": 1,
+     "status": "complete",
+     "offers": 323
+    },
+    {
+     "seq": 10,
+     "chain": "penny",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": "430153",
+      "km": 0.5,
+      "lat": 48.13148,
+      "lon": 11.57541,
+      "name": "Penny G\u00e4rtnerplatz",
+      "address": "Klenzestr. 26, 80469 M\u00fcnchen",
+      "edition": "15A-04-80",
+      "located": true
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42",
+       "title": "Angebote KW 42",
+       "kind": "offers",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "text",
+       "tier": 1,
+       "status": "complete",
+       "offers": 323,
+       "flagged": 0
+      }
+     ]
+    },
+    {
+     "seq": 11,
+     "chain": "kaufland",
+     "event": "chain_done",
+     "status": "no_store",
+     "reason": "No Kaufland within 5 km.",
+     "store": null,
+     "leaflets": []
+    },
+    {
+     "seq": 12,
+     "chain": "aldi",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Aldi S\u00fcd",
+      "address": "",
+      "edition": "sued",
+      "located": false
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42",
+       "title": "Aldi S\u00fcd KW 42",
+       "kind": "main",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "feed",
+       "tier": 1,
+       "status": "complete",
+       "offers": 151,
+       "flagged": 0
+      }
+     ]
+    },
+    {
+     "seq": 13,
+     "chain": "netto",
+     "event": "step",
+     "step": "pages",
+     "leaflet": "2026-W42-posb",
+     "n": 3
+    },
+    {
+     "seq": 14,
+     "chain": "netto",
+     "event": "page",
+     "leaflet": "2026-W42-posb",
+     "index": 0,
+     "total": 3,
+     "ok": true,
+     "offers": 5,
+     "thumb": "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"
+    },
+    {
+     "seq": 15,
+     "chain": "netto",
+     "event": "page",
+     "leaflet": "2026-W42-posb",
+     "index": 1,
+     "total": 3,
+     "ok": false,
+     "offers": 0,
+     "thumb": "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"
+    },
+    {
+     "seq": 16,
+     "chain": "netto",
+     "event": "page",
+     "leaflet": "2026-W42-posb",
+     "index": 2,
+     "total": 3,
+     "ok": true,
+     "offers": 7,
+     "thumb": "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"
+    },
+    {
+     "seq": 17,
+     "chain": "netto",
+     "event": "chain_done",
+     "status": "partial",
+     "reason": "1 of 3 pages could not be read.",
+     "store": {
+      "id": null,
+      "km": null,
+      "lat": null,
+      "lon": null,
+      "name": "Netto",
+      "address": "",
+      "edition": "posb",
+      "located": false
+     },
+     "leaflets": [
+      {
+       "key": "2026-W42-posb",
+       "title": "Netto KW 42",
+       "kind": "main",
+       "valid_from": "2026-10-12",
+       "valid_to": "2026-10-17",
+       "dates_source": "text",
+       "tier": 2,
+       "status": "partial",
+       "offers": 12,
+       "flagged": 2,
+       "pages": 3
+      }
+     ]
+    },
+    {
+     "seq": 18,
+     "chain": "lidl",
+     "event": "frame",
+     "image": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCACqAHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDqqKKK+NPWCiiigAooooAKKKKACiiigAooooAKKKKACiiigAq9b6f58Cyebt3Z4257/WqNbenf8eUf4/zNd2X0YVqrjNXVv8jGvNxjdFb+yv8Apv8A+Of/AF6P7K/6b/8Ajn/160qK9f8As/Dfy/i/8zk9vU7mb/ZX/Tf/AMc/+vR/ZX/Tf/xz/wCvWlRR/Z+G/l/F/wCYe3qdzN/sr/pv/wCOf/Xo/sr/AKb/APjn/wBetKij+z8N/L+L/wAw9vU7mb/ZX/Tf/wAc/wDr0f2V/wBN/wDxz/69aVFH9n4b+X8X/mHt6nczf7K/6b/+Of8A16P7K/6b/wDjn/160qKP7Pw38v4v/MPb1O5m/wBlf9N//HP/AK9Nk03y4nfzs7VJxt/+vWpUdz/x7S/7h/lUzwGHUW1H8X/mNV533Ofooor5w9AK29O/48o/x/maxK29O/48o/x/ma9PKv4z9P1Rz4n4CzRRRXvnCFFFFABRRRQAUUUUAFFFFABUdz/x7S/7h/lUlR3P/HtL/uH+VRU+B+g47o5+iiivkD1Qrb07/jyj/H+ZrErb07/jyj/H+Zr08q/jP0/VHPifgLNFFFe+cIUUUUAFFFFABRRRQAUUUUAFR3P/AB7S/wC4f5VJUdz/AMe0v+4f5VFT4H6Djujn6KKK+QPVCtvTv+PKP8f5msStvTv+PKP8f5mvTyr+M/T9Uc+J+As0UUV75whRRRQAUUUUAFFFFABRRRQAVHc/8e0v+4f5VJUdz/x7S/7h/lUVPgfoOO6Ofooor5A9UKkWaVFCrK6gdgxFR0U1Jx2Ymrkv2if/AJ7Sf99Gj7RP/wA9pP8Avo1FRVe0n3YuVdiX7RP/AM9pP++jR9on/wCe0n/fRqKij2k+7DlXYl+0T/8APaT/AL6NH2if/ntJ/wB9GoqKPaT7sOVdiX7RP/z2k/76NH2if/ntJ/30aioo9pPuw5V2JftE/wDz2k/76NH2if8A57Sf99GoqKPaT7sOVdiX7RP/AM9pP++jSGeYggyyEHqCxqOij2k+7DlXYKKKKgoKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP//Z"
+    },
+    {
+     "seq": 19,
+     "chain": "lidl",
+     "event": "heal",
+     "step": "select_store",
+     "action": "type",
+     "el_text": "PLZ",
+     "ok": true,
+     "forced": true,
+     "url": "https://www.lidl.de/s/de-DE/filialsuche/"
+    },
+    {
+     "seq": 20,
+     "chain": "lidl",
+     "event": "heal",
+     "step": "select_store",
+     "action": "click",
+     "el_text": "Lidl Sendlinger Str.",
+     "ok": true,
+     "forced": true,
+     "url": "https://www.lidl.de/s/de-DE/filialsuche/"
+    },
+    {
+     "seq": 21,
+     "chain": "lidl",
+     "event": "store",
+     "store": {
+      "id": "DE123",
+      "km": 0.9,
+      "lat": 48.13,
+      "lon": 11.57,
+      "name": "Lidl Sendlinger Str.",
+      "address": "Sendlinger Str. 1, 80331 M\u00fcnchen",
+      "edition": "DE123",
+      "located": true
+     }
+    },
+    {
+     "seq": 22,
+     "chain": "lidl",
+     "event": "chain_done",
+     "status": "ok",
+     "reason": null,
+     "store": {
+      "id": "DE123",
+      "km": 0.9,
+      "lat": 48.13,
+      "lon": 11.57,
+      "name": "Lidl Sendlinger Str.",
+      "address": "Sendlinger Str. 1, 80331 M\u00fcnchen",
+      "edition": "DE123",
+      "located": true
+     },
+     "leaflets": [
+      {
+       "key": "lidl-kw42",
+       "title": "Lidl KW 42",
+       "kind": "main",
+       "valid_from": "2026-10-13",
+       "valid_to": "2026-10-18",
+       "dates_source": "feed",
+       "tier": 3,
+       "status": "complete",
+       "offers": 88,
+       "flagged": 3
+      }
+     ]
+    },
+    {
+     "seq": 23,
+     "chain": "rewe",
+     "event": "frame",
+     "image": "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"
+    },
+    {
+     "seq": 24,
+     "chain": "rewe",
+     "event": "chain_done",
+     "status": "blocked",
+     "reason": "REWE blocks automated access (bot protection).",
+     "store": null,
+     "leaflets": []
+    },
+    {
+     "event": "done",
+     "scan_id": "6f1c1f9e-0d2b-4c47-9a53-3f1f0a0c2d11"
+    }
+   ]
+  }
+ },
+ "expect": [
+  "Scan finished.",
+  "self-healed",
+  "forced (demo)",
+  "offer wall only",
+  "REWE blocks automated access (bot protection).",
+  "No Kaufland within 5 km.",
+  "Page 3/3 read by the VLM, 7 offers",
+  "Live events",
+  "Partly read"
+ ],
+ "count": {
+  ".agent": 6,
+  ".agent .thumb": 3,
+  ".agent .thumb.failed": 1,
+  ".tier.t3": 2,
+  ".tier.t2": 1,
+  ".agent .heals li": 2,
+  ".badge.heal": 1,
+  ".tier.t1": 2
+ }
+}

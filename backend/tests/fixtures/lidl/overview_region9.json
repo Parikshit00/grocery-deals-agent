@@ -1,0 +1,65 @@
+{
+ "success": true,
+ "categories": [
+  {
+   "name": "Filial-Angebote",
+   "subcategories": [
+    {
+     "name": "Unsere Aktionsprospekte",
+     "flyers": [
+      {
+       "name": "Aktionsprospekt",
+       "title": "12.10.2026 \u2013 17.10.2026",
+       "offerStartDate": "2026-10-12",
+       "offerEndDate": "2026-10-17",
+       "flyerJson": "https://endpoints.leaflets.schwarz/v4/flyer?version=4&flyer_identifier=aktionsprospekt-12-10-2026-17-10-2026-102f21&client=lidl",
+       "flyerUrlAbsolute": "https://www.lidl.de/l/prospekte/aktionsprospekt-12-10-2026-17-10-2026-102f21/ar/31?_ab=1&lf=HHZ",
+       "pdfUrl": "https://assets.leaflets.schwarz/leaflets/pdfs/01a10b56-aa32-7fe2-90ac-43c1ca706309/Aktionsprospekt-12-10-2026-17-10-2026-01.pdf"
+      },
+      {
+       "name": "Aktionsprospekt",
+       "title": "19.10.2026 \u2013 24.10.2026",
+       "offerStartDate": "2026-10-19",
+       "offerEndDate": "2026-10-24",
+       "flyerJson": "https://endpoints.leaflets.schwarz/v4/flyer?version=4&flyer_identifier=aktionsprospekt-19-10-2026-24-10-2026-444123&client=lidl",
+       "flyerUrlAbsolute": "https://www.lidl.de/l/prospekte/aktionsprospekt-19-10-2026-24-10-2026-444123/ar/31?_ab=1&lf=HHZ",
+       "pdfUrl": "https://assets.leaflets.schwarz/leaflets/pdfs/01a12119-a205-7bca-ab48-464edf56c8ef/Aktionsprospekt-19-10-2026-24-10-2026-01.pdf"
+      },
+      {
+       "name": "Aktionsprospekt",
+       "title": "26.10.2026 \u2013 31.10.2026",
+       "offerStartDate": "2026-10-26",
+       "offerEndDate": "2026-10-31",
+       "flyerJson": "https://endpoints.leaflets.schwarz/v4/flyer?version=4&flyer_identifier=aktionsprospekt-26-10-2026-31-10-2026-5ebb43&client=lidl",
+       "flyerUrlAbsolute": "https://www.lidl.de/l/prospekte/aktionsprospekt-26-10-2026-31-10-2026-5ebb43/ar/0?_ab=1&lf=HHZ",
+       "pdfUrl": "https://assets.leaflets.schwarz/leaflets/pdfs/01a12132-768f-721c-9fd4-1764721daa0d/Aktionsprospekt-26-10-2026-31-10-2026-00.pdf"
+      }
+     ]
+    },
+    {
+     "name": "Aktuelle Sonderprospekte",
+     "flyers": [
+      {
+       "name": "Der Preisf\u00fchrer macht Deutschland",
+       "title": "dauerhaft g\u00fcnstiger!",
+       "offerStartDate": "2025-12-08",
+       "offerEndDate": "2026-02-21",
+       "flyerJson": "https://endpoints.leaflets.schwarz/v4/flyer?version=4&flyer_identifier=der-preisfuehrer-macht-deutschland-dauerhaft-guenstiger&client=lidl",
+       "flyerUrlAbsolute": "https://www.lidl.de/l/prospekte/der-preisfuehrer-macht-deutschland-dauerhaft-guenstiger/ar/0",
+       "pdfUrl": "https://assets.leaflets.schwarz/leaflets/pdfs/019afe44-20ef-7ed2-9fa3-b5f499e242f0/Der-Preisfuhrer-macht-Deutschland-dauerhaft-gunstiger-23.pdf"
+      },
+      {
+       "name": "Deine Lidl Plus Vorteile",
+       "title": "Tausche Punkte gegen Rabatte",
+       "offerStartDate": "2026-08-28",
+       "offerEndDate": "2050-08-28",
+       "flyerJson": "https://endpoints.leaflets.schwarz/v4/flyer?version=4&flyer_identifier=deine-lidl-plus-vorteile-tausche-punkte-gegen-rabatte&client=lidl",
+       "flyerUrlAbsolute": "https://www.lidl.de/l/prospekte/deine-lidl-plus-vorteile-tausche-punkte-gegen-rabatte/ar/0",
+       "pdfUrl": "https://assets.leaflets.schwarz/leaflets/pdfs/01a048fd-5bad-7f13-a2e3-72dbbedfbcf7/Deine-Lidl-Plus-Vorteile-Tausche-Punkte-gegen-Rabatte-00.pdf"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
