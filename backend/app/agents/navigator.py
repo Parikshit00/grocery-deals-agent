@@ -5,6 +5,11 @@ elements), the same elements as text, the step goal and its earlier actions, and
 JSON action: click, type (a value from `inputs`, by key), scroll, back or done. The model never
 supplies JavaScript or URLs. The browser's route guard aborts direct navigations off the chain's
 allowlist; a redirect that lands off it is undone (back) and logged after the action.
+
+robots.txt is never healed around: each turn starts with `browser.robots_checkpoint`, and so
+does the return after the last turn (an action may redirect onto a disallowed page); it ends
+the heal (and the run) with RobotsBlocked once a navigation was refused or a redirect took the
+page through a URL robots.txt disallows.
 """
 from __future__ import annotations
 
@@ -23,7 +28,14 @@ from playwright.async_api import Error as PlaywrightError
 from playwright.async_api import Page
 
 from app.agents.base import Blocked
-from app.agents.browser import Check, HealResult, allowed, is_challenge, passes
+from app.agents.browser import (
+    Check,
+    HealResult,
+    allowed,
+    is_challenge,
+    passes,
+    robots_checkpoint,
+)
 from app.clients.llm import last_json_object
 from app.core import tracing
 from app.core.config import get_settings
@@ -218,7 +230,8 @@ async def _heal(
     max_seconds: float = 90,
     max_invalid: int = 3,
 ) -> HealResult:
-    """Let the vision model act until `check()` passes or a budget runs out. Raises Blocked."""
+    """Let the vision model act until `check()` passes or a budget runs out. Raises Blocked
+    (RobotsBlocked after a robots.txt refusal)."""
     t0 = time.monotonic()
     actions: list[dict] = []
     history: list[str] = []
@@ -231,6 +244,7 @@ async def _heal(
         async with asyncio.timeout(max_seconds), _client() as client:
             while done < max_actions and invalid < max_invalid:
                 with tracing.span("heal_step", "tool", url=page.url) as step:
+                    await robots_checkpoint(page, allow)  # RobotsBlocked: never worked around
                     if await is_challenge(page):
                         raise Blocked("bot protection")
                     elements, shot = await _observe(page)
@@ -281,6 +295,8 @@ async def _heal(
                         break
     except (TimeoutError, OpenAIError, PlaywrightError) as exc:
         log.warning("nav.heal_stopped", error=f"{type(exc).__name__}: {exc}"[:200])
+    # The last action may have redirected onto a disallowed page before check() passed.
+    await robots_checkpoint(page, allow)
     ms = int((time.monotonic() - t0) * 1000)
     log.info("nav.heal", goal=goal, ok=ok, actions=done, invalid=invalid, ms=ms)
     return HealResult(ok=ok, actions=actions, ms=ms)

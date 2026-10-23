@@ -141,8 +141,14 @@ included; the price check flagged 103 of them.
 
 Aldi Süd and Netto publish one edition per region and their store finders offer no honest way in
 for automated clients, so their offers fill the offer wall but never a distance-based plan. Every
-agent identifies itself with a contact address, follows `robots.txt` and never evades bot
-protection ([ADR 0003](docs/adr/0003-tiered-acquisition-honest-automation.md)).
+agent identifies itself with a contact address and never evades bot protection. Every chain agent
+follows each retailer's `robots.txt`, checked before every request it makes and every top-level
+browser navigation, and a disallowed URL is not fetched. A refusal ends the chain as blocked; only
+next week's leaflets, which are best effort, are dropped instead. The one gap is a browser
+redirect: its target loads before it can be checked, and is then treated as a refusal
+([ADR 0003](docs/adr/0003-tiered-acquisition-honest-automation.md)). Geocoding is the one
+exemption: postcode lookups use OpenStreetMap Nominatim as an API client under its usage policy
+(at most one request per second, identifying User-Agent, cached results), not as a crawler.
 
 ## Where a model decides, and how well
 
@@ -261,6 +267,10 @@ operations and the API.
   catches about a third of wrong prices.
 - The demo's self-heal is forced on purpose (`FORCE_HEAL=lidl:select_store`) and labelled as
   forced in the UI; in normal runs the scripted steps succeed.
+- `robots.txt` is checked for the requests the agents make themselves and for top-level browser
+  navigations. Subresources loaded by a retailer's own page (scripts, XHR, images) are not
+  checked, and a browser redirect target is checked only after it has loaded (it then counts as a
+  refusal).
 
 ## Project history
 

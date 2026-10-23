@@ -2,6 +2,15 @@
 
 A chain module drives its site with scripted `step()`s. Each step has a post-condition; only when
 it fails does `navigator.heal` take over that one step with the local vision model.
+
+robots.txt: inside a scan (`robots.enforced`), every top-level navigation is checked against the
+site's robots.txt before Chromium sends it (service workers are blocked, so none can answer a
+navigation past the route guard). Redirect hops never reach the route guard: every hop of a
+main-frame navigation is recorded as it is requested and checked afterwards, by
+`robots_checkpoint` (each step, each heal turn and the end of a heal) and when the page closes,
+so a disallowed hop has been fetched but the run then ends as RobotsBlocked. URL changes without
+a request (history.pushState, fragment changes) fetch nothing and are not checked. Subresources
+and XHR the retailer's own page loads are not checked; see `agents/robots.py` for the scope.
 """
 from __future__ import annotations
 
@@ -16,9 +25,9 @@ from typing import Any
 from urllib.parse import urlsplit
 
 from playwright.async_api import Error as PlaywrightError
-from playwright.async_api import Frame, Page, Route, async_playwright
+from playwright.async_api import Frame, Page, Request, Route, async_playwright
 
-from app.agents import base
+from app.agents import base, robots
 from app.core.config import get_settings
 from app.core.logging import get_logger
 
@@ -50,15 +59,86 @@ def _off_domain(url: str, allow: tuple[str, ...]) -> bool:
     return url.startswith("http") and not allowed(url, allow)
 
 
+async def _robots_deny(guard: robots.Guard, url: str) -> str | None:
+    """Why robots.txt forbids `url` (the refusal is recorded), or None. A check that fails
+    counts as a refusal: the route guard must answer every route, or the page hangs."""
+    try:
+        reason = await guard.denial(url)
+    except Exception as exc:  # noqa: BLE001 - never leave a route unanswered
+        reason = f"robots.txt check failed for {url} ({type(exc).__name__})"
+    if reason is not None:
+        log.warning("browser.robots_refused", url=url, reason=reason)
+        guard.refuse(url, reason)
+    return reason
+
+
+async def _refusal(guard: robots.Guard, since: int = 0) -> robots.RobotsBlocked | None:
+    """RobotsBlocked for the first URL the run refused at index `since` or later, or None."""
+    if len(guard.refused) <= since:
+        return None
+    url = guard.refused[since]
+    reason = guard.reasons.get(url)
+    if reason is None:  # recorded without a reason: ask again (served from the cache)
+        try:
+            reason = await guard.denial(url)
+        except Exception:  # noqa: BLE001 - only the wording of the reason depends on it
+            reason = None
+    return robots.RobotsBlocked(reason or f"robots.txt refused {url}")
+
+
+# Redirect hops of main-frame navigations on the allowlist that each open page requested and
+# robots.txt has not been asked about yet, keyed by id(page). Hops never reach the route guard
+# (the first request of a navigation does); they are checked here, at the next checkpoint or
+# when the page closes. Only requested URLs are recorded: a same-document URL change
+# (history.pushState, a fragment) fetches nothing, so robots.txt has nothing to say about it.
+_hops: dict[int, list[str]] = {}
+
+
+async def _check_hops(guard: robots.Guard, page: Page) -> None:
+    """Ask robots.txt about the page's unchecked redirect hops; a disallowed one is recorded as a
+    refusal (it was fetched already, so the run must end as blocked)."""
+    pending = _hops.get(id(page))
+    while pending:
+        await _robots_deny(guard, pending.pop(0))
+
+
+async def robots_checkpoint(page: Page, allow: tuple[str, ...]) -> None:
+    """Raise RobotsBlocked when this run has refused a URL (the browser's route guard or an httpx
+    request), or when a main-frame redirect hop since the last checkpoint went to a URL
+    robots.txt disallows: Playwright does not route redirect hops, so a redirect is only seen
+    after the fact. Off-domain landings are `step`'s and the navigator's to undo (only hops on
+    `allow` are recorded). Does nothing outside `robots.enforced()`."""
+    guard = robots.current()
+    if guard is None:
+        return
+    await _check_hops(guard, page)
+    if (blocked := await _refusal(guard)) is not None:
+        raise blocked
+
+
 @asynccontextmanager
 async def browser_page(
     allow: tuple[str, ...], *, on_frame: base.OnFrame | None = None
 ) -> AsyncIterator[Page]:
     """One Chromium page under the browser cap: real UA plus our contact, direct top-level
-    navigations locked to `allow` (subresources and iframes pass), no downloads, popups and new
-    tabs closed. HTTP redirects bypass the route guard: they are logged here and undone by
-    `step` and the navigator's after-action check."""
+    navigations locked to `allow` (subresources and iframes pass), no downloads, no service
+    workers (Playwright's routing does not see requests a service worker answers, so one could
+    carry navigations past the route guard), popups and new tabs closed. HTTP redirects bypass
+    the route guard: they are logged here and undone by `step` and the navigator's after-action
+    check.
+
+    Inside `robots.enforced()` the route guard also asks robots.txt about every top-level
+    navigation on the allowlist and aborts a disallowed one (ERR_BLOCKED_BY_CLIENT), so the URL
+    is never requested. Every redirect hop of a main-frame navigation is recorded as it is
+    requested and checked too (at the next `robots_checkpoint` and when the block ends): a hop is
+    fetched before it can be checked, then the run ends as blocked. If a navigation was refused
+    or a hop was disallowed while the page was open, leaving the block raises RobotsBlocked, even
+    when the chain swallowed the failed goto or read the page without a step; any other
+    exception is then chained to it."""
     settings = get_settings()
+    # Read here: Playwright runs route handlers in its own tasks, outside this context.
+    robots_guard = robots.current()
+    refused_before = len(robots_guard.refused) if robots_guard is not None else 0
     async with _slot(), async_playwright() as p:
         browser = await p.chromium.launch(chromium_sandbox=settings.chromium_sandbox)
         try:
@@ -66,20 +146,26 @@ async def browser_page(
             ua = await probe.evaluate("navigator.userAgent")
             await probe.close()
             context = await browser.new_context(
-                user_agent=f"{ua} grocery-deals-agent/0.1 (+{settings.contact})",
+                user_agent=f"{ua} {base.PRODUCT}/0.1 (+{settings.contact})",
                 locale="de-DE",
                 timezone_id="Europe/Berlin",
                 viewport={"width": 1440, "height": 1100},
                 accept_downloads=False,
+                service_workers="block",  # the route guard must see every navigation
             )
 
             async def guard(route: Route) -> None:
+                """Top-level navigations: the domain lock, then robots.txt (in a scan).
+                Subresources, XHR and iframes are the retailer's page's own and pass."""
                 req = route.request
                 top = req.is_navigation_request()
                 with contextlib.suppress(PlaywrightError):  # a new page has no frame yet: top
                     top = top and req.frame.parent_frame is None
                 if top and not allowed(req.url, allow):
                     log.warning("browser.navigation_blocked", url=req.url)
+                    await route.abort("blockedbyclient")
+                elif top and robots_guard is not None and await _robots_deny(robots_guard,
+                                                                             req.url):
                     await route.abort("blockedbyclient")
                 else:
                     await route.continue_()
@@ -93,13 +179,47 @@ async def browser_page(
 
             context.on("page", close_extra)  # registered after our page: only extras close
 
+            hops: list[str] = []
+
             def landed(frame: Frame) -> None:
                 if frame is page.main_frame and _off_domain(frame.url, allow):
                     log.warning("browser.off_domain_landing", url=frame.url)
 
+            def requested(req: Request) -> None:
+                """Record a redirect hop of a main-frame navigation (the route guard never sees
+                it); checked by robots_checkpoint or on exit."""
+                if req.redirected_from is None or not req.is_navigation_request():
+                    return
+                try:
+                    main = req.frame is page.main_frame
+                except PlaywrightError:  # no frame (a worker's request): not a navigation of ours
+                    return
+                if main and allowed(req.url, allow):
+                    hops.append(req.url)
+
+            async def robots_exit() -> robots.RobotsBlocked | None:
+                assert robots_guard is not None
+                await _check_hops(robots_guard, page)
+                return await _refusal(robots_guard, refused_before)
+
             page.on("framenavigated", landed)
             base.stream_frames(page, on_frame)
-            yield page
+            if robots_guard is not None:
+                _hops[id(page)] = hops
+                page.on("request", requested)
+            try:
+                yield page
+            except robots.RobotsBlocked:
+                raise
+            except Exception as exc:
+                if robots_guard is not None and (blocked := await robots_exit()) is not None:
+                    raise blocked from exc
+                raise
+            else:
+                if robots_guard is not None and (blocked := await robots_exit()) is not None:
+                    raise blocked
+            finally:
+                _hops.pop(id(page), None)
         finally:
             await browser.close()
 
@@ -163,7 +283,8 @@ async def step(
     """Run the scripted action, then its post-condition; heal only this step when it fails.
 
     Returns None when the script worked, else the successful HealResult. Raises Blocked on a bot
-    wall and StepFailed when healing does not reach the goal either.
+    wall, RobotsBlocked after a robots.txt refusal (never healed around) and StepFailed when
+    healing does not reach the goal either.
     """
     from app.agents import navigator  # navigator builds on this module
 
@@ -184,6 +305,7 @@ async def step(
             )
             with contextlib.suppress(PlaywrightError):
                 await page.go_back(timeout=10000)
+    await robots_checkpoint(page, allow)
     if await is_challenge(page):
         raise base.Blocked("bot protection")
     if await passes(check):

@@ -2,6 +2,11 @@
 
 Nominatim usage policy: callers pass the identifying base.http_client(settings.contact); requests
 are spaced at least 1 s apart process-wide; results are cached in memory (misses briefly).
+
+robots.txt: the one exemption, by design. The geocoder is an API client under that usage policy
+(at most one request per second, identifying User-Agent, cached results), not a crawler, so its
+callers (api/scan._locate, canary.main) pass a plain http_client() that never enters
+`agents.robots.enforced()`. Nominatim's robots.txt disallows /search for crawlers.
 """
 from __future__ import annotations
 

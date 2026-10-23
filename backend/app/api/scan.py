@@ -55,6 +55,8 @@ class ScanBody(BaseModel):
 
 
 async def _locate(query: str) -> Location:
+    # Geocoder exemption: a plain client, never robots.enforced(). Nominatim is used as an API
+    # client under its usage policy (services/geo.py), not crawled.
     async with http_client(get_settings().contact) as http:
         try:
             location = await geocode(query, http)
