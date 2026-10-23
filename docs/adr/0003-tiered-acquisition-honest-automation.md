@@ -22,7 +22,14 @@ The old scrapers also masked their automation (spoofed user agent, hidden webdri
    national edition) and per leaflet, with validity taken from the source, not the calendar.
 3. Automation is honest: a real browser with its default user agent plus a project token and
    contact, no fingerprint masking, robots.txt respected, user-triggered scans only. A chain that
-   blocks honest automation is reported as unavailable instead of being evaded.
+   blocks honest automation is reported as unavailable instead of being evaded. robots.txt has
+   been enforced at runtime since 2026-10-23: every request a chain agent makes, every top-level
+   browser navigation and the basket agent's product-image download are checked against the
+   host's robots.txt (RFC 9309), and a disallowed URL is not fetched (a browser redirect target
+   is checked only after it has loaded, and then counts as a refusal). A refusal ends the chain as
+   blocked, except for next week's leaflets, which are best effort and are dropped instead; a
+   refused product image is reported to the basket agent, which goes on without it. The canary
+   fails on every refusal. Geocoding through Nominatim is exempt as an API client under its usage policy.
 
 ## Consequences
 - Accuracy is measurable per tier, and structured feeds provide automatic ground truth for the VLM.

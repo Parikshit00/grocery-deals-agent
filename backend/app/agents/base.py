@@ -30,6 +30,9 @@ from playwright.async_api import Page as BrowserPage
 
 from app.schemas.offer import Offer
 
+# Product token in every User-Agent (httpx and Chromium) and the token robots.txt groups match.
+PRODUCT = "grocery-deals-agent"
+
 
 class NotCovered(Exception):
     """The location is outside the area this chain (edition) serves."""
@@ -95,12 +98,16 @@ class ScanCtx:
 
 
 def http_client(contact: str) -> httpx.AsyncClient:
-    """Honest HTTP client: identifies the project and a contact; small connection pool."""
+    """Honest HTTP client: identifies the project and a contact; small connection pool.
+
+    It does not check robots.txt by itself: chain runs and the basket's image fetch wrap it in
+    `agents.robots.enforced()` (robots imports this module, never the other way round). The
+    geocoder uses it plain, by design (services/geo.py)."""
     return httpx.AsyncClient(
         timeout=httpx.Timeout(20.0),
         follow_redirects=True,
         headers={
-            "User-Agent": f"grocery-deals-agent/0.1 (+{contact}; personal, non-commercial)",
+            "User-Agent": f"{PRODUCT}/0.1 (+{contact}; personal, non-commercial)",
             "Accept-Language": "de-DE,de;q=0.9",
         },
         limits=httpx.Limits(max_connections=4),

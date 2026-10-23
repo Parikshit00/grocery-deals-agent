@@ -29,7 +29,7 @@ from openinference.instrumentation import using_session
 from opentelemetry import trace
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.agents import CHAINS
+from app.agents import CHAINS, robots
 from app.agents.base import Store, http_client, jpeg_thumb
 from app.clients import llm
 from app.clients.embeddings import embed_async
@@ -299,13 +299,17 @@ _vlm: AsyncOpenAI | None = None
 
 
 async def _inspect(entry: Entry, question: str) -> str:
-    """Ask the VLM about the offer's product image (fetched with the honest client)."""
+    """Ask the VLM about the offer's product image (fetched with the honest client, under the
+    retailer's robots.txt: a refused image is reported to the agent, which goes on without it)."""
     global _vlm
     settings = get_settings()
     if not entry.offer.image_url:
         return "This offer has no image."
-    async with http_client(settings.contact) as http:
-        resp = await http.get(entry.offer.image_url)
+    async with http_client(settings.contact) as http, robots.enforced(http):
+        try:
+            resp = await http.get(entry.offer.image_url)
+        except robots.RobotsBlocked as exc:  # the tool loop does not catch Blocked
+            return f"Image not fetched: {exc}"
         resp.raise_for_status()
     image = base64.b64encode(jpeg_thumb(resp.content, width=512, quality=80)).decode()
     if _vlm is None:

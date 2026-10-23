@@ -147,13 +147,23 @@ attacker-controlled content in front of the model for the remaining steps.
 - HTTP redirects bypass request routing, so the landing URL is checked after every scripted step
   and every navigator action; an off-domain landing is undone with `back` and recorded as a
   violation in the heal log.
+- The same route guard checks every top-level navigation against the host's `robots.txt`
+  (`backend/app/agents/robots.py`); a disallowed navigation is aborted. Service workers are
+  blocked, because Playwright's routing does not see requests a service worker answers. Redirect
+  hops are not routed, so every hop of a main-frame navigation is recorded and checked
+  afterwards: at the next scripted step or navigator turn, after the navigator's last action, and
+  when the page closes. A hop to a disallowed URL has then been fetched once, and counts as a
+  refusal that no healing works around. URL changes that send no request (`history.pushState`,
+  fragments) fetch nothing and are not checked.
 - Downloads are disabled (`accept_downloads=False`) and popups or new tabs are closed on sight.
 - A bot wall is detected (`is_challenge`) and ends the chain as `blocked`. The project never
   solves CAPTCHAs or disguises the browser.
 
-**Residual risk.** Subresources and iframes are not domain-locked, because retailer pages need
-their own CDNs and consent providers. Third-party scripts on a retailer page therefore run as they
-would for any visitor. The browser has general outbound network access from the container.
+**Residual risk.** Subresources and iframes are not domain-locked or checked against `robots.txt`,
+because retailer pages need their own CDNs and consent providers. A browser redirect to a URL
+that `robots.txt` disallows is fetched before the check sees it (it then counts as a refusal).
+Third-party scripts on a retailer page therefore run as they would for any visitor. The browser has general outbound
+network access from the container.
 
 ### T-04 Tool misuse by the basket agent
 
@@ -379,7 +389,7 @@ ASI ids are from the OWASP Top 10 for Agentic Applications for 2026.
 |---|---|---|---|
 | T-01 Injection in a leaflet | LLM01:2025, LLM04:2025, ASI01 | Tool-less reader, schema mapping, price check against the text layer, mismatches excluded, prices computed in code | Attacker controlling image and text layer passes the check; low likelihood |
 | T-02 Injection on a store page | LLM01:2025, LLM06:2025, ASI01, ASI02 | Five validated actions, typing by input key only, no model JS or URLs, coded post-condition, budgets, traced actions | Wrong click within allowlisted sites; failed or wrong-store scan |
-| T-03 Lured off-domain | LLM06:2025, ASI01, ASI02 | Route guard with per-chain allowlist, redirect check and undo, no downloads, popups closed | Subresources and iframes unrestricted; general egress |
+| T-03 Lured off-domain | LLM06:2025, ASI01, ASI02 | Route guard with per-chain allowlist and `robots.txt` check, redirect check and undo, no downloads, popups closed | Subresources and iframes unrestricted; general egress |
 | T-04 Basket tool misuse | LLM01:2025, LLM06:2025, ASI02 | Read-only tools, per-request ids, unseen ids dropped, cached URLs only, turn and time budgets | One wrong accepted match, visible in the trace |
 | T-05 SSRF | LLM05:2025, ASI02 | Location only as a query parameter, overrides matched to known ids, chain registry check, no model URLs | Feed-supplied image URLs fetched without private-range blocking |
 | T-06 Cache poisoning | LLM04:2025, LLM08:2025, ASI06, ASI08 | Complete rows never overwritten by partial ones, provenance per offer, expiry, eval gate, force rescan | A poisoned offer that passes the check lives until expiry |
@@ -434,8 +444,13 @@ the fact:
   spans around it: scan, chain, leaflet, page read, heal and heal step, basket item and tool call.
 - Navigator actions, including invalid answers and domain violations, are emitted as `heal`
   events to the UI and recorded in the chain's heal log.
-- `python -m app.canary` replays a chain against the live site and fails on any request that the
-  host's `robots.txt` disallows (`backend/app/canary.py`). Every request identifies the project
+- Every request a chain agent makes is checked against the host's `robots.txt` before it is sent,
+  and every refusal is recorded (`backend/app/agents/robots.py`). A refusal ends the chain as
+  `blocked` with the reason, except for next week's leaflets, which are best effort and are
+  dropped instead. Geocoding through Nominatim is exempt as an API client under
+  its usage policy.
+- `python -m app.canary` replays a chain against the live site, reports each host's `robots.txt`
+  status and fails on any refusal (`backend/app/canary.py`). Every request identifies the project
   and a contact in its User-Agent (`backend/app/agents/base.py`, `backend/app/agents/browser.py`).
 
 ## Limitations and what production would add

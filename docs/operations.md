@@ -65,8 +65,10 @@ the GPUs can be released without losing traces or dashboards.
     model server, Postgres and the embedding model as up or down, and the UI shows it.
 
 ??? question "A chain fails or is reported as blocked"
-    `make canary CHAIN=<chain> PLZ=80331 FORCE=1` reruns one chain live, prints its events and
-    checks every URL it requested against that host's `robots.txt`.
+    `make canary CHAIN=<chain> PLZ=80331 FORCE=1` reruns one chain live, prints its events,
+    reports each host's `robots.txt` status and fails on any refusal. A chain that `robots.txt`
+    refuses ends as blocked with the refusal as its reason; a refusal on next week's leaflets,
+    which are best effort, only drops them, so the canary's refused list is the place to look.
     REWE is expected to end as blocked while its site sits behind a bot challenge. For other
     chains, the run's trace in Langfuse shows the failing step, including any heal attempts.
 

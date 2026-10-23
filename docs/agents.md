@@ -36,9 +36,25 @@ source, not of the chain's importance:
 | REWE | <span class="tier t3">3</span> | Markets from the market search API; the offers page sits behind a Cloudflare challenge, so the run ends as **blocked** within 60 seconds. |
 
 Automation is honest by design ([ADR 0003](adr/0003-tiered-acquisition-honest-automation.md)):
-agents identify themselves with a contact address, respect `robots.txt`, read only what the page
-itself loads, never use embedded third-party API keys, and never solve or evade bot protection.
-A blocked chain is a result, not an error to hide.
+agents identify themselves with a contact address, read only what the page itself loads, never
+use embedded third-party API keys, and never solve or evade bot protection. A blocked chain is a
+result, not an error to hide.
+
+`robots.txt` is enforced at runtime (`backend/app/agents/robots.py`). Every HTTP request a chain
+agent makes, every top-level browser navigation and the basket agent's product-image download is
+checked against the host's `robots.txt` under RFC 9309 before it is sent. The file is cached for
+24 hours per host; any 4xx answer means everything is allowed, while a 5xx answer or a network
+failure means everything is disallowed for 5 minutes, unless an earlier answer for that host is
+still known, which is then kept. A disallowed URL is not fetched, with one exception: Playwright
+does not route the hops of a browser redirect, so a redirect target is checked only after it has
+loaded (at the next step or navigator turn, after the last navigator action, and when the page
+closes), and it then counts as a refusal. A refusal ends the chain as **blocked** with the
+reason, except for next week's leaflets: they are best effort, so a refusal there drops them
+(Netto skips next week's publication; for the other chains the run's next-week status becomes
+`failed`) while this week's result stands. A refused product image is reported to the basket
+agent, which goes on without it. `make canary` fails on every refusal, including these. Subresources and XHR loaded by the retailer's own page are not
+checked: the agent does not choose them, and aborting them breaks the page. Geocoding is exempt
+by design: it uses Nominatim as an API client under its usage policy, not as a crawler.
 
 ## Nearest store
 

@@ -5,6 +5,12 @@ A scan request starts (or joins) one run per chain. Runs are single-flighted by
 events. Acquisition is single-flighted again per (chain, edition, leaflet), so postcodes that
 map to the same edition fetch once. A run ends when its chain is done, on explicit cancel, or
 DETACH_GRACE_S after its last subscriber left (so a page reload can reattach).
+
+Every chain run enforces robots.txt (`robots.enforced` on its client, which the browser tier
+reads too): a disallowed URL is not fetched (a browser redirect target is checked once it has
+loaded) and the run ends "blocked" with the reason. Next week's leaflets are best effort: a
+refusal there drops them (Netto's leaflets() skips the publication; the loop after chain_done
+sets next_week "failed"), and the canary still fails on it through robots.CACHE.refused.
 """
 from __future__ import annotations
 
@@ -28,6 +34,7 @@ import numpy as np
 from openinference.instrumentation import using_session
 from opentelemetry import trace
 
+from app.agents import robots
 from app.agents.base import (
     Blocked,
     Leaflet,
@@ -293,8 +300,14 @@ async def _read_pages(
 
     todo = [(i, p) for i, p in enumerate(pages) if i not in done_before]
     run.emit({"event": "step", "step": "pages", "leaflet": leaflet.key, "n": len(todo)})
-    parts = await asyncio.gather(*(one(i, p) for i, p in todo))
-    return [o for part in parts for o in part], ok_pages, stats
+    # A TaskGroup, not gather: a page that raises (RobotsBlocked for a refused image) cancels
+    # the other reads, so none keeps calling the VLM or emitting after the run has ended.
+    try:
+        async with asyncio.TaskGroup() as tg:
+            tasks = [tg.create_task(one(i, p)) for i, p in todo]
+    except ExceptionGroup as group:
+        raise group.exceptions[0] from None
+    return [o for t in tasks for o in t.result()], ok_pages, stats
 
 
 async def _leaflet(
@@ -400,9 +413,13 @@ async def _run_chain(
                   trace_id=tracing.trace_id(trace.get_current_span()))
     summaries: list[dict] = []
     later: list[Leaflet] = []
-    async with http_client(settings.contact) as http:
+    # Every request of the chain is checked against robots.txt (agents/robots.py): the guard is
+    # the client's first request hook, so extra hooks (the canary's, tests') are added after it;
+    # assigning http.event_hooks would drop it.
+    async with http_client(settings.contact) as http, robots.enforced(http):
         if event_hooks:
-            http.event_hooks = event_hooks
+            http.event_hooks = {k: [*http.event_hooks[k], *event_hooks.get(k, [])]
+                                for k in ("request", "response")}
         ctx = ScanCtx(http=http, plz=location.plz, lat=location.lat, lon=location.lon,
                       today=today(), emit=run.emit)
         try:
