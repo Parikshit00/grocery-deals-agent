@@ -68,5 +68,5 @@ docs/api/openapi.json
 eval/pages/
 eval/queries_*.csv
 
-# Architecture animation 
-animation/*
+# Frames from docs/architecture/render_flow.py (its default --frames dir)
+.agent-flow-frames/

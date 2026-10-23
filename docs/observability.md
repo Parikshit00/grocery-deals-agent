@@ -64,15 +64,18 @@ and the NVIDIA DCGM exporter. Grafana provisions the datasource and the dashboar
 | Prompt and generation tokens/s | vLLM | throughput during page reads (prompt heavy) and matching (decode heavy) |
 | KV-cache usage | vLLM | headroom for concurrent page reads |
 | Time to first token, inter-token latency (p50 and p95) | vLLM | what the user feels in streamed thinking and item agents |
-| GPU utilization, memory used, power | DCGM | per GPU, including load from other tenants of a shared box |
+| GPU utilization, memory used, power | DCGM | per GPU, including load from other workloads on the same GPU |
 
 Retention is pinned on purpose: Prometheus keeps 7 days and ClickHouse (Langfuse's trace store)
 has a TTL, because disk is the scarcest resource on the development host.
 
 ## Cost and energy per answer
 
-!!! note "Coming"
-    Each scan and basket will report its own cost: prompt and completion tokens, GPU-seconds and
-    watt-hours derived from DCGM power samples over the request's time window. On a shared GPU the
-    energy figure is an upper bound, since the power draw includes other tenants' work; the UI
-    and the traces will say so next to the number.
+Energy per answer is measured over whole eval suites, not per request.
+[Benchmarks](benchmarks.md#cost-and-energy-per-answer) gives gross and marginal watt-hours per
+leaflet page and per basket for both models, read from the DCGM energy counter over each suite's
+time window, with the electricity cost per 1,000 answers. The Grafana panels
+**Energy per 1k generated tokens** and **GPU energy in the selected time range** read the same
+whole-GPU counter, so they include any other workload on the same GPU. Per-request cost reporting
+is not implemented: the UI and the traces show token counts per run, item and model call, but no
+GPU-seconds, watt-hours or euros for a single scan or basket.

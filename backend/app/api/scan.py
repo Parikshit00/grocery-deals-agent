@@ -12,7 +12,6 @@ server-sent events, one JSON object per `data:` line, each with a global, increa
                  thumb = small base64 JPEG of the page)
     frame       {chain, image}                                    (tier 3: base64 JPEG live view)
     heal        {chain, step, action, el_text, url, ok, forced}   (tier 3: self-heal action)
-    error       {scope: request|chain, chain?, code, message}
     chain_done  {chain, status, reason, store, leaflets}          (status as in scan_runs)
     done        {scan_id}
 

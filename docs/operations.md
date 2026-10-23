@@ -15,6 +15,9 @@
 | `make canary CHAIN=... PLZ=... [FORCE=1]` | Live check of one chain against its real website. |
 | `make lock` | Re-pins runtime and dev Python dependencies with `uv pip compile`. |
 
+The [demo recording guide](DEMO.md) describes how to record the demo videos with the demo
+targets: setup, the URLs to open and the shot list.
+
 The Compose services are grouped into profiles: the default one (Postgres, backend, frontend),
 `models` (the two vLLM servers) and `observability`. Each profile starts and stops on its own, so
 the GPUs can be released without losing traces or dashboards.
@@ -22,12 +25,12 @@ the GPUs can be released without losing traces or dashboards.
 ## Troubleshooting
 
 ??? question "A vLLM server does not become healthy, or fails with CUDA out of memory"
-    The development box is shared, and another tenant's job may already hold GPU memory. Check
-    with `nvidia-smi`. Each server reserves a share of its GPU set by
-    `LLM_GPU_MEMORY_UTILIZATION` and `VLM_GPU_MEMORY_UTILIZATION` in `.env` (default `0.80`).
-    Lower the share until it fits next to the other job, then `make models-up` again. If the
-    model loads but the KV cache is too small for 32k context, vLLM refuses to start; lowering
-    the share further will not help, freeing the GPU will.
+    Another workload on the same GPU may already hold part of its memory. Check with
+    `nvidia-smi`. Each server reserves a share of its GPU set by `LLM_GPU_MEMORY_UTILIZATION`
+    and `VLM_GPU_MEMORY_UTILIZATION` in `.env` (default `0.80`). Lower the share until it fits
+    next to the other workload, then `make models-up` again. If the model loads but the KV cache
+    is too small for 32k context, vLLM refuses to start; lowering the share further will not
+    help, freeing the GPU will.
 
 ??? question "The agents are much slower than usual"
     Decode speed drops sharply when another job saturates the same GPU's compute. The Grafana
@@ -37,8 +40,8 @@ the GPUs can be released without losing traces or dashboards.
 ??? question "The UI, Langfuse or Grafana cannot be reached from another machine"
     Ports bind to `BIND_ADDR` from `.env` (default `127.0.0.1`). Set `BIND_ADDR=0.0.0.0`, run
     `make up` and `make obs-up` again so the containers are recreated with the new bindings, and
-    connect through the VPN to `http://<host>:28735`, `:28736` and `:28737`. Prometheus stays on
-    localhost by design; use an SSH tunnel for it.
+    connect from a machine on the same private network (LAN or VPN) to `http://<host>:28735`,
+    `:28736` and `:28737`. Prometheus stays on localhost by design; use an SSH tunnel for it.
 
 ??? question "How do I log in to Langfuse?"
     Open `http://<host>:28736` and sign in with `LANGFUSE_ADMIN_EMAIL` and

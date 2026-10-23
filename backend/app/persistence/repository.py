@@ -72,11 +72,6 @@ async def last_expired(
     ).scalar_one_or_none()
 
 
-async def add_run(session: AsyncSession, run: ScanRun) -> None:
-    session.add(run)
-    await session.commit()
-
-
 async def cached_stores(
     session: AsyncSession, chain: str, plz: str, now: datetime
 ) -> list[dict] | None:

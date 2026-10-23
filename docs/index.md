@@ -8,9 +8,9 @@ vLLM; no request leaves the box for a hosted LLM API.
 
 ## Why this project exists
 
-It is a learning showcase for multi-agent systems built the way production teams build them in
-2026: small, bounded agents around a deterministic core, open-weight models served locally, and
-every model call traced, scored and measured. The interesting problems are real ones:
+It shows multi-agent systems built the way production teams build them in 2026: small, bounded
+agents around a deterministic core, open-weight models served locally, and every model call
+traced, scored and measured. The interesting problems are real ones:
 
 - **Heterogeneous sources.** Each chain publishes offers differently: open JSON feeds, PDF-like
   leaflets that only a vision model can read, and sites that only work in a real browser. One
@@ -21,7 +21,8 @@ every model call traced, scored and measured. The interesting problems are real 
 - **Models that never do arithmetic.** The language model decides which offer *is* the product;
   code computes every price, unit price and total.
 - **Measured, not claimed.** Gold-labelled leaflet pages, matcher pairs and baskets run as
-  experiments in Langfuse, and a CI test gates the extraction quality of the chosen model.
+  experiments in Langfuse, and a CI test gates extraction quality once a model passes every
+  threshold.
 
 ## Architecture
 
@@ -48,4 +49,3 @@ reasoning behind the main choices is recorded as ADRs under **Architecture > Dec
 - [Agents](agents.md): tiers, store selection, the navigator and the basket agent's tools.
 - [Evals](evals.md) and [Benchmarks](benchmarks.md): how quality is measured and which models
   were tried.
-- [Demo recording](DEMO.md): the shot list for the walkthrough videos.

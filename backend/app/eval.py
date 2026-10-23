@@ -456,7 +456,7 @@ PAGE_SCORES = ("served_price_acc", "name_recall", "flagged_share", "json_validit
 EXTRACTION_SCORES = ("served_price_acc", "price_acc", "name_recall", "name_precision",
                      "json_validity", "flagged_share", "catch_rate")
 DESCRIPTIONS = {
-    "extraction": "Gold leaflet pages: the VLM's offers vs hand-checked gold offers.",
+    "extraction": "Gold leaflet pages: the VLM's offers vs gold-labelled offers.",
     "matcher": "Hand-labelled (query, offer) pairs: does the basket matcher accept the offer?",
     "baskets": "Shopping lists and recipes: required and forbidden products among the matches.",
 }

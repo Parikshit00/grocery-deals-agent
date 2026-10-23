@@ -1,12 +1,12 @@
 # ADR 0004 - Qwen3.5-9B on both GPUs; Qwen3.6-35B-A3B not adopted
 
-Status: Accepted | Date: 2026-10-15
+Status: Accepted | Date: 2026-10-15 | Supersedes the Qwen3-VL model in ADR 0001 decision 2
 
 ## Context
 The plan was to try Qwen3.6-35B-A3B-FP8 (a mixture of experts with about 3B active parameters,
 native vision, tool calling) against the Qwen3.5-9B baseline, and keep the better model per role.
 Both models ran the same three eval suites on the same day, each served on both A40s, with
-another user's job sharing the GPUs throughout. Full numbers are in
+another workload running on the same GPUs throughout. Full numbers are in
 [Benchmarks](../benchmarks.md).
 
 | | Qwen3.5-9B | Qwen3.6-35B-A3B-FP8 |
@@ -41,8 +41,10 @@ Neither model passes the gates (served price accuracy 0.98, name recall 0.95, ma
 4. The gates stay where they are; `eval/CHOSEN` stays absent and the CI eval gate stays skipped.
 
 ## Consequences
-- One set of weights (about 19 GB) serves both GPUs, which leaves room next to the other tenant.
-- A full leaflet sweep stays at the 9B's speed (14.7 pages/min on shared GPUs).
+- One set of weights (about 19 GB) serves both GPUs, which leaves room for other workloads on the
+  same GPUs.
+- A full leaflet sweep stays at the 9B's speed (14.7 pages/min, measured next to another workload
+  on the GPUs).
 - Switching is an `.env` change (`LLM_MODEL_DIR`, `VLM_MODEL_DIR`) plus the same eval run, so the
   35B can be re-measured cheaply once Netto extraction or the gold set changes.
 - `eval/results/qwen3.6-35b-a3b.json` stays in the repository, so the Evals tab and Langfuse keep

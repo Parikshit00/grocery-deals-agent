@@ -207,8 +207,9 @@ the Streamable HTTP transport and enter the URL and header above.
   resources, no prompts, no tool that writes, scans or fetches a URL the caller supplies. The worst a
   caller can do is read cached offer data and spend local GPU time with `plan_basket`.
 - **Local network only.** The API port is bound to `127.0.0.1` by default. Opening it with
-  `BIND_ADDR=0.0.0.0` is meant for a LAN or VPN; do not publish the port to the internet. There
-  is no TLS on this port, so put a reverse proxy with TLS in front if the network is not trusted.
+  `BIND_ADDR=0.0.0.0` is meant for a private network (LAN or VPN); do not publish the port to the
+  internet. There is no TLS on this port, so put a reverse proxy with TLS in front if the network
+  is not trusted.
 - **Bearer token.** When `MCP_TOKEN` is set, every request to `/mcp` must carry
   `Authorization: Bearer <token>` and anything else gets `401`. The comparison is constant-time.
   Use a long random value, for example `openssl rand -hex 32`, and keep it in the local `.env`.

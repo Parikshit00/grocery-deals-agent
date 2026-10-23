@@ -1,6 +1,7 @@
 # ADR 0001 - Record architecture decisions; foundational choices
 
-Status: Accepted | Date: 2026-06-17 | Decision 1 superseded by ADR 0002, decisions 3-4 by ADR 0003
+Status: Accepted | Date: 2026-06-17 | Decision 1 superseded by ADR 0002, decisions 3-4 by ADR 0003,
+the model in decision 2 (Qwen3-VL) by ADR 0004
 
 ## Context
 Building a production-grade agentic grocery-deal search with hard constraints: local models only

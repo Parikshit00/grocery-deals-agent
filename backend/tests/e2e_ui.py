@@ -1,4 +1,4 @@
-"""Browser checks of the UI (P7 gate), run in the dev image on the host network.
+"""Browser checks of the UI, run in the dev image on the host network.
 
 --states: every backend/tests/fixtures/ui/<state>.json forces one UI state by answering /api
 requests with canned responses (page.route over _base.json + the state's routes) and asserts

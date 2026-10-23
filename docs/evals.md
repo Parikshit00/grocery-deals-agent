@@ -7,7 +7,7 @@ scoring functions run locally, in Langfuse experiments and behind a CI test.
 
 | Suite | Data | Scores | Gate |
 |---|---|---|---|
-| **Extraction** | 50 leaflet pages across five chains with hand-checked gold offers (`eval/gold/<chain>.json`) | price accuracy on served offers, name recall and precision, JSON validity, flagged share, catch rate | served price accuracy >= 0.98, name recall >= 0.95, JSON validity >= 0.99, flagged share <= 0.03 per chain |
+| **Extraction** | 50 gold-labelled leaflet pages across five chains (461 offers, `eval/gold/<chain>.json`) | price accuracy on served offers, name recall and precision, JSON validity, flagged share, catch rate | served price accuracy >= 0.98, name recall >= 0.95, JSON validity >= 0.99, flagged share <= 0.03 per chain |
 | **Matcher** | 198 item and offer pairs (`eval/match_pairs.json`) over a frozen offer pool (`eval/pool.json`) | accuracy, precision, recall, share of items where the matcher was unavailable | accuracy >= 0.90 |
 | **Baskets** | 20 lists and recipes with `must` and `must_not` products (`eval/baskets.json`) | pass rate, must rate, must-not rate | pass rate >= 0.80 |
 

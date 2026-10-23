@@ -1,5 +1,5 @@
-"""Extraction gate: the model named in eval/CHOSEN must pass the plan's gates on its recorded
-outputs (python -m app.eval bench). Skipped until a model is chosen and recorded."""
+"""Extraction gate: the model named in eval/CHOSEN must pass the project's quality gates on
+its recorded outputs (python -m app.eval bench). Skipped until a model is chosen and recorded."""
 from __future__ import annotations
 
 import pytest

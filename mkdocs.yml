@@ -98,7 +98,5 @@ nav:
           - ADR 0003 Tiered acquisition: adr/0003-tiered-acquisition-honest-automation.md
           - ADR 0004 Model choice: adr/0004-model-choice.md
           - ADR 0005 Read-only MCP server: adr/0005-read-only-mcp-server.md
-  - Operations:
-      - Operations: operations.md
-      - Demo recording: DEMO.md
+  - Operations: operations.md
   - API: api.md

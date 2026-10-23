@@ -6,6 +6,7 @@ A chain module (`agents/<chain>.py`) is a plain module exposing:
     LABEL: str           display name
     LOYALTY: str | None  name of the chain's app/card price program, if any
     DOMAINS: tuple[str, ...]  hosts the chain may touch (browser and navigator allowlist)
+    TIER: int            acquisition tier: 1 structured feed, 2 leaflet pages via the VLM, 3 browser
     async def stores(ctx) -> list[Store]               candidate stores near ctx.lat/ctx.lon
     async def leaflets(ctx, store) -> list[Leaflet]    offer windows valid today or next week
     async def acquire(ctx, store, leaflet) -> Acquired
@@ -20,19 +21,14 @@ import asyncio
 import io
 import re
 from collections.abc import Callable
-from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 
 import httpx
 from PIL import Image
 from playwright.async_api import Page as BrowserPage
-from playwright.async_api import async_playwright
 
-from app.core.logging import get_logger
 from app.schemas.offer import Offer
-
-log = get_logger(__name__)
 
 
 class NotCovered(Exception):
@@ -163,17 +159,6 @@ _COOKIE_SELECTORS = (
     'button:has-text("Zustimmen")',
     'button:has-text("Einverstanden")',
 )
-# Named/labelled dismissers only - a bare ".close" or overlay click could kill a leaflet viewer.
-_DISMISS_SELECTORS = _COOKIE_SELECTORS + (
-    '[aria-label*="schließen" i]',
-    '[aria-label*="close" i]',
-    ".modal__close",
-    'button:has-text("Ablehnen")',
-    'button:has-text("Später")',
-    'button:has-text("Nein, danke")',
-    'button:has-text("Kein Danke")',
-    'button:has-text("Schließen")',
-)
 
 OnFrame = Callable[[bytes], None]
 
@@ -212,48 +197,6 @@ def stream_frames(page: BrowserPage, on_frame: OnFrame | None, interval_ms: int 
     task = asyncio.create_task(loop())
     _frame_tasks.add(task)
     task.add_done_callback(_frame_tasks.discard)
-
-
-def dismiss_popups(page: BrowserPage, interval_ms: int = 1500) -> None:
-    """Keep dismissing cookie banners and promo popups for the page's whole lifetime.
-
-    The one-shot accept_cookies stays as the fast path; this sentinel catches banners that load
-    late (parallel-launch contention) and promo overlays that appear mid-browse. Fire-and-forget,
-    ends itself when the page closes.
-    """
-
-    async def loop() -> None:
-        while True:
-            for sel in _DISMISS_SELECTORS:
-                try:
-                    el = page.locator(sel).first
-                    if await el.is_visible():
-                        await el.click(force=True, timeout=400)
-                        log.info("popup.dismissed", selector=sel)
-                except Exception:  # noqa: BLE001 - page closed or element contested; keep going
-                    if page.is_closed():
-                        return
-            await asyncio.sleep(interval_ms / 1000)
-
-    task = asyncio.create_task(loop())
-    _frame_tasks.add(task)
-    task.add_done_callback(_frame_tasks.discard)
-
-
-@asynccontextmanager
-async def browser_context(headless: bool = True):
-    """Plain Chromium with its default (honest) user agent; no fingerprint masking."""
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=headless)
-        ctx = await browser.new_context(
-            locale="de-DE",
-            viewport={"width": 1440, "height": 1100},
-            timezone_id="Europe/Berlin",
-        )
-        try:
-            yield ctx
-        finally:
-            await browser.close()
 
 
 async def accept_cookies(page: BrowserPage) -> None:
