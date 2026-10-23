@@ -19,12 +19,12 @@ services, the `models` profile and the `observability` profile), the CI workflow
 
 Out of scope: the retailers' websites and APIs, OpenStreetMap Nominatim, the upstream projects
 (vLLM, Playwright, Langfuse, Grafana and the rest) except where this project configures them, and
-the security of the host operating system and the VPN in front of it.
+the security of the host operating system and the private network (LAN or VPN) in front of it.
 
 The deployment model is a personal, single-operator installation. The API and UI bind to
 `127.0.0.1` unless `BIND_ADDR` in `.env` says otherwise; the demo setup sets `0.0.0.0` and relies
-on a VPN for access control. Several of the residual risks below follow from that choice and are
-listed in [Limitations](#limitations-and-what-production-would-add).
+on a private network (LAN or VPN) for access control. Several of the residual risks below follow
+from that choice and are listed in [Limitations](#limitations-and-what-production-would-add).
 
 ## Assets
 
@@ -32,7 +32,7 @@ listed in [Limitations](#limitations-and-what-production-would-add).
 |---|---|
 | Correct offers and plans | The product's only output. A wrong price or a wrong match sends a person to the wrong store. |
 | Offer cache (Postgres) | Shared by every later basket for up to a week, so one bad write is replayed many times. |
-| GPU capacity on both A40s | Shared with other users of the machine; exhausting it degrades everyone. |
+| GPU capacity on both A40s | Every LLM and VLM call runs on it, and other workloads may share the same GPUs; exhausting it degrades all of them. |
 | Model API key and the generated secrets in `.env` | Grant use of the GPUs, the trace store and the dashboards. |
 | User data: location, recipe text, shopping list | Personal data. The location says where someone lives or shops. |
 | Traces and metrics | Contain prompts, model outputs and the user data above. |
@@ -245,7 +245,7 @@ under the budgets in T-02 (ADR 0002).
 
 **Story.** Someone who can reach the API loops `POST /api/scan` with `force=true` for every
 chain, or fires parallel baskets of 40 items, or a leaflet arrives with hundreds of pages. The
-GPUs saturate, the shared machine slows down, and scans for the real user time out.
+GPUs saturate, everything else on them slows down, and scans for the real user time out.
 
 **Controls.**
 
@@ -265,7 +265,8 @@ GPUs saturate, the shared machine slows down, and scans for the real user time o
 
 **Residual risk.** There is no authentication and no per-client rate limit, so anyone who can
 reach the API can keep the GPUs busy within these caps. `force=true` bypasses the cache by
-design. Acceptable for a personal deployment behind a VPN; not acceptable on the internet.
+design. Acceptable for a personal deployment on a private network (LAN or VPN); not acceptable on
+the internet.
 
 ### T-09 Supply chain of model weights, images and dependencies
 
@@ -283,14 +284,13 @@ tag is moved to a malicious commit.
 - Every third-party image in compose and every Dockerfile base image is pinned by digest.
 - Python dependencies are compiled to exact versions in `requirements.lock` and
   `requirements-dev.lock`.
-- Release images get a CycloneDX SBOM, SLSA build provenance and a keyless cosign signature; the
-  workflow pins its actions by commit SHA (`.github/workflows/supply-chain.yml`, verification
-  commands in [Supply chain](supply-chain.md)).
+- Release images get a CycloneDX SBOM, SLSA build provenance and a keyless cosign signature
+  (`.github/workflows/supply-chain.yml`, verification commands in [Supply chain](supply-chain.md)).
+- Every workflow in `.github/workflows/` pins its actions by commit SHA.
 
-**Residual risk.** The lockfiles pin versions but not artifact hashes. `ci.yml` still references
-actions by tag. Weight verification is a manual step and does not run at container start. Model
-weights themselves can carry trained-in behaviour that no checksum detects; the evals are the only
-check on that.
+**Residual risk.** The lockfiles pin versions but not artifact hashes. Weight verification is a
+manual step and does not run at container start. Model weights themselves can carry trained-in
+behaviour that no checksum detects; the evals are the only check on that.
 
 ### T-10 Privacy and sensitive information disclosure
 
@@ -385,7 +385,7 @@ ASI ids are from the OWASP Top 10 for Agentic Applications for 2026.
 | T-06 Cache poisoning | LLM04:2025, LLM08:2025, ASI06, ASI08 | Complete rows never overwritten by partial ones, provenance per offer, expiry, eval gate, force rescan | A poisoned offer that passes the check lives until expiry |
 | T-07 Excessive agency | LLM06:2025, ASI02, ASI03, ASI05, ASI10 | No code execution, no free text, no credentials, no DB writes by models, scripted steps with bounded healing | Clicking inside allowlisted sites |
 | T-08 Unbounded consumption | LLM10:2025, ASI08 | Schema size limits, run dedup and cancel, browser and VLM concurrency caps, server and token caps, priority scheduling | No auth or per-client rate limit |
-| T-09 Supply chain | LLM03:2025, ASI04 | Revision-pinned weights with SHA-256 lock, offline runtime, digest-pinned images, exact-version locks, SBOM, provenance, cosign | No hash-pinned Python deps; tag-pinned actions in `ci.yml`; manual weight verification |
+| T-09 Supply chain | LLM03:2025, ASI04 | Revision-pinned weights with SHA-256 lock, offline runtime, digest-pinned images, exact-version locks, SHA-pinned actions, SBOM, provenance, cosign | No hash-pinned Python deps; manual weight verification |
 | T-10 Privacy | LLM02:2025, LLM07:2025 | Local models, telemetry off, only the location query leaves the host, postcode-only storage, no secrets in prompts | Unbounded trace retention; anonymous Grafana; retailer CDN image loads |
 | T-11 Exposed services | ASI03 | Localhost binds for models and Prometheus, API key, generated secrets, no Docker socket, non-root seccomp backend | No API auth; default Postgres password; DCGM needs `SYS_ADMIN` |
 | T-12 MCP and inter-agent trust | ASI07, ASI01, ASI02 | Five read-only MCP tools with bounded arguments, optional bearer token, typed hand-offs between agents | Open without `MCP_TOKEN`; clients must treat results as untrusted |
@@ -453,8 +453,8 @@ deployment would add, in roughly this order:
    This closes the SSRF gap in T-05 and the general browser egress in T-03.
 4. **Stronger browser isolation.** Chromium in its own short-lived container or microVM per scan,
    with no route to the compose network.
-5. **Hash-pinned dependencies** (`uv pip compile --generate-hashes`), all actions pinned by commit
-   SHA, weight verification at model start, and signature verification of images at deploy time.
+5. **Hash-pinned dependencies** (`uv pip compile --generate-hashes`), weight verification at model
+   start, and signature verification of images at deploy time.
 6. **Data protection.** Trace retention limits in Langfuse, redaction of locations in traces,
    a data-processing note for Nominatim, and a self-hosted geocoder for full locality.
 7. **Injection detection as defence in depth.** A classifier on leaflet text and page text before it

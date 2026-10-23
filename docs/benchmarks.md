@@ -9,11 +9,11 @@ pages through the vision server.
 per GPU: `llm` on GPU 0 (basket agent, recipes), `vlm` on GPU 1 (leaflet pages, the navigator).
 Embeddings (bge-m3) run on the CPU.
 
-!!! note "Shared GPUs"
-    The box is shared. During the October runs another user's job held about 3.7 GB and most of
-    the compute on both GPUs, so absolute latencies here are pessimistic. Runs compared with each
-    other were measured under the same conditions. The same job also draws power, which is why
-    the energy figures below come in two forms.
+!!! note "Another workload on the GPUs"
+    During the October runs, another workload held about 3.7 GB and most of the compute on both
+    GPUs, so absolute latencies here are pessimistic. Runs compared with each other were measured
+    under the same conditions. That workload also draws power, which is why the energy figures
+    below come in two forms.
 
 ## At a glance
 
@@ -89,7 +89,8 @@ caught about a third of the wrong prices (catch rate 0.318). Penny gains most fr
 
 Throughput on the same 50 pages: 14.7 pages/min (203 s wall), p50 87 s, p95 134 s per page, with
 every chain producing its first page within 48 s of the others. The prompts are longer than in
-July because each one carries the page's text layer, and the GPUs were shared.
+July because each one carries the page's text layer, and another workload was running on the
+same GPUs.
 
 ### Product matching and baskets
 
@@ -142,7 +143,7 @@ appear in the page's text layer, so the price check catches only 8% of them and 
 barely rises above raw. JSON validity was again 1.0 with no loops or length cutoffs.
 
 Throughput: 22.4 pages/min (134 s wall), p50 63 s, p95 106 s per page, first page of every chain
-within 24 s of the others. That is 1.5x the 9B under the same sharing.
+within 24 s of the others. That is 1.5x the 9B under the same conditions.
 
 ### Product matching and baskets
 
@@ -162,7 +163,8 @@ Both variants ran the 50 gold pages on the 35B `vlm` server, scored by the same 
 - **JSON-schema structured output.** Every page request carried `response_format` with a JSON
   schema for the compact-key offer list. Served price accuracy 0.875, name recall 0.824, 26.4
   pages/min. In July, grammar-constrained output was a cost on the 32B model; here it was not,
-  though this is a single run on shared GPUs, and it was never measured on the 9B.
+  though this is a single run next to another workload on the GPUs, and it was never measured on
+  the 9B.
 - **MTP speculative decoding.** Qwen's multi-token prediction head drafted two tokens per step.
   The drafts were good (95.9% acceptance, mean acceptance length 2.92), but the draft layers
   shrank the KV cache from 57k to 13k tokens and vLLM required at most 24 concurrent sequences,
@@ -189,7 +191,7 @@ recovered in 3 of 3 forced runs, and the unforced scripted run still succeeds.
 ## Run-to-run variance
 
 The suites are scored deterministically, but the model outputs are not identical from run to run,
-and the GPUs are shared:
+and another workload ran on the same GPUs:
 
 - A 9B baskets-only rerun at 14:11 UTC scored pass rate 0.70, against 0.75 that morning. One
   basket out of 20 is 0.05.
@@ -202,16 +204,16 @@ matcher accuracy gap (0.005, one pair in 198) and equal basket pass rates are no
 
 ## Cost and energy per answer
 
-Energy comes from the DCGM exporter on the box (`DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION`, read
+Energy comes from the DCGM exporter on the host (`DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION`, read
 through Prometheus) over each suite's time window: the `vlm` GPU while it read the 50 gold pages,
-the `llm` GPU while it planned the 20 baskets. Because the other tenant's job draws power at the
-same time, two figures are given:
+the `llm` GPU while it planned the 20 baskets. Because the other workload on the same GPUs draws
+power at the same time, two figures are given:
 
 - **Gross**: everything the GPU drew in the window, divided by the answers. An upper bound.
 - **Marginal**: gross minus the GPU's mean power over a quiet 75-minute window (12:00 to 13:15
-  UTC, our servers loaded but idle, the other job running): 239.3 W on GPU 0, 221.7 W on GPU 1.
-  The other job's draw moves by about 30 W between 3-minute windows, so the marginal figures are
-  only good to the stated spread.
+  UTC, our servers loaded but idle, the other workload running): 239.3 W on GPU 0, 221.7 W on
+  GPU 1. The other workload's draw moves by about 30 W between 3-minute windows, so the marginal
+  figures are only good to the stated spread.
 
 | Answer | Model | Window | Gross Wh | Marginal Wh | Generated tokens | EUR per 1,000, gross / marginal |
 |---|---|---|---|---|---|---|

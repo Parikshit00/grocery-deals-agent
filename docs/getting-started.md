@@ -46,8 +46,8 @@ observability stack and keeps its data volumes.
 | Prometheus | `http://127.0.0.1:28738` | local only |
 
 Ports bind to `BIND_ADDR` from `.env`, which defaults to `127.0.0.1`. Set `BIND_ADDR=0.0.0.0` in
-your local `.env` to open the UI, Langfuse and Grafana from another machine, for example over a
-VPN; Prometheus always stays on localhost. The repository never contains host addresses.
+your local `.env` to open the UI, Langfuse and Grafana from another machine on a private network
+(LAN or VPN); Prometheus always stays on localhost. The repository never contains host addresses.
 
 ## A first run
 

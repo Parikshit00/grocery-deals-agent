@@ -353,7 +353,7 @@
    "id": 11,
    "type": "timeseries",
    "title": "Energy per 1k generated tokens",
-   "description": "GPU energy over the last 5 minutes divided by the tokens its server generated (llm on GPU 0, vlm on GPU 1). Whole-GPU energy from DCGM: on a shared GPU it includes other tenants' work, so it is an upper bound.",
+   "description": "GPU energy over the last 5 minutes divided by the tokens its server generated (llm on GPU 0, vlm on GPU 1). Whole-GPU energy from DCGM: on a shared GPU it includes other workloads, so it is an upper bound.",
    "datasource": {
     "type": "prometheus",
     "uid": "prometheus"
@@ -395,7 +395,7 @@
    "id": 12,
    "type": "stat",
    "title": "GPU energy in the selected time range",
-   "description": "Whole-GPU energy from DCGM: on a shared GPU it includes other tenants' work, so it is an upper bound.",
+   "description": "Whole-GPU energy from DCGM: on a shared GPU it includes other workloads, so it is an upper bound.",
    "datasource": {
     "type": "prometheus",
     "uid": "prometheus"

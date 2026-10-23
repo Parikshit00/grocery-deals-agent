@@ -36,8 +36,8 @@ Out of scope:
   report those upstream;
 - the retailers' websites and APIs, and OpenStreetMap Nominatim;
 - findings that need an already compromised host, `.env` file or retailer website;
-- denial of service by volume against a deployment that was deliberately exposed without the VPN
-  or authentication the documentation calls for;
+- denial of service by volume against a deployment that was deliberately exposed beyond a private
+  network (LAN or VPN), or without the authentication the documentation calls for;
 - model output quality on its own (a misread price that is flagged as unverified is a known,
   documented limitation, not a vulnerability).
 

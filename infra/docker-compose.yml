@@ -31,7 +31,7 @@ x-vllm: &vllm
 services:
   llm:
     <<: *vllm
-    # Navigator, basket agent and recipe planning: long context and tool calling.
+    # Basket agent and recipe planning: long context and tool calling.
     command:
       - --model=/models/${LLM_MODEL_DIR:-qwen3.5-9b}
       - --served-model-name=llm
@@ -65,7 +65,7 @@ services:
 
   vlm:
     <<: *vllm
-    # Leaflet page extraction: short context, many concurrent pages.
+    # Leaflet pages, product images and the navigator: short context, many concurrent pages.
     command:
       - --model=/models/${VLM_MODEL_DIR:-qwen3.5-9b}
       - --served-model-name=vlm

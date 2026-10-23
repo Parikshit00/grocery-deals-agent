@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     vlm_max_inflight: int = 32  # concurrent page requests to the VLM (its --max-num-seqs)
     vlm_max_model_len: int = 8192  # the vlm server's --max-model-len (prompt + output budget)
     chromium_sandbox: bool = True  # keep Chromium's sandbox on (needs the seccomp profile)
-    # Demo only: "<chain>:<step>" skips that scripted step so the navigator heals it on camera.
+    # Demo only: "<chain>:<step>" skips that scripted step so the navigator has to heal it.
     force_heal: str = ""
     # MCP server: when set, /mcp requires "Authorization: Bearer <token>".
     mcp_token: str = ""

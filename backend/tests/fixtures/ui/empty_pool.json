@@ -99,7 +99,7 @@
  },
  "expect": [
   "No current offers within 5 km match these items",
-  "No current Angebot within 5 km for: Butter, Spargel"
+  "No current offer within 5 km for: Butter, Spargel"
  ],
  "absent": [
   "0,00",

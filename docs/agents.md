@@ -82,7 +82,7 @@ flowchart LR
   lands off it is undone. A bot challenge ends the heal as `Blocked`.
 - **Budget:** at most 10 actions, 90 seconds and 3 invalid answers per heal.
 - **Demo hook:** `FORCE_HEAL=lidl:select_store` in `.env` skips that scripted step on purpose,
-  so the heal can be shown on camera; the UI marks it as forced.
+  so the heal can be demonstrated; the UI marks it as forced.
 
 ## Reading leaflet pages with price verification
 

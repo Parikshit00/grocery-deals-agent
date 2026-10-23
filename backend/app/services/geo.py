@@ -33,7 +33,8 @@ class Location:
     label: str
 
 
-# ponytail: unbounded in-process cache (normalized query -> (location, expiry)); LRU if public.
+# NOTE: unbounded in-process cache (normalized query -> (location, expiry)); fine for a
+# single-operator deployment, use a bounded LRU if exposed publicly.
 _cache: dict[str, tuple[Location | None, float]] = {}
 _lock = asyncio.Lock()
 _last = -math.inf  # monotonic time the previous Nominatim request finished

@@ -543,7 +543,7 @@ export function BasketPanel({ location, radius, loyalty, overrides, scan, blocke
               <h3>Gaps</h3>
               {result.gaps.length ? (
                 <p>
-                  No current Angebot within {radius} km for: {result.gaps.join(", ")}.
+                  No current offer within {radius} km for: {result.gaps.join(", ")}.
                 </p>
               ) : null}
               <ul>

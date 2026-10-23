@@ -122,7 +122,8 @@ def _words(text: str) -> list[str]:
     return re.findall(r"\w+", text.casefold().translate(_UMLAUTS))
 
 
-# ponytail: decoded leaflets keyed by (id, fetched_at), unbounded; a handful of leaflets per PLZ.
+# NOTE: decoded leaflets keyed by (id, fetched_at); unbounded, which is fine at a handful of
+# leaflets per postcode.
 _decoded: dict[tuple[int, datetime], tuple[list[Offer], np.ndarray]] = {}
 
 

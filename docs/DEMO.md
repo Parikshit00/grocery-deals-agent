@@ -1,7 +1,7 @@
 # Demo recording guide
 
-Everything runs on the GPU server; you open it in your own browser over the VPN. Replace
-`<server>` below with the server's address.
+Everything runs on the GPU server; you open it in a browser on another machine in the same
+private network (LAN or VPN). Replace `<server>` below with the server's address.
 
 ## Launch
 
@@ -21,8 +21,8 @@ make demo-down      # afterwards: stop the model servers and free both GPUs
 | Langfuse (traces, evals) | `http://<server>:28736` | `LANGFUSE_ADMIN_EMAIL` / `LANGFUSE_ADMIN_PASSWORD` from `.env` |
 | Grafana (live GPU and model metrics) | `http://<server>:28737/d/gda-vllm` | none (viewer) |
 
-Before recording: check that the GPUs are quiet (`nvidia-smi`); another user's job on the box
-slows the agents down. Record at 1920x1080 with browser zoom at 100%.
+Before recording: check that the GPUs are quiet (`nvidia-smi`); other workloads on the same GPUs
+slow the agents down. Record at 1920x1080 with browser zoom at 100%.
 
 ## Shot list
 
@@ -35,7 +35,7 @@ slows the agents down. Record at 1920x1080 with browser zoom at 100%.
      page; verified prices vs flagged ones.
    - Lidl: tier 3: a live browser window picks the nearest store on lidl.de; with
      `FORCE_HEAL=lidl:select_store` in `.env`, one step is deliberately skipped and the
-     self-healing navigator fixes it on camera (highlighted "self-healed").
+     self-healing navigator visibly fixes it (highlighted "self-healed").
    - REWE: the browser opens the market page and stops honestly: "blocked by bot protection".
 4. End on the totals strip (stores, pages read, offers, flagged, time).
 

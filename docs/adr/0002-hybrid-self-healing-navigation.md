@@ -1,6 +1,7 @@
 # ADR 0002 - Scripted navigation with bounded self-healing; no agent framework
 
-Status: Accepted | Date: 2026-09-28 | Supersedes ADR 0001 decision 1
+Status: Accepted | Date: 2026-09-28 | Supersedes ADR 0001 decision 1 | MCP part of decision 4
+superseded by ADR 0005
 
 ## Context
 An experiment (2026-07-09) made an LLM browser agent (browser-use, text-only reasoning model) drive
@@ -27,6 +28,7 @@ the model's answer.
 
 ## Consequences
 - The normal path is fast and deterministic; model calls are spent where they add robustness.
-- "Agentic" is measured, not claimed: heal recovery rate, navigator accuracy on recorded tasks,
-  match precision and tool-call validity are reported in the README.
+- "Agentic" is measured, not claimed: the README reports heal recovery (a forced Lidl heal
+  recovered in 3 of 3 runs) and match precision (0.912); [Benchmarks](../benchmarks.md) has the
+  full heal table, including the runs that failed before the navigator fix.
 - Selector drift degrades into a logged heal instead of a silent empty scan.
